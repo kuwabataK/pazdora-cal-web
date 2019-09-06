@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 
 export interface IDisposable {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispose: () => any
 }
 

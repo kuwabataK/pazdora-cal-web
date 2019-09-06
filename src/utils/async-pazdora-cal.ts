@@ -9,7 +9,7 @@ export default class AsyncPazdoraCal {
 
   constructor(threadNum = 4) {
     this.threadNum = threadNum
-    this.workers = new Array(threadNum).fill(0).map(_ => {
+    this.workers = new Array(threadNum).fill(0).map(() => {
       return new PazdoraWorker()
     })
   }
