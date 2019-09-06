@@ -19,7 +19,7 @@ export function generateFields(
   return fields
 }
 
-type GenerateFieldOptions = {
+export type GenerateFieldOptions = {
   width?: number
   height?: number
   loopCnt?: number
