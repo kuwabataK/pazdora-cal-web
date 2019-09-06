@@ -1,3 +1,7 @@
+/**
+ * パズドラの盤面のリストを作成して返す
+ * @param option
+ */
 export function generateFields(
   option: GenerateFieldOptions = {}
 ): number[][][] {
