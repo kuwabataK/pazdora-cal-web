@@ -13,8 +13,8 @@ const IndexPage: NextPage = () => {
         </Link>
       </p>
       <p>
-        <Link href="/counter">
-          <a>カウンター</a>
+        <Link href="/pazdora-cal">
+          <a>パズドラ計算機</a>
         </Link>
       </p>
     </Layout>
