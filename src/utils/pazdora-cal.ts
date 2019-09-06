@@ -40,7 +40,8 @@ function generateField(width = 6, height = 5): number[][] {
 }
 
 /**
- * 引数に指定したfieldに3つつながったドロップが無いことを確かめます
+ * 引数に指定したfieldに3つつながったドロップが無いことを確かめる
+ * ドロップがない場合はtrueが返る
  * @param field
  */
 function isValidFiled(field: number[][]) {
