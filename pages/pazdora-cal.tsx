@@ -91,7 +91,15 @@ const PazdoraCal: React.FC = observer(() => {
   return (
     <Layout title="パズドラ確率計算機 | Next.js + TypeScript Example">
       <h1>パズドラ確率計算機</h1>
-      <p>現在時刻: {store.clocStore.time}</p>
+      <p>
+        現在時刻: {store.clockStore.time}
+        <button onClick={() => store.clockStore.stopAutoUpdate()}>
+          時刻の更新を停止
+        </button>
+        <button onClick={() => store.clockStore.startAutoUpdate()}>
+          時刻の更新を再開
+        </button>
+      </p>
       <p>
         スレッド数:{' '}
         <input
