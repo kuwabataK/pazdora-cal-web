@@ -5,6 +5,7 @@ import { generateFields } from '../src/utils/pazdora-cal'
 import { DateTime } from 'luxon'
 import store from '../src/store/store'
 import { observer } from 'mobx-react'
+import Clock from '../src/components/organisms/clock'
 
 const PazdoraCal: React.FC = observer(() => {
   const [threadNum, setThreadNum] = React.useState(4)
@@ -92,13 +93,7 @@ const PazdoraCal: React.FC = observer(() => {
     <Layout title="パズドラ確率計算機 | Next.js + TypeScript Example">
       <h1>パズドラ確率計算機</h1>
       <p>
-        現在時刻: {store.clockStore.time}
-        <button onClick={() => store.clockStore.stopAutoUpdate()}>
-          時刻の更新を停止
-        </button>
-        <button onClick={() => store.clockStore.startAutoUpdate()}>
-          時刻の更新を再開
-        </button>
+        <Clock></Clock>
       </p>
       <p>
         スレッド数:{' '}
