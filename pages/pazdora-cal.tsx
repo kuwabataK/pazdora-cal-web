@@ -92,9 +92,7 @@ const PazdoraCal: React.FC = observer(() => {
   return (
     <Layout title="パズドラ確率計算機 | Next.js + TypeScript Example">
       <h1>パズドラ確率計算機</h1>
-      <p>
-        <Clock></Clock>
-      </p>
+      <Clock></Clock>
       <p>
         スレッド数:{' '}
         <input

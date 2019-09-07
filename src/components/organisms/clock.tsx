@@ -3,19 +3,19 @@ import * as React from 'react'
 import { observer } from 'mobx-react-lite'
 
 const Clock: React.FC = observer(() => {
-  const stop = () => {
-    store.clockStore.stopAutoUpdate()
+  const disable = () => {
+    store.clockStore.disableAutoUpdate()
   }
-  const start = () => {
-    store.clockStore.startAutoUpdate()
+  const enable = () => {
+    store.clockStore.enableAutoUpdate()
   }
 
   return (
     <div>
       現在時刻: {store.clockStore.time}
       <p>
-        <button onClick={stop}>時刻の更新を停止</button>
-        <button onClick={start}>時刻の更新を再開</button>
+        <button onClick={disable}>時刻の更新を停止</button>
+        <button onClick={enable}>時刻の更新を再開</button>
       </p>
     </div>
   )

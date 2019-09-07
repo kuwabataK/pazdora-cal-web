@@ -5,7 +5,7 @@ export class ClockStore {
   @observable now = DateTime.local()
   clearIntervalId: NodeJS.Timeout | null = null
   constructor() {
-    this.startAutoUpdate()
+    this.enableAutoUpdate()
   }
 
   @action
@@ -13,14 +13,20 @@ export class ClockStore {
     this.now = DateTime.local()
   }
 
-  stopAutoUpdate() {
+  /**
+   * 現在時刻のAutoUpdateを無効にする
+   */
+  disableAutoUpdate() {
     if (this.clearIntervalId) {
       clearInterval(this.clearIntervalId)
     }
   }
 
-  startAutoUpdate() {
-    this.stopAutoUpdate()
+  /**
+   * 現在時刻のAutoUpdateを有効にする
+   */
+  enableAutoUpdate() {
+    this.disableAutoUpdate()
     this.clearIntervalId = setInterval(() => {
       this.updateDate()
     }, 100)
