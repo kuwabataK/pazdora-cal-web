@@ -1,7 +1,7 @@
 import Layout from '../src/components/template/Layout'
 import Link from 'next/link'
 import * as React from 'react'
-import { generateFields } from '../src/utils/pazdora-cal'
+import { generateFields, generateFieldStats } from '../src/utils/pazdora-cal'
 import { DateTime } from 'luxon'
 import store from '../src/store/store'
 import { observer } from 'mobx-react'
@@ -33,11 +33,27 @@ const PazdoraCal: React.FC = observer(() => {
     )
   }
 
+  const calcSingleStats = () => {
+    setResult('')
+    const startTime = DateTime.local()
+    const res = generateFieldStats({ loopCnt })
+    const endTime = DateTime.local()
+    console.log(endTime.diff(startTime, 'milliseconds').milliseconds)
+    console.log(res.length)
+    console.log(res[0])
+    setResult(
+      '終わったよ。経過時間は: ' +
+        endTime.diff(startTime, 'milliseconds').milliseconds +
+        'ms 生成した盤面数: ' +
+        res.length
+    )
+  }
+
   const calcMultiTheads = async () => {
     if (!store.pazdoraCalStore.pazdoraCalController) return
     setResult('')
     const startTime = DateTime.local()
-    const res = await store.pazdoraCalStore.pazdoraCalController.asyncGenerateFields(
+    const res = await store.pazdoraCalStore.pazdoraCalController.parallelGenerateFields(
       {
         loopCnt
       }
@@ -58,7 +74,7 @@ const PazdoraCal: React.FC = observer(() => {
     if (!store.pazdoraCalStore.pazdoraCalController) return
     setResult('')
     const startTime = DateTime.local()
-    const res = await store.pazdoraCalStore.pazdoraCalController.asyncGenerateFieldStats(
+    const res = await store.pazdoraCalStore.pazdoraCalController.parallelGenerateFieldStats(
       {
         loopCnt
       }
@@ -110,6 +126,9 @@ const PazdoraCal: React.FC = observer(() => {
         ></input>
       </p>
       <button onClick={calcSingle}>メインスレッドで盤面を作成</button>
+      <button onClick={calcSingleStats}>
+        メインスレッドで盤面の各色の個数を計算
+      </button>
       <button onClick={calcMultiTheads}>マルチスレッドで盤面を作成</button>
       <button onClick={calcStatsMultiThreads}>
         マルチスレッドで盤面の各色の個数を計算

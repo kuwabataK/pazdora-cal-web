@@ -1,3 +1,7 @@
+/**
+ * パズドラの盤面を生成して、各色のドロップがどれだけ存在するかを返す
+ * @param option
+ */
 export function generateFieldStats(
   option: GenerateFieldOptions = {}
 ): GenerateFieldStatsReturn[] {

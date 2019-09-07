@@ -36,7 +36,7 @@ export default class PazdoraCalWorkerController {
    * workerスレッドを使って、盤面を生成して返す
    * @param option
    */
-  async asyncGenerateFields(
+  async parallelGenerateFields(
     option: GenerateFieldOptions = {}
   ): Promise<number[][][]> {
     if (!option.loopCnt) return []
@@ -57,7 +57,7 @@ export default class PazdoraCalWorkerController {
    * workerスレッドを使って、盤面を生成し、各色のドロップの数を返す
    * @param option
    */
-  async asyncGenerateFieldStats(
+  async parallelGenerateFieldStats(
     option: GenerateFieldOptions = {}
   ): Promise<GenerateFieldStatsReturn[]> {
     if (!option.loopCnt) return []
