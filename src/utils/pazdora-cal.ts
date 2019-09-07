@@ -1,3 +1,31 @@
+export function generateFieldStats(
+  option: GenerateFieldOptions = {}
+): GenerateFieldStatsReturn[] {
+  const width = option.width || 6
+  const height = option.height || 5
+  const loopCnt = option.loopCnt || 100000
+
+  const fields = []
+
+  for (let i = 0; i < loopCnt; i++) {
+    const field = generateField(width, height)
+    if (isValidFiled(field)) {
+      const flatField = field.flat()
+      const stat = {
+        red: flatField.filter(f => f === 0).length,
+        blue: flatField.filter(f => f === 1).length,
+        green: flatField.filter(f => f === 2).length,
+        white: flatField.filter(f => f === 3).length,
+        black: flatField.filter(f => f === 4).length,
+        heart: flatField.filter(f => f === 5).length
+      }
+      fields.push(stat)
+    }
+  }
+
+  return fields
+}
+
 /**
  * パズドラの盤面のリストを作成して返す
  * @param option
@@ -23,6 +51,15 @@ export type GenerateFieldOptions = {
   width?: number
   height?: number
   loopCnt?: number
+}
+
+export type GenerateFieldStatsReturn = {
+  red: number
+  blue: number
+  green: number
+  white: number
+  black: number
+  heart: number
 }
 
 /**

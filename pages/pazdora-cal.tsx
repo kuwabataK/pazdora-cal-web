@@ -49,6 +49,25 @@ const PazdoraCal: React.FC = () => {
     )
   }
 
+  const calcStatsMultiThreads = async () => {
+    setResult('')
+    if (!store.asyncPazdoraCalStore.asyncPazdoraCal) return
+    const startTime = DateTime.local()
+    const res = await store.asyncPazdoraCalStore.asyncPazdoraCal.asyncGenerateFieldStats(
+      { loopCnt }
+    )
+    const endTime = DateTime.local()
+    console.log(endTime.diff(startTime, 'milliseconds').milliseconds)
+    console.log(res.length)
+    console.log(res[0])
+    setResult(
+      '終わったよ。経過時間は: ' +
+        endTime.diff(startTime, 'milliseconds').milliseconds +
+        'ms 生成した盤面数: ' +
+        res.length
+    )
+  }
+
   const handleThreadNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const num = parseInt(e.target.value)
     if (0 <= num && num <= 32) {
@@ -84,6 +103,9 @@ const PazdoraCal: React.FC = () => {
       </p>
       <button onClick={calcSingle}>メインスレッドで盤面を作成</button>
       <button onClick={calcMultiTheads}>マルチスレッドで盤面を作成</button>
+      <button onClick={calcStatsMultiThreads}>
+        マルチスレッドで盤面の各色の個数を計算
+      </button>
       <p>結果: {result}</p>
       <p>
         <Link href="/">
