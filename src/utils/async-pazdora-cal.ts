@@ -69,7 +69,7 @@ export default class AsyncPazdoraCal {
   ): Promise<GenerateFieldStatsReturn[]> {
     const _option: PostMessageData = {
       arg: option,
-      method: 'generateFieldStats'
+      type: 'generateFieldStats'
     }
 
     return new Promise(resolve => {
@@ -92,7 +92,7 @@ export default class AsyncPazdoraCal {
   ): Promise<number[][][]> {
     const data: PostMessageData = {
       arg: option,
-      method: 'generateFields'
+      type: 'generateFields'
     }
     return new Promise(resolve => {
       worker.onmessage = e => {
