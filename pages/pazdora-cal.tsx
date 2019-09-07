@@ -4,14 +4,16 @@ import * as React from 'react'
 import { generateFields } from '../src/utils/pazdora-cal'
 import { DateTime } from 'luxon'
 import store from '../src/store/store'
+import { observer } from 'mobx-react'
 
-const PazdoraCal: React.FC = () => {
+const PazdoraCal: React.FC = observer(() => {
   const [threadNum, setThreadNum] = React.useState(4)
   const [loopCnt, setLoopCnt] = React.useState(100000)
   const [result, setResult] = React.useState('')
+
   React.useEffect(() => {
-    store.asyncPazdoraCalStore.createAsyncPazdoraCal(threadNum)
-    return () => store.asyncPazdoraCalStore.dispose()
+    store.pazdoraCalStore.createThread(threadNum)
+    return () => store.pazdoraCalStore.dispose()
   }, [threadNum])
 
   const calcSingle = () => {
@@ -31,11 +33,13 @@ const PazdoraCal: React.FC = () => {
   }
 
   const calcMultiTheads = async () => {
+    if (!store.pazdoraCalStore.pazdoraCalController) return
     setResult('')
-    if (!store.asyncPazdoraCalStore.asyncPazdoraCal) return
     const startTime = DateTime.local()
-    const res = await store.asyncPazdoraCalStore.asyncPazdoraCal.asyncGenerateFields(
-      { loopCnt }
+    const res = await store.pazdoraCalStore.pazdoraCalController.asyncGenerateFields(
+      {
+        loopCnt
+      }
     )
     const endTime = DateTime.local()
     console.log(endTime.diff(startTime, 'milliseconds').milliseconds)
@@ -50,11 +54,13 @@ const PazdoraCal: React.FC = () => {
   }
 
   const calcStatsMultiThreads = async () => {
+    if (!store.pazdoraCalStore.pazdoraCalController) return
     setResult('')
-    if (!store.asyncPazdoraCalStore.asyncPazdoraCal) return
     const startTime = DateTime.local()
-    const res = await store.asyncPazdoraCalStore.asyncPazdoraCal.asyncGenerateFieldStats(
-      { loopCnt }
+    const res = await store.pazdoraCalStore.pazdoraCalController.asyncGenerateFieldStats(
+      {
+        loopCnt
+      }
     )
     const endTime = DateTime.local()
     console.log(endTime.diff(startTime, 'milliseconds').milliseconds)
@@ -85,6 +91,7 @@ const PazdoraCal: React.FC = () => {
   return (
     <Layout title="パズドラ確率計算機 | Next.js + TypeScript Example">
       <h1>パズドラ確率計算機</h1>
+      <p>現在時刻: {store.clocStore.time}</p>
       <p>
         スレッド数:{' '}
         <input
@@ -114,6 +121,6 @@ const PazdoraCal: React.FC = () => {
       </p>
     </Layout>
   )
-}
+})
 
 export default PazdoraCal

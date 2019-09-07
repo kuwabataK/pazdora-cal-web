@@ -1,12 +1,12 @@
-import AsyncPazdoraCal from '../utils/async-pazdora-cal'
+import PazdoraCalController from '../workers/pazdora-cal/pazdora-cal-worker-controller'
 
 export class PazdoraCalStore {
-  asyncPazdoraCal: AsyncPazdoraCal | null = null
-  createAsyncPazdoraCal(threadNum = 4) {
+  pazdoraCalController: PazdoraCalController | null = null
+  createThread(threadNum = 4) {
     this.dispose()
-    this.asyncPazdoraCal = new AsyncPazdoraCal(threadNum)
+    this.pazdoraCalController = new PazdoraCalController(threadNum)
   }
   dispose() {
-    if (this.asyncPazdoraCal) this.asyncPazdoraCal.dispose()
+    if (this.pazdoraCalController) this.pazdoraCalController.dispose()
   }
 }

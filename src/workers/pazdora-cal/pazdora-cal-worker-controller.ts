@@ -1,14 +1,31 @@
-import PazdoraWorker from 'worker-loader?name=static/[hash].worker.js!../workers/pazdora-cal.worker'
-import { GenerateFieldOptions, GenerateFieldStatsReturn } from './pazdora-cal'
+import PazdoraWorker from 'worker-loader?name=static/[hash].worker.js!./pazdora-cal.worker'
+import {
+  GenerateFieldOptions,
+  GenerateFieldStatsReturn
+} from '../../utils/pazdora-cal'
 import AsyncLock from 'async-lock'
-import { PostMessageData } from '../workers/pazdora-cal.worker'
+import { PostMessageData } from './pazdora-cal.worker'
 
-export default class AsyncPazdoraCal {
+/**
+ * pazdora-workerを管理するためのクラス
+ * スレッドの生成や廃棄、処理の実行を行うことができる
+ */
+export default class PazdoraCalWorkerController {
   private threadNum = 4
   private workers: PazdoraWorker[] = []
   private asyncLock = new AsyncLock()
 
   constructor(threadNum = 4) {
+    this.createThread(threadNum)
+  }
+
+  /**
+   * 指定した数だけスレッドを作成します
+   * @param threadNum
+   */
+  createThread(threadNum: number) {
+    if (threadNum < 0) return
+    this.dispose()
     this.threadNum = threadNum
     this.workers = new Array(threadNum).fill(0).map(() => {
       return new PazdoraWorker()
@@ -102,6 +119,9 @@ export default class AsyncPazdoraCal {
     })
   }
 
+  /**
+   * スレッドをすべて廃棄します
+   */
   dispose() {
     this.asyncLock.acquire('pazdora', () => {
       this.workers.forEach(w => {

@@ -1,4 +1,4 @@
-import { generateFields, generateFieldStats } from '../utils/pazdora-cal'
+import { generateFields, generateFieldStats } from '../../utils/pazdora-cal'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const ctx: Worker = self as any
