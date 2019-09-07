@@ -3,19 +3,22 @@ import { generateFields, generateFieldStats } from '../../utils/pazdora-cal'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const ctx: Worker = self as any
 
-ctx.addEventListener('message', async event => {
-  if (event.data.type !== 'generateFields') return
+ctx.onmessage = event => {
   console.log('worker側だよ！！ 受け取った値は', event.data.arg)
-  const res = generateFields(event.data.arg)
-  ctx.postMessage(res) // 呼び出し元にEventを発火して結果を返す
-})
+  let res
 
-ctx.addEventListener('message', async event => {
-  if (event.data.type !== 'generateFieldStats') return
-  console.log('worker側だよ！！ 受け取った値は', event.data.arg)
-  const res = generateFieldStats(event.data.arg)
+  switch ((event.data as PostMessageData).type) {
+    case 'generateFields':
+      res = generateFields(event.data.arg)
+      break
+    case 'generateFieldStats':
+      res = generateFieldStats(event.data.arg)
+      break
+    default:
+      break
+  }
   ctx.postMessage(res) // 呼び出し元にEventを発火して結果を返す
-})
+}
 
 export default ctx
 
