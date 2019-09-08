@@ -125,14 +125,19 @@ const PazdoraCal: React.FC = observer(() => {
           onChange={handleLoopCntChange}
         ></input>
       </p>
-      <button onClick={calcSingle}>メインスレッドで盤面を作成</button>
-      <button onClick={calcSingleStats}>
-        メインスレッドで盤面の各色の個数を計算
-      </button>
-      <button onClick={calcMultiTheads}>マルチスレッドで盤面を作成</button>
-      <button onClick={calcStatsMultiThreads}>
-        マルチスレッドで盤面の各色の個数を計算
-      </button>
+
+      <p>
+        盤面を作成:　
+        <button onClick={calcSingle}>メインスレッド</button>
+        <button onClick={calcMultiTheads}>マルチスレッド</button>
+      </p>
+
+      <p>
+        盤面を作成して各色の数を計算:　
+        <button onClick={calcSingleStats}>メインスレッド</button>
+        <button onClick={calcStatsMultiThreads}>マルチスレッド</button>
+      </p>
+
       <p>結果: {result}</p>
       <p>
         <Link href="/">
