@@ -42,11 +42,14 @@ export default class PazdoraCalWorkerController {
     if (!option.loopCnt) return []
     return await this.asyncLock.acquire('pazdora', async () => {
       const result = this.workers.map(worker => {
-        const _option = {
-          ...option,
-          loopCnt: Math.floor((option.loopCnt as number) / this.threadNum)
+        const data: PostMessageData = {
+          arg: {
+            ...option,
+            loopCnt: Math.floor((option.loopCnt as number) / this.threadNum)
+          },
+          type: 'generateFields'
         }
-        return this.generateField(worker, _option)
+        return this.communicateWithWorker<number[][][]>(worker, data)
       })
       const reses = await Promise.all(result)
       return reses.flat()
@@ -63,11 +66,18 @@ export default class PazdoraCalWorkerController {
     if (!option.loopCnt) return []
     return await this.asyncLock.acquire('pazdora', async () => {
       const result = this.workers.map(worker => {
-        const _option = {
-          ...option,
-          loopCnt: Math.floor((option.loopCnt as number) / this.threadNum)
+        const _option: PostMessageData = {
+          arg: {
+            ...option,
+            loopCnt: Math.floor((option.loopCnt as number) / this.threadNum)
+          },
+          type: 'generateFieldStats'
         }
-        return this.generateFieldStat(worker, _option)
+
+        return this.communicateWithWorker<GenerateFieldStatsReturn[]>(
+          worker,
+          _option
+        )
       })
       const reses = await Promise.all(result)
       return reses.flat()
@@ -84,44 +94,6 @@ export default class PazdoraCalWorkerController {
       }
       worker.postMessage(option)
     })
-  }
-
-  /**
-   * 指定したworkerでパズドラの盤面を生成して、盤面内のドロップの数を返す
-   *
-   * @param worker
-   * @param option
-   */
-  private generateFieldStat(
-    worker: PazdoraWorker,
-    option: GenerateFieldOptions = {}
-  ): Promise<GenerateFieldStatsReturn[]> {
-    const _option: PostMessageData = {
-      arg: option,
-      type: 'generateFieldStats'
-    }
-
-    return this.communicateWithWorker<GenerateFieldStatsReturn[]>(
-      worker,
-      _option
-    )
-  }
-
-  /**
-   * 指定したworkerでパズドラの盤面を生成して返す
-   *
-   * @param worker
-   * @param option
-   */
-  private generateField(
-    worker: PazdoraWorker,
-    option: GenerateFieldOptions = {}
-  ): Promise<number[][][]> {
-    const data: PostMessageData = {
-      arg: option,
-      type: 'generateFields'
-    }
-    return this.communicateWithWorker<number[][][]>(worker, data)
   }
 
   /**
