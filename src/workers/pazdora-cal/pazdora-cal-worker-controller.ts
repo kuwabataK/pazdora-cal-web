@@ -74,6 +74,18 @@ export default class PazdoraCalWorkerController {
     })
   }
 
+  private communicateWithWorker<T>(
+    worker: PazdoraWorker,
+    option: PostMessageData
+  ): Promise<T> {
+    return new Promise(resolve => {
+      worker.onmessage = e => {
+        resolve(e.data)
+      }
+      worker.postMessage(option)
+    })
+  }
+
   /**
    * 指定したworkerでパズドラの盤面を生成して、盤面内のドロップの数を返す
    *
@@ -89,12 +101,10 @@ export default class PazdoraCalWorkerController {
       type: 'generateFieldStats'
     }
 
-    return new Promise(resolve => {
-      worker.onmessage = e => {
-        resolve(e.data)
-      }
-      worker.postMessage(_option)
-    })
+    return this.communicateWithWorker<GenerateFieldStatsReturn[]>(
+      worker,
+      _option
+    )
   }
 
   /**
@@ -111,12 +121,7 @@ export default class PazdoraCalWorkerController {
       arg: option,
       type: 'generateFields'
     }
-    return new Promise(resolve => {
-      worker.onmessage = e => {
-        resolve(e.data)
-      }
-      worker.postMessage(data)
-    })
+    return this.communicateWithWorker<number[][][]>(worker, data)
   }
 
   /**
