@@ -6,7 +6,7 @@ import {
 } from '../../utils/pazdora-cal/pazdora-cal'
 import AsyncLock from 'async-lock'
 import { PostMessageData } from './pazdora-cal.worker'
-import { Condition } from '../../utils/pazdora-cal/Condition'
+import { ConditionFactoryOptions } from '../../utils/pazdora-cal/Condition'
 
 /**
  * pazdora-workerを管理するためのクラス
@@ -94,7 +94,7 @@ export default class PazdoraCalWorkerController {
    */
   async parallelCalc(
     option: GenerateFieldOptions = {},
-    conditions: Condition[][]
+    conditions: ConditionFactoryOptions[][]
   ): Promise<CalcReturn> {
     if (!option.loopCnt)
       return {

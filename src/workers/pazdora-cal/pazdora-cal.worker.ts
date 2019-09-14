@@ -1,8 +1,4 @@
-import {
-  generateFields,
-  generateFieldStats,
-  calc
-} from '../../utils/pazdora-cal/pazdora-cal'
+import PazdoraCal from '../../utils/pazdora-cal/pazdora-cal'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const ctx: Worker = self as any
@@ -13,14 +9,14 @@ ctx.onmessage = event => {
 
   switch ((event.data as PostMessageData).type) {
     case 'generateFields':
-      res = generateFields(event.data.arg)
+      res = PazdoraCal.generateFields(event.data.arg)
       break
     case 'generateFieldStats':
-      res = generateFieldStats(event.data.arg)
+      res = PazdoraCal.generateFieldStats(event.data.arg)
       break
     case 'calc':
-      const fields = generateFieldStats(event.data.arg.option)
-      res = calc(event.data.arg.condition, fields)
+      const fields = PazdoraCal.generateFieldStats(event.data.arg.option)
+      res = PazdoraCal.calcUseFactory(event.data.arg.condition, fields)
       break
     default:
       break

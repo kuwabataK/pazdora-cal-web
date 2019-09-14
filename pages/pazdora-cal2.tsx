@@ -1,15 +1,15 @@
 import Layout from '../src/components/template/Layout'
 import Link from 'next/link'
 import * as React from 'react'
-import {
-  generateFields,
-  generateFieldStats
-} from '../src/utils/pazdora-cal/pazdora-cal'
+import PazdoraCalUtil from '../src/utils/pazdora-cal/pazdora-cal'
 import { DateTime } from 'luxon'
 import store from '../src/store/store'
 import { observer } from 'mobx-react'
 import Clock from '../src/components/organisms/clock'
-import { Condition } from '../src/utils/pazdora-cal/Condition'
+import {
+  DropCondition,
+  ConditionFactoryOptions
+} from '../src/utils/pazdora-cal/Condition'
 
 const PazdoraCal2: React.FC = observer(() => {
   const [threadNum, setThreadNum] = React.useState(4)
@@ -24,7 +24,7 @@ const PazdoraCal2: React.FC = observer(() => {
   const calcSingle = () => {
     setResult('')
     const startTime = DateTime.local()
-    const res = generateFields({ loopCnt })
+    const res = PazdoraCalUtil.generateFields({ loopCnt })
     const endTime = DateTime.local()
     setResult(
       '終わったよ。経過時間は: ' +
@@ -37,7 +37,7 @@ const PazdoraCal2: React.FC = observer(() => {
   const calcSingleStats = () => {
     setResult('')
     const startTime = DateTime.local()
-    const res = generateFieldStats({ loopCnt })
+    const res = PazdoraCalUtil.generateFieldStats({ loopCnt })
     const endTime = DateTime.local()
     setResult(
       '終わったよ。経過時間は: ' +
@@ -86,17 +86,23 @@ const PazdoraCal2: React.FC = observer(() => {
   const calc = async () => {
     if (!store.pazdoraCalStore.pazdoraCalController) return
 
-    const cond1 = new Condition()
-    cond1.color = 'red'
-    cond1.num = 3
-    cond1.ope = 'more'
-    cond1.type = 'dropNum'
+    const cond1: ConditionFactoryOptions = {
+      type: 'Drop',
+      opt: {
+        color: 'red',
+        num: 3,
+        ope: 'more'
+      }
+    }
 
-    const cond2 = new Condition()
-    cond2.color = 'blue'
-    cond2.num = 3
-    cond2.ope = 'more'
-    cond2.type = 'dropNum'
+    const cond2: ConditionFactoryOptions = {
+      type: 'Drop',
+      opt: {
+        color: 'blue',
+        num: 3,
+        ope: 'more'
+      }
+    }
 
     const conditions = [[cond1, cond2]]
 
@@ -121,17 +127,23 @@ const PazdoraCal2: React.FC = observer(() => {
   const calc2 = async () => {
     if (!store.pazdoraCalStore.pazdoraCalController) return
 
-    const cond1 = new Condition()
-    cond1.color = 'red'
-    cond1.num = 5
-    cond1.ope = 'more'
-    cond1.type = 'dropNum'
+    const cond1: ConditionFactoryOptions = {
+      type: 'Drop',
+      opt: {
+        color: 'red',
+        num: 5,
+        ope: 'more'
+      }
+    }
 
-    const cond2 = new Condition()
-    cond2.color = 'blue'
-    cond2.num = 5
-    cond2.ope = 'more'
-    cond2.type = 'dropNum'
+    const cond2: ConditionFactoryOptions = {
+      type: 'Drop',
+      opt: {
+        color: 'blue',
+        num: 5,
+        ope: 'more'
+      }
+    }
 
     const conditions = [[cond1], [cond2]]
 
@@ -143,6 +155,35 @@ const PazdoraCal2: React.FC = observer(() => {
       },
       conditions
     )
+    const endTime = DateTime.local()
+    setResult(
+      '終わったよ。経過時間は: ' +
+        endTime.diff(startTime, 'milliseconds').milliseconds +
+        'ms 結果: ' +
+        res.rate +
+        '%'
+    )
+  }
+
+  const calc3 = async () => {
+    if (!store.pazdoraCalStore.pazdoraCalController) return
+
+    const cond1 = new DropCondition()
+    cond1.color = 'red'
+    cond1.num = 5
+    cond1.ope = 'more'
+
+    const cond2 = new DropCondition()
+    cond2.color = 'blue'
+    cond2.num = 5
+    cond2.ope = 'more'
+
+    const conditions = [[cond1], [cond2]]
+
+    setResult('')
+    const startTime = DateTime.local()
+    const fileds = PazdoraCalUtil.generateFieldStats({ loopCnt })
+    const res = PazdoraCalUtil.calc(conditions, fileds)
     const endTime = DateTime.local()
     setResult(
       '終わったよ。経過時間は: ' +
@@ -205,6 +246,9 @@ const PazdoraCal2: React.FC = observer(() => {
         <button onClick={calc}>指定2色が存在する確率：マルチスレッド</button>
         <button onClick={calc2}>
           2色いずれか5個以上ある確率：マルチスレッド
+        </button>
+        <button onClick={calc3}>
+          2色いずれか5個以上ある確率：シングルスレッド
         </button>
       </p>
 
