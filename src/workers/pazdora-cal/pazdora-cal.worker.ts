@@ -1,4 +1,8 @@
-import { generateFields, generateFieldStats } from '../../utils/pazdora-cal'
+import {
+  generateFields,
+  generateFieldStats,
+  calc
+} from '../../utils/pazdora-cal/pazdora-cal'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const ctx: Worker = self as any
@@ -14,6 +18,10 @@ ctx.onmessage = event => {
     case 'generateFieldStats':
       res = generateFieldStats(event.data.arg)
       break
+    case 'calc':
+      const fields = generateFieldStats(event.data.arg.option)
+      res = calc(event.data.arg.condition, fields)
+      break
     default:
       break
   }
@@ -24,5 +32,5 @@ export default ctx
 
 export type PostMessageData = {
   arg: any
-  type: 'generateFields' | 'generateFieldStats'
+  type: 'generateFields' | 'generateFieldStats' | 'calc'
 }

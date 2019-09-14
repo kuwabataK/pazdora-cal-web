@@ -1,10 +1,12 @@
 import PazdoraWorker from 'worker-loader?name=static/[hash].worker.js!./pazdora-cal.worker'
 import {
   GenerateFieldOptions,
-  GenerateFieldStatsReturn
-} from '../../utils/pazdora-cal'
+  GenerateFieldStatsReturn,
+  CalcReturn
+} from '../../utils/pazdora-cal/pazdora-cal'
 import AsyncLock from 'async-lock'
 import { PostMessageData } from './pazdora-cal.worker'
+import { Condition } from '../../utils/pazdora-cal/Condition'
 
 /**
  * pazdora-workerを管理するためのクラス
@@ -81,6 +83,51 @@ export default class PazdoraCalWorkerController {
       })
       const reses = await Promise.all(result)
       return reses.flat()
+    })
+  }
+
+  /**
+   * 盤面を生成し、欠損率を計算します
+   *
+   * @param option
+   * @param conditions
+   */
+  async parallelCalc(
+    option: GenerateFieldOptions = {},
+    conditions: Condition[][]
+  ): Promise<CalcReturn> {
+    if (!option.loopCnt)
+      return {
+        total: 0,
+        correct: 0,
+        rate: 0
+      }
+    return await this.asyncLock.acquire<CalcReturn>('pazdora', async () => {
+      const result = this.workers.map(worker => {
+        const _option: PostMessageData = {
+          arg: {
+            option: {
+              ...option,
+              loopCnt: Math.floor((option.loopCnt as number) / this.threadNum)
+            },
+            condition: conditions
+          },
+          type: 'calc'
+        }
+
+        return this.communicateWithWorker<CalcReturn>(worker, _option)
+      })
+      const reses = await Promise.all(result)
+      return reses.reduce(
+        (acc, cur) => {
+          return {
+            total: acc.total + cur.total,
+            correct: acc.correct + cur.correct,
+            rate: (acc.rate + cur.rate) / 2
+          }
+        },
+        { total: 0, correct: 0, rate: reses[0].rate } as CalcReturn
+      )
     })
   }
 

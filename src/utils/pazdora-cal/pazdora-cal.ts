@@ -1,3 +1,96 @@
+import { Condition } from './Condition'
+export type GenerateFieldOptions = {
+  width?: number
+  height?: number
+  loopCnt?: number
+}
+
+export type GenerateFieldStatsReturn = {
+  red: number
+  blue: number
+  green: number
+  white: number
+  black: number
+  heart: number
+}
+
+export type CalcReturn = {
+  total: number
+  rate: number
+  correct: number
+}
+
+/**
+ * 引数に指定した盤面の配列と、条件から非欠損率の計算結果を返す
+ * @param condition
+ * @param fields
+ */
+export function calc(
+  condition: Condition[][],
+  fields: GenerateFieldStatsReturn[]
+): CalcReturn {
+  const total = fields.length
+
+  const correct = fields.filter(f => {
+    for (const cond of condition) {
+      for (let i = 0; i < cond.length; i++) {
+        if (pazFilter(f, cond[i])) {
+          if (i + 1 === cond.length) return true
+          continue
+        } else {
+          break
+        }
+      }
+    }
+    return false
+  }).length
+
+  return {
+    total,
+    correct,
+    rate: (correct / total) * 100
+  }
+}
+
+/**
+ * 引数に指定した条件に盤面があっていた場合、trueを返す
+ *
+ * @param field
+ * @param condition
+ */
+function pazFilter(field: GenerateFieldStatsReturn, condition: Condition) {
+  switch (condition.type) {
+    case 'dropNum':
+      switch (condition.ope) {
+        case 'more':
+          return field[condition.color] >= condition.num
+        case 'less':
+          return field[condition.color] <= condition.num
+        default:
+          return true
+      }
+    case 'combo':
+      switch (condition.ope) {
+        case 'more':
+          return (
+            Object.values(field).reduce((acc, cur) => {
+              return acc + Math.floor(cur / 3)
+            }, 0) >= condition.num
+          )
+        case 'less':
+          return (
+            Object.values(field).reduce((acc, cur) => {
+              return acc + Math.floor(cur / 3)
+            }, 0) <= condition.num
+          )
+        default:
+          return true
+      }
+    default:
+      return true
+  }
+}
+
 /**
  * パズドラの盤面を生成して、各色のドロップがどれだけ存在するかを返す
  * @param option
@@ -49,21 +142,6 @@ export function generateFields(
   }
 
   return fields
-}
-
-export type GenerateFieldOptions = {
-  width?: number
-  height?: number
-  loopCnt?: number
-}
-
-export type GenerateFieldStatsReturn = {
-  red: number
-  blue: number
-  green: number
-  white: number
-  black: number
-  heart: number
 }
 
 /**

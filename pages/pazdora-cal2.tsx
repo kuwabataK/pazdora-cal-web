@@ -1,13 +1,17 @@
 import Layout from '../src/components/template/Layout'
 import Link from 'next/link'
 import * as React from 'react'
-import { generateFields, generateFieldStats } from '../src/utils/pazdora-cal'
+import {
+  generateFields,
+  generateFieldStats
+} from '../src/utils/pazdora-cal/pazdora-cal'
 import { DateTime } from 'luxon'
 import store from '../src/store/store'
 import { observer } from 'mobx-react'
 import Clock from '../src/components/organisms/clock'
+import { Condition } from '../src/utils/pazdora-cal/Condition'
 
-const PazdoraCal: React.FC = observer(() => {
+const PazdoraCal2: React.FC = observer(() => {
   const [threadNum, setThreadNum] = React.useState(4)
   const [loopCnt, setLoopCnt] = React.useState(100000)
   const [result, setResult] = React.useState('')
@@ -22,9 +26,6 @@ const PazdoraCal: React.FC = observer(() => {
     const startTime = DateTime.local()
     const res = generateFields({ loopCnt })
     const endTime = DateTime.local()
-    console.log(endTime.diff(startTime, 'milliseconds').milliseconds)
-    console.log(res.length)
-    console.log(res[0])
     setResult(
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
@@ -38,9 +39,6 @@ const PazdoraCal: React.FC = observer(() => {
     const startTime = DateTime.local()
     const res = generateFieldStats({ loopCnt })
     const endTime = DateTime.local()
-    console.log(endTime.diff(startTime, 'milliseconds').milliseconds)
-    console.log(res.length)
-    console.log(res[0])
     setResult(
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
@@ -59,9 +57,6 @@ const PazdoraCal: React.FC = observer(() => {
       }
     )
     const endTime = DateTime.local()
-    console.log(endTime.diff(startTime, 'milliseconds').milliseconds)
-    console.log(res.length)
-    console.log(res[0])
     setResult(
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
@@ -80,14 +75,79 @@ const PazdoraCal: React.FC = observer(() => {
       }
     )
     const endTime = DateTime.local()
-    console.log(endTime.diff(startTime, 'milliseconds').milliseconds)
-    console.log(res.length)
-    console.log(res[0])
     setResult(
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
         'ms 生成した盤面数: ' +
         res.length
+    )
+  }
+
+  const calc = async () => {
+    if (!store.pazdoraCalStore.pazdoraCalController) return
+
+    const cond1 = new Condition()
+    cond1.color = 'red'
+    cond1.num = 3
+    cond1.ope = 'more'
+    cond1.type = 'dropNum'
+
+    const cond2 = new Condition()
+    cond2.color = 'blue'
+    cond2.num = 3
+    cond2.ope = 'more'
+    cond2.type = 'dropNum'
+
+    const conditions = [[cond1, cond2]]
+
+    setResult('')
+    const startTime = DateTime.local()
+    const res = await store.pazdoraCalStore.pazdoraCalController.parallelCalc(
+      {
+        loopCnt
+      },
+      conditions
+    )
+    const endTime = DateTime.local()
+    setResult(
+      '終わったよ。経過時間は: ' +
+        endTime.diff(startTime, 'milliseconds').milliseconds +
+        'ms 結果: ' +
+        res.rate
+    )
+  }
+
+  const calc2 = async () => {
+    if (!store.pazdoraCalStore.pazdoraCalController) return
+
+    const cond1 = new Condition()
+    cond1.color = 'red'
+    cond1.num = 5
+    cond1.ope = 'more'
+    cond1.type = 'dropNum'
+
+    const cond2 = new Condition()
+    cond2.color = 'blue'
+    cond2.num = 5
+    cond2.ope = 'more'
+    cond2.type = 'dropNum'
+
+    const conditions = [[cond1], [cond2]]
+
+    setResult('')
+    const startTime = DateTime.local()
+    const res = await store.pazdoraCalStore.pazdoraCalController.parallelCalc(
+      {
+        loopCnt
+      },
+      conditions
+    )
+    const endTime = DateTime.local()
+    setResult(
+      '終わったよ。経過時間は: ' +
+        endTime.diff(startTime, 'milliseconds').milliseconds +
+        'ms 結果: ' +
+        res.rate
     )
   }
 
@@ -138,6 +198,14 @@ const PazdoraCal: React.FC = observer(() => {
         <button onClick={calcStatsMultiThreads}>マルチスレッド</button>
       </p>
 
+      <p>
+        欠損率を計算:　
+        <button onClick={calc}>指定2色が存在する確率：マルチスレッド</button>
+        <button onClick={calc2}>
+          2色いずれか5個以上ある確率：マルチスレッド
+        </button>
+      </p>
+
       <p>結果: {result}</p>
       <p>
         <Link href="/">
@@ -148,4 +216,4 @@ const PazdoraCal: React.FC = observer(() => {
   )
 })
 
-export default PazdoraCal
+export default PazdoraCal2
