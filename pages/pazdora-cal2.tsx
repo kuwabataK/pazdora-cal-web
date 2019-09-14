@@ -6,10 +6,7 @@ import { DateTime } from 'luxon'
 import store from '../src/store/store'
 import { observer } from 'mobx-react'
 import Clock from '../src/components/organisms/clock'
-import {
-  DropCondition,
-  ConditionFactoryOptions
-} from '../src/utils/pazdora-cal/Condition'
+import { ConditionFactoryOptions } from '../src/utils/pazdora-cal/Condition'
 
 const PazdoraCal2: React.FC = observer(() => {
   const [threadNum, setThreadNum] = React.useState(4)
@@ -168,22 +165,22 @@ const PazdoraCal2: React.FC = observer(() => {
   const calc3 = async () => {
     if (!store.pazdoraCalStore.pazdoraCalController) return
 
-    const cond1 = new DropCondition()
-    cond1.color = 'red'
-    cond1.num = 5
-    cond1.ope = 'more'
+    const cond1: ConditionFactoryOptions = {
+      type: 'Combo',
+      opt: {
+        num: 8,
+        ope: 'more'
+      }
+    }
 
-    const cond2 = new DropCondition()
-    cond2.color = 'blue'
-    cond2.num = 5
-    cond2.ope = 'more'
-
-    const conditions = [[cond1], [cond2]]
+    const options = [[cond1]]
 
     setResult('')
     const startTime = DateTime.local()
-    const fileds = PazdoraCalUtil.generateFieldStats({ loopCnt })
-    const res = PazdoraCalUtil.calc(conditions, fileds)
+    const res = await store.pazdoraCalStore.pazdoraCalController.parallelCalc(
+      { loopCnt },
+      options
+    )
     const endTime = DateTime.local()
     setResult(
       '終わったよ。経過時間は: ' +
@@ -247,9 +244,7 @@ const PazdoraCal2: React.FC = observer(() => {
         <button onClick={calc2}>
           2色いずれか5個以上ある確率：マルチスレッド
         </button>
-        <button onClick={calc3}>
-          2色いずれか5個以上ある確率：シングルスレッド
-        </button>
+        <button onClick={calc3}>8コンボ以上ある確率：マルチスレッド</button>
       </p>
 
       <p>結果: {result}</p>
