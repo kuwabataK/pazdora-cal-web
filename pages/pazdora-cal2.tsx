@@ -113,7 +113,8 @@ const PazdoraCal2: React.FC = observer(() => {
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
         'ms 結果: ' +
-        res.rate
+        res.rate +
+        '%'
     )
   }
 
@@ -147,7 +148,8 @@ const PazdoraCal2: React.FC = observer(() => {
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
         'ms 結果: ' +
-        res.rate
+        res.rate +
+        '%'
     )
   }
 
