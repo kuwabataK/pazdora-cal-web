@@ -2,11 +2,12 @@
 import { GenerateFieldStatsReturn } from './pazdora-cal'
 
 export type ConditionFactoryOptions = {
-  type: 'Drop' | 'Combo'
+  type: 'Drop' | 'Combo' | 'MultiColor'
   opt: {
     num?: number
+    outOfNum?: number
     color?: DropColor
-    ope: 'more' | 'less'
+    ope?: 'more' | 'less'
   }
 }
 
@@ -21,6 +22,8 @@ export class ConditionFactory {
         return new DropCondition(options.opt)
       case 'Combo':
         return new ComboCondition(options.opt)
+      case 'MultiColor':
+        return new MultiColorCondition(options.opt)
       default:
         break
     }
@@ -39,8 +42,14 @@ export class DropCondition implements Condition {
     }
   }
 
+  /**
+   * 対象の色
+   */
   color: DropColor = 'red'
   ope: 'more' | 'less' = 'more'
+  /**
+   * 指定色の数
+   */
   num = 3
   isValid(field: GenerateFieldStatsReturn) {
     switch (this.ope) {
@@ -80,6 +89,36 @@ export class ComboCondition implements Condition {
             return acc + Math.floor(cur / 3)
           }, 0) <= this.num
         )
+      default:
+        return true
+    }
+  }
+}
+
+/**
+ * 多色の欠損率を計算するためのクラス
+ */
+export class MultiColorCondition implements Condition {
+  constructor(opt?: ConditionFactoryOptions['opt']) {
+    if (opt) {
+      this.num = opt.num || 5
+      this.outOfNum = opt.outOfNum || 6
+      this.ope = opt.ope || 'more'
+    }
+  }
+  ope: 'more' | 'less' = 'more'
+  num = 5
+  outOfNum = 6
+  isValid(field: GenerateFieldStatsReturn) {
+    switch (this.ope) {
+      case 'more': {
+        const f = Object.values(field).slice(0, this.outOfNum)
+        return f.sort((a, b) => b - a)[this.num - 1] >= 3
+      }
+      case 'less': {
+        const f = Object.values(field).slice(0, this.outOfNum)
+        return f.sort((a, b) => b - a)[this.num - 1] <= 3
+      }
       default:
         return true
     }

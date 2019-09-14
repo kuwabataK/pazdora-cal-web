@@ -191,6 +191,36 @@ const PazdoraCal2: React.FC = observer(() => {
     )
   }
 
+  const calc4 = async () => {
+    if (!store.pazdoraCalStore.pazdoraCalController) return
+
+    const cond1: ConditionFactoryOptions = {
+      type: 'MultiColor',
+      opt: {
+        num: 4,
+        outOfNum: 5,
+        ope: 'more'
+      }
+    }
+
+    const options = [[cond1]]
+
+    setResult('')
+    const startTime = DateTime.local()
+    const res = await store.pazdoraCalStore.pazdoraCalController.parallelCalc(
+      { loopCnt },
+      options
+    )
+    const endTime = DateTime.local()
+    setResult(
+      '終わったよ。経過時間は: ' +
+        endTime.diff(startTime, 'milliseconds').milliseconds +
+        'ms 結果: ' +
+        res.rate +
+        '%'
+    )
+  }
+
   const handleThreadNumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const num = parseInt(e.target.value)
     if (0 <= num && num <= 32) {
@@ -245,6 +275,7 @@ const PazdoraCal2: React.FC = observer(() => {
           2色いずれか5個以上ある確率：マルチスレッド
         </button>
         <button onClick={calc3}>8コンボ以上ある確率：マルチスレッド</button>
+        <button onClick={calc4}>6色中5色ある確率：マルチスレッド</button>
       </p>
 
       <p>結果: {result}</p>
