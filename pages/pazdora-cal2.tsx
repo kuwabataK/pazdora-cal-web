@@ -87,7 +87,7 @@ const PazdoraCal2: React.FC = observer(() => {
       type: 'Drop',
       opt: {
         color: 'red',
-        num: 3,
+        dropNum: 3,
         ope: 'more'
       }
     }
@@ -96,7 +96,7 @@ const PazdoraCal2: React.FC = observer(() => {
       type: 'Drop',
       opt: {
         color: 'blue',
-        num: 3,
+        dropNum: 3,
         ope: 'more'
       }
     }
@@ -128,7 +128,7 @@ const PazdoraCal2: React.FC = observer(() => {
       type: 'Drop',
       opt: {
         color: 'red',
-        num: 5,
+        dropNum: 5,
         ope: 'more'
       }
     }
@@ -137,7 +137,7 @@ const PazdoraCal2: React.FC = observer(() => {
       type: 'Drop',
       opt: {
         color: 'blue',
-        num: 5,
+        dropNum: 5,
         ope: 'more'
       }
     }
@@ -168,7 +168,7 @@ const PazdoraCal2: React.FC = observer(() => {
     const cond1: ConditionFactoryOptions = {
       type: 'Combo',
       opt: {
-        num: 8,
+        comboNum: 8,
         ope: 'more'
       }
     }
@@ -197,13 +197,31 @@ const PazdoraCal2: React.FC = observer(() => {
     const cond1: ConditionFactoryOptions = {
       type: 'MultiColor',
       opt: {
-        num: 4,
-        outOfNum: 5,
+        dropNum: 5,
+        dropColorNum: 1,
+        includeDrops: ['blue', 'black', 'green', 'heart'],
+        ope: 'more'
+      }
+    }
+    const cond2: ConditionFactoryOptions = {
+      type: 'Drop',
+      opt: {
+        dropNum: 3,
+        color: 'red',
         ope: 'more'
       }
     }
 
-    const options = [[cond1]]
+    const cond3: ConditionFactoryOptions = {
+      type: 'Drop',
+      opt: {
+        dropNum: 3,
+        color: 'white',
+        ope: 'more'
+      }
+    }
+
+    const options = [[cond1, cond2, cond3]]
 
     setResult('')
     const startTime = DateTime.local()

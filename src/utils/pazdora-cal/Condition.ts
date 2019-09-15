@@ -4,8 +4,22 @@ import { GenerateFieldStatsReturn } from './pazdora-cal'
 export type ConditionFactoryOptions = {
   type: 'Drop' | 'Combo' | 'MultiColor'
   opt: {
-    num?: number
-    outOfNum?: number
+    /**
+     * 対象のドロップの個数
+     */
+    dropNum?: number
+    /**
+     * 候補となるドロップの種類
+     */
+    includeDrops?: DropColor[]
+    /**
+     * 候補となるドロップの種類が何種類あれば良いかを指定
+     */
+    dropColorNum?: number
+    /**
+     * コンボ数
+     */
+    comboNum?: number
     color?: DropColor
     ope?: 'more' | 'less'
   }
@@ -37,7 +51,7 @@ export class DropCondition implements Condition {
   constructor(opt?: ConditionFactoryOptions['opt']) {
     if (opt) {
       this.color = opt.color || 'red'
-      this.num = opt.num || 3
+      this.dropNum = opt.dropNum || 3
       this.ope = opt.ope || 'more'
     }
   }
@@ -50,13 +64,13 @@ export class DropCondition implements Condition {
   /**
    * 指定色の数
    */
-  num = 3
+  dropNum = 3
   isValid(field: GenerateFieldStatsReturn) {
     switch (this.ope) {
       case 'more':
-        return field[this.color] >= this.num
+        return field[this.color] >= this.dropNum
       case 'less':
-        return field[this.color] <= this.num
+        return field[this.color] <= this.dropNum
       default:
         return true
     }
@@ -69,25 +83,27 @@ export class DropCondition implements Condition {
 export class ComboCondition implements Condition {
   constructor(opt?: ConditionFactoryOptions['opt']) {
     if (opt) {
-      this.num = opt.num || 3
+      this.comboNum = opt.comboNum || 7
       this.ope = opt.ope || 'more'
+      this.dropNum = opt.dropNum || 3
     }
   }
+  dropNum = 3
   ope: 'more' | 'less' = 'more'
-  num = 3
+  comboNum = 7
   isValid(field: GenerateFieldStatsReturn) {
     switch (this.ope) {
       case 'more':
         return (
           Object.values(field).reduce((acc, cur) => {
-            return acc + Math.floor(cur / 3)
-          }, 0) >= this.num
+            return acc + Math.floor(cur / this.dropNum)
+          }, 0) >= this.comboNum
         )
       case 'less':
         return (
           Object.values(field).reduce((acc, cur) => {
-            return acc + Math.floor(cur / 3)
-          }, 0) <= this.num
+            return acc + Math.floor(cur / this.dropNum)
+          }, 0) <= this.comboNum
         )
       default:
         return true
@@ -101,23 +117,43 @@ export class ComboCondition implements Condition {
 export class MultiColorCondition implements Condition {
   constructor(opt?: ConditionFactoryOptions['opt']) {
     if (opt) {
-      this.num = opt.num || 5
-      this.outOfNum = opt.outOfNum || 6
+      this.dropColorNum = opt.dropColorNum || 5
+      this.includeDrops = opt.includeDrops || [
+        'red',
+        'blue',
+        'green',
+        'white',
+        'black',
+        'heart'
+      ]
       this.ope = opt.ope || 'more'
+      this.dropNum = opt.dropNum || 3
     }
   }
   ope: 'more' | 'less' = 'more'
-  num = 5
-  outOfNum = 6
+  dropColorNum = 5
+  dropNum = 3
+  includeDrops: DropColor[] = [
+    'red',
+    'blue',
+    'green',
+    'white',
+    'black',
+    'heart'
+  ]
   isValid(field: GenerateFieldStatsReturn) {
     switch (this.ope) {
       case 'more': {
-        const f = Object.values(field).slice(0, this.outOfNum)
-        return f.sort((a, b) => b - a)[this.num - 1] >= 3
+        const f = (Object.keys(field) as DropColor[])
+          .filter(_f => this.includeDrops.includes(_f))
+          .map(_f => field[_f])
+        return f.sort((a, b) => b - a)[this.dropColorNum - 1] >= this.dropNum
       }
       case 'less': {
-        const f = Object.values(field).slice(0, this.outOfNum)
-        return f.sort((a, b) => b - a)[this.num - 1] <= 3
+        const f = (Object.keys(field) as DropColor[])
+          .filter(_f => this.includeDrops.includes(_f))
+          .map(_f => field[_f])
+        return f.sort((a, b) => b - a)[this.dropColorNum - 1] <= this.dropNum
       }
       default:
         return true
