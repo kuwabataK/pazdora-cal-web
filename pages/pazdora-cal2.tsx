@@ -293,7 +293,9 @@ const PazdoraCal2: React.FC = observer(() => {
           2色いずれか5個以上ある確率：マルチスレッド
         </button>
         <button onClick={calc3}>8コンボ以上ある確率：マルチスレッド</button>
-        <button onClick={calc4}>5色中4色ある確率：マルチスレッド</button>
+        <button onClick={calc4}>
+          遠坂凛のリーダースキルが発動する確率：マルチスレッド
+        </button>
       </p>
 
       <p>結果: {result}</p>
