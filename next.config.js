@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const withCSS = require('@zeit/next-css')
+const withSass = require('@zeit/next-sass')
+
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 module.exports = {
   webpack(config) {
@@ -15,3 +19,11 @@ module.exports = {
     return config
   }
 }
+
+module.exports = withCSS(
+  withSass({
+    cssLoaderOptions: {
+      url: false
+    }
+  })
+)
