@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GenerateFieldStatsReturn } from './pazdora-cal'
+import { DropColors } from './ConditionTypes'
 
 export type ConditionFactoryOptions = {
   type: 'Drop' | 'Combo' | 'MultiColor'
@@ -174,7 +175,7 @@ export class MultiColorCondition implements Condition {
   }
 }
 
-export type DropColor = 'red' | 'blue' | 'green' | 'white' | 'black' | 'heart'
+export type DropColor = keyof typeof DropColors
 
 export interface Condition {
   /**

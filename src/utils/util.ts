@@ -15,3 +15,13 @@ export function using<T extends IDisposable, K>(
     resource.dispose()
   }
 }
+
+/**
+ * 引数にいれた文字列の配列をkeyとvalueにもつオブジェクトを返す
+ */
+export function generateEnum<T extends string>(strArr: T[]): { [K in T]: K } {
+  return strArr.reduce((acc, cur) => {
+    acc[cur] = cur
+    return acc
+  }, Object.create(null))
+}

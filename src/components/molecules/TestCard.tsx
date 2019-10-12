@@ -12,6 +12,8 @@ import {
   Theme,
   createStyles
 } from '@material-ui/core'
+import { DropColors } from '../../utils/pazdora-cal/ConditionTypes'
+import { colorLang } from '../../filter/lang-filters'
 
 const useStyles = makeStyles({
   card: {
@@ -71,6 +73,26 @@ export default function SimpleCard(props: Props) {
     <Card className={classes.card}>
       <CardContent>
         <form className={selectClasses.root} autoComplete="off">
+          <FormControl className={selectClasses.formControl}>
+            <InputLabel>ドロップの色</InputLabel>
+            <Select
+              native
+              value={props.condition.opt.color}
+              onChange={handleOptChange}
+              inputProps={{
+                name: 'color',
+                id: 'drop-num-simple'
+              }}
+            >
+              {Object.values(DropColors).map(val => {
+                return (
+                  <option key={val} value={val}>
+                    {colorLang(val)}
+                  </option>
+                )
+              })}
+            </Select>
+          </FormControl>
           <FormControl className={selectClasses.formControl}>
             <InputLabel>ドロップの個数</InputLabel>
             <Select
