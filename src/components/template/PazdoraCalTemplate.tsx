@@ -6,8 +6,8 @@ const PazdoraCalTemplate = () => {
   const initCond: ConditionFactoryOptions = {
     type: 'Drop',
     opt: {
-      color: 'blue',
-      dropNum: 5,
+      color: 'red',
+      dropNum: 3,
       ope: 'more'
     }
   }

@@ -79,19 +79,35 @@ export default function SimpleCard(props: Props) {
               onChange={handleOptChange}
               inputProps={{
                 name: 'dropNum',
-                id: 'dropNum-simple'
+                id: 'drop-num-simple'
               }}
             >
-              <option value="" />
-              {[...new Array(30)]
-                .map((_val, i) => i + 1)
-                .map(i => {
-                  return (
-                    <option key={i} value={i}>
-                      {i}
-                    </option>
-                  )
-                })}
+              {[...new Array(30)].map((_val, i) => {
+                return (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                )
+              })}
+            </Select>
+          </FormControl>
+          <FormControl className={selectClasses.formControl}>
+            <InputLabel>条件</InputLabel>
+            <Select
+              native
+              value={props.condition.opt.ope}
+              onChange={handleOptChange}
+              inputProps={{
+                name: 'ope',
+                id: 'drop-ope-simple'
+              }}
+            >
+              <option key="more" value="more">
+                より多い
+              </option>
+              <option key="less" value="less">
+                より少ない
+              </option>
             </Select>
           </FormControl>
         </form>
