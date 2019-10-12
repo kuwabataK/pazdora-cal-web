@@ -130,9 +130,22 @@ export class MultiColorCondition implements Condition {
       this.dropNum = opt.dropNum || 3
     }
   }
+  /**
+   * moreを指定すると、指定したDropの数よりも多い時にisValidがtrueを返す
+   */
   ope: 'more' | 'less' = 'more'
+  /**
+   * 条件に合致する色の種類数
+   */
   dropColorNum = 5
+  /**
+   * 一個一個のDropの数。more / lessを判定する際の基準になる。
+   * 欠損のチェックを行いたい場合は3を指定しておけば良い
+   */
   dropNum = 3
+  /**
+   * 観測するDropの種類を指定する
+   */
   includeDrops: DropColor[] = [
     'red',
     'blue',
@@ -164,5 +177,8 @@ export class MultiColorCondition implements Condition {
 export type DropColor = 'red' | 'blue' | 'green' | 'white' | 'black' | 'heart'
 
 export interface Condition {
+  /**
+   * オブジェクトの変数に設定した条件に、引数に指定した盤面が合致しているかどうかを返す
+   */
   isValid: (field: GenerateFieldStatsReturn) => boolean
 }

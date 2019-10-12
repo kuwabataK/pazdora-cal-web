@@ -87,10 +87,13 @@ export default class PazdoraCalWorkerController {
   }
 
   /**
-   * 盤面を生成し、欠損率を計算します
+   * optionの条件で盤面を生成し、
+   * conditionで指定された条件に対する欠損率を計算します。
+   * webWorkerを使ってマルチスレッドで実行されます。
    *
-   * @param option
-   * @param conditions
+   * @param option 生成する盤面の条件
+   * @param conditions 欠損率計算の条件。内側の配列に指定された条件通しはandで評価され、
+   * 外側の条件で指定された条件通しはor で評価される。
    */
   async parallelCalc(
     option: GenerateFieldOptions = {},
