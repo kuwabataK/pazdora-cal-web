@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
 import { ConditionFactoryOptions } from '../../utils/pazdora-cal/Condition'
 import {
   FormControl,
@@ -58,6 +57,10 @@ export default function SimpleCard(props: Props) {
   const classes = useStyles()
   const selectClasses = useSelectStyles()
 
+  /**
+   * 指定した名前の変更する条件を変更する
+   * @param event セレクトボックスが変更された時に発火するイベント
+   */
   const handleOptChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
@@ -134,9 +137,7 @@ export default function SimpleCard(props: Props) {
           </FormControl>
         </form>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+      <CardActions>{/* フッターをここにかける */}</CardActions>
     </Card>
   )
 }

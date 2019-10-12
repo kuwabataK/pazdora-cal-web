@@ -1,5 +1,5 @@
 import * as React from 'react'
-import TestCard from '../molecules/TestCard'
+import DropCard from '../molecules/DropCard'
 import { ConditionFactoryOptions } from '../../utils/pazdora-cal/Condition'
 
 const PazdoraCalTemplate = () => {
@@ -14,7 +14,7 @@ const PazdoraCalTemplate = () => {
   const [condition, setCondition] = React.useState(initCond)
   return (
     <div>
-      <TestCard condition={condition} setCondition={setCondition}></TestCard>
+      <DropCard condition={condition} setCondition={setCondition}></DropCard>
     </div>
   )
 }
