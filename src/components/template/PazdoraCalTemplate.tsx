@@ -1,9 +1,10 @@
 import * as React from 'react'
+import TestCard from '../molecules/TestCard'
 
 const PazdoraCalTemplate = () => {
   return (
-    <div className="rainbow-p-around_large">
-      <p>テスト</p>
+    <div>
+      <TestCard></TestCard>
     </div>
   )
 }
