@@ -9,11 +9,15 @@ import {
   InputLabel,
   Select,
   Theme,
-  createStyles
+  createStyles,
+  Chip
 } from '@material-ui/core'
 import { DropColors } from '../../utils/pazdora-cal/ConditionTypes'
 import { colorLang } from '../../filter/lang-filters'
 
+/**
+ * カードのスタイル
+ */
 const useStyles = makeStyles({
   card: {
     minWidth: 275,
@@ -32,6 +36,9 @@ const useStyles = makeStyles({
   }
 })
 
+/**
+ * セレクトボックスのスタイル
+ */
 const useSelectStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -57,6 +64,10 @@ export default function SimpleCard(props: Props) {
   const classes = useStyles()
   const selectClasses = useSelectStyles()
 
+  const handleDelete = () => {
+    alert('You clicked the delete icon.')
+  }
+
   /**
    * 指定した名前の変更する条件を変更する
    * @param event セレクトボックスが変更された時に発火するイベント
@@ -75,6 +86,7 @@ export default function SimpleCard(props: Props) {
   return (
     <Card className={classes.card}>
       <CardContent>
+        <Chip onDelete={handleDelete} />
         <form className={selectClasses.root} autoComplete="off">
           <FormControl className={selectClasses.formControl}>
             <InputLabel>ドロップの色</InputLabel>
@@ -84,7 +96,7 @@ export default function SimpleCard(props: Props) {
               onChange={handleOptChange}
               inputProps={{
                 name: 'color',
-                id: 'drop-num-simple'
+                id: 'drop-color-simple'
               }}
             >
               {Object.values(DropColors).map(val => {

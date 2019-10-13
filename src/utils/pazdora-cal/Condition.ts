@@ -2,6 +2,12 @@
 import { GenerateFieldStatsReturn } from './pazdora-cal'
 import { DropColors } from './ConditionTypes'
 
+abstract class BaseCondition {
+  clone(): this {
+    return { ...this, __proto__: (this as any).__proto__ }
+  }
+}
+
 export type ConditionFactoryOptions = {
   type: 'Drop' | 'Combo' | 'MultiColor'
   opt: {
@@ -48,8 +54,9 @@ export class ConditionFactory {
 /**
  * 特定の色のドロップの数を数えて、指定した条件に一致するかどうかを判定するためのクラス
  */
-export class DropCondition implements Condition {
+export class DropCondition extends BaseCondition implements Condition {
   constructor(opt?: ConditionFactoryOptions['opt']) {
+    super()
     if (opt) {
       this.color = opt.color || 'red'
       this.dropNum = opt.dropNum || 3
@@ -81,8 +88,9 @@ export class DropCondition implements Condition {
 /**
  * 盤面にコンボが存在するかどうかを計算するためのクラス
  */
-export class ComboCondition implements Condition {
+export class ComboCondition extends BaseCondition implements Condition {
   constructor(opt?: ConditionFactoryOptions['opt']) {
+    super()
     if (opt) {
       this.comboNum = opt.comboNum || 7
       this.ope = opt.ope || 'more'
@@ -115,18 +123,12 @@ export class ComboCondition implements Condition {
 /**
  * 多色の欠損率を計算するためのクラス
  */
-export class MultiColorCondition implements Condition {
+export class MultiColorCondition extends BaseCondition implements Condition {
   constructor(opt?: ConditionFactoryOptions['opt']) {
+    super()
     if (opt) {
       this.dropColorNum = opt.dropColorNum || 5
-      this.includeDrops = opt.includeDrops || [
-        'red',
-        'blue',
-        'green',
-        'white',
-        'black',
-        'heart'
-      ]
+      this.includeDrops = opt.includeDrops || Object.values(DropColors)
       this.ope = opt.ope || 'more'
       this.dropNum = opt.dropNum || 3
     }
@@ -147,14 +149,7 @@ export class MultiColorCondition implements Condition {
   /**
    * 観測するDropの種類を指定する
    */
-  includeDrops: DropColor[] = [
-    'red',
-    'blue',
-    'green',
-    'white',
-    'black',
-    'heart'
-  ]
+  includeDrops: DropColor[] = Object.values(DropColors)
   isValid(field: GenerateFieldStatsReturn) {
     switch (this.ope) {
       case 'more': {
