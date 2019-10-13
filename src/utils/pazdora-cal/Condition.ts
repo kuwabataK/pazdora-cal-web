@@ -3,6 +3,9 @@ import { GenerateFieldStatsReturn } from './pazdora-cal'
 import { DropColors } from './ConditionTypes'
 
 abstract class BaseCondition {
+  /**
+   * 自分自身のシャローコピーを返します
+   */
   clone(): this {
     return { ...this, __proto__: (this as any).__proto__ }
   }
