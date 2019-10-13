@@ -19,6 +19,15 @@ export class PazdoraCalStore {
   }
 
   /**
+   * 指定した条件を更新する
+   */
+  @action
+  setCondition(index: number, condition: ConditionFactoryOptions) {
+    this._conditions[0][index] = condition
+    this._conditions = [...this._conditions]
+  }
+
+  /**
    * 計算ロジックの0番目の条件を返します。
    * ここで返された条件は全部andで評価されます。
    * 現時点では計算ページでは、andの条件しか指定できないので、不要な配列を削除しています
