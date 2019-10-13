@@ -103,4 +103,13 @@ export class PazdoraCalStore {
     if (!this.result) return 0
     return 100 - this.result.rate
   }
+
+  /**
+   * Storeで計算した条件に合致する盤面が存在する確率を返します
+   */
+  @computed
+  get rate() {
+    if (!this.result) return 0
+    return this.result.rate
+  }
 }

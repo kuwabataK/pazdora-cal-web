@@ -44,6 +44,9 @@ const PazdoraCalTemplate = observer(() => {
   return (
     <div>
       <div>
+        <h3>条件を満たす確率: {pazStore.rate}%</h3>
+      </div>
+      <div>
         <PazButton
           btnName="ドロップ条件を追加"
           onClick={createDropCond}
@@ -55,7 +58,6 @@ const PazdoraCalTemplate = observer(() => {
           onClick={() => pazStore.calcParallelInStoreCondition()}
         ></PazButton>
       </div>
-      <div>欠損率: {pazStore.lossRate}</div>
       {conditions.map((cond, i) => {
         return (
           <DropCard
