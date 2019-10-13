@@ -14,8 +14,8 @@ const PazdoraCal2: React.FC = observer(() => {
   const [result, setResult] = React.useState('')
 
   React.useEffect(() => {
-    store.pazdoraCalStore.createThread(threadNum)
-    return () => store.pazdoraCalStore.dispose()
+    store.pazdoraCalStore.pazCalControllStore.createThread(threadNum)
+    return () => store.pazdoraCalStore.pazCalControllStore.dispose()
   }, [threadNum])
 
   const calcSingle = () => {
@@ -45,10 +45,10 @@ const PazdoraCal2: React.FC = observer(() => {
   }
 
   const calcMultiTheads = async () => {
-    if (!store.pazdoraCalStore.pazdoraCalController) return
+    if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
     setResult('')
     const startTime = DateTime.local()
-    const res = await store.pazdoraCalStore.pazdoraCalController.parallelGenerateFields(
+    const res = await store.pazdoraCalStore.pazCalControllStore.pazdoraCalController.parallelGenerateFields(
       {
         loopCnt
       }
@@ -63,10 +63,10 @@ const PazdoraCal2: React.FC = observer(() => {
   }
 
   const calcStatsMultiThreads = async () => {
-    if (!store.pazdoraCalStore.pazdoraCalController) return
+    if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
     setResult('')
     const startTime = DateTime.local()
-    const res = await store.pazdoraCalStore.pazdoraCalController.parallelGenerateFieldStats(
+    const res = await store.pazdoraCalStore.pazCalControllStore.pazdoraCalController.parallelGenerateFieldStats(
       {
         loopCnt
       }
@@ -81,7 +81,7 @@ const PazdoraCal2: React.FC = observer(() => {
   }
 
   const calc = async () => {
-    if (!store.pazdoraCalStore.pazdoraCalController) return
+    if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
 
     const cond1: ConditionFactoryOptions = {
       type: 'Drop',
@@ -105,7 +105,7 @@ const PazdoraCal2: React.FC = observer(() => {
 
     setResult('')
     const startTime = DateTime.local()
-    const res = await store.pazdoraCalStore.pazdoraCalController.parallelCalc(
+    const res = await store.pazdoraCalStore.pazCalControllStore.pazdoraCalController.parallelCalc(
       {
         loopCnt
       },
@@ -122,7 +122,7 @@ const PazdoraCal2: React.FC = observer(() => {
   }
 
   const calc2 = async () => {
-    if (!store.pazdoraCalStore.pazdoraCalController) return
+    if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
 
     const cond1: ConditionFactoryOptions = {
       type: 'Drop',
@@ -146,7 +146,7 @@ const PazdoraCal2: React.FC = observer(() => {
 
     setResult('')
     const startTime = DateTime.local()
-    const res = await store.pazdoraCalStore.pazdoraCalController.parallelCalc(
+    const res = await store.pazdoraCalStore.pazCalControllStore.pazdoraCalController.parallelCalc(
       {
         loopCnt
       },
@@ -163,7 +163,7 @@ const PazdoraCal2: React.FC = observer(() => {
   }
 
   const calc3 = async () => {
-    if (!store.pazdoraCalStore.pazdoraCalController) return
+    if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
 
     const cond1: ConditionFactoryOptions = {
       type: 'Combo',
@@ -177,7 +177,7 @@ const PazdoraCal2: React.FC = observer(() => {
 
     setResult('')
     const startTime = DateTime.local()
-    const res = await store.pazdoraCalStore.pazdoraCalController.parallelCalc(
+    const res = await store.pazdoraCalStore.pazCalControllStore.pazdoraCalController.parallelCalc(
       { loopCnt },
       options
     )
@@ -192,7 +192,7 @@ const PazdoraCal2: React.FC = observer(() => {
   }
 
   const calc4 = async () => {
-    if (!store.pazdoraCalStore.pazdoraCalController) return
+    if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
 
     const cond1: ConditionFactoryOptions = {
       type: 'MultiColor',
@@ -225,7 +225,7 @@ const PazdoraCal2: React.FC = observer(() => {
 
     setResult('')
     const startTime = DateTime.local()
-    const res = await store.pazdoraCalStore.pazdoraCalController.parallelCalc(
+    const res = await store.pazdoraCalStore.pazCalControllStore.pazdoraCalController.parallelCalc(
       { loopCnt },
       options
     )

@@ -19,11 +19,3 @@ module.exports = {
     return config
   }
 }
-
-module.exports = withCSS(
-  withSass({
-    cssLoaderOptions: {
-      url: false
-    }
-  })
-)

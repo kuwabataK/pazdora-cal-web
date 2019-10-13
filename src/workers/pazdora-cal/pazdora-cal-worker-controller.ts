@@ -99,12 +99,7 @@ export default class PazdoraCalWorkerController {
     option: GenerateFieldOptions = {},
     conditions: ConditionFactoryOptions[][]
   ): Promise<CalcReturn> {
-    if (!option.loopCnt)
-      return {
-        total: 0,
-        correct: 0,
-        rate: 0
-      }
+    if (!option.loopCnt) throw new Error('ループ回数が設定されていません')
     return await this.asyncLock.acquire<CalcReturn>('pazdora', async () => {
       const result = this.workers.map(worker => {
         const _option: PostMessageData = {

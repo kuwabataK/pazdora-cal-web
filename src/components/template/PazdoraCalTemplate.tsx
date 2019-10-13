@@ -6,6 +6,14 @@ import store from '../../store/store'
 import { observer } from 'mobx-react'
 
 const PazdoraCalTemplate = observer(() => {
+  /**
+   * ページ遷移時にスレッドを作成しておく
+   */
+  React.useEffect(() => {
+    store.pazdoraCalStore.pazCalControllStore.createThread(8)
+    return () => store.pazdoraCalStore.pazCalControllStore.dispose()
+  }, [])
+
   const initDropCond = (): ConditionFactoryOptions => ({
     type: 'Drop',
     opt: {
@@ -42,7 +50,12 @@ const PazdoraCalTemplate = observer(() => {
         ></PazButton>
         <PazButton btnName="コンボ条件を追加"></PazButton>
         <PazButton btnName="多色条件を追加"></PazButton>
+        <PazButton
+          btnName="計算を実行"
+          onClick={() => pazStore.calcParallelInStoreCondition()}
+        ></PazButton>
       </div>
+      <div>欠損率: {pazStore.lossRate}</div>
       {conditions.map((cond, i) => {
         return (
           <DropCard
