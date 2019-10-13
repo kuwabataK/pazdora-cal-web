@@ -107,7 +107,7 @@ export default function SimpleCard(props: Props) {
                 id: 'drop-num-simple'
               }}
             >
-              {[...new Array(30)].map((_val, i) => {
+              {[...new Array(31)].map((_val, i) => {
                 return (
                   <option key={i} value={i}>
                     {i}
