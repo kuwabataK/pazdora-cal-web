@@ -3,17 +3,17 @@ import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import { ConditionFactoryOptions } from '../../utils/pazdora-cal/Condition'
 import {
   FormControl,
   InputLabel,
   Select,
   Theme,
-  createStyles,
-  Chip
+  createStyles
 } from '@material-ui/core'
 import { DropColors } from '../../utils/pazdora-cal/ConditionTypes'
 import { colorLang } from '../../filter/lang-filters'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff'
+import { DropCardProps, generateDropFunc } from './DropCardBase'
 
 /**
  * カードのスタイル
@@ -33,6 +33,14 @@ const useStyles = makeStyles({
   },
   pos: {
     marginBottom: 12
+  },
+  cardContents: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end'
+  },
+  deleteButton: {
+    marginRight: 0
   }
 })
 
@@ -43,7 +51,7 @@ const useSelectStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      flexWrap: 'wrap'
+      flexWrap: 'nowrap'
     },
     formControl: {
       margin: theme.spacing(1),
@@ -55,38 +63,19 @@ const useSelectStyles = makeStyles((theme: Theme) =>
   })
 )
 
-type Props = {
-  condition: ConditionFactoryOptions
-  setCondition: (newCondition: ConditionFactoryOptions) => void
-}
-
-export default function SimpleCard(props: Props) {
+export default function DropCard(props: DropCardProps) {
   const classes = useStyles()
   const selectClasses = useSelectStyles()
 
-  const handleDelete = () => {
-    alert('You clicked the delete icon.')
-  }
+  const { handleDelete, handleOptChange } = generateDropFunc(props)
 
-  /**
-   * 指定した名前の変更する条件を変更する
-   * @param event セレクトボックスが変更された時に発火するイベント
-   */
-  const handleOptChange = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
-    props.setCondition({
-      ...props.condition,
-      opt: {
-        ...props.condition.opt,
-        [event.target.name as string]: event.target.value
-      }
-    })
-  }
   return (
     <Card className={classes.card}>
-      <CardContent>
-        <Chip onDelete={handleDelete} />
+      <CardContent className={classes.cardContents}>
+        <HighlightOffIcon
+          className={classes.deleteButton}
+          onClick={handleDelete}
+        />
         <form className={selectClasses.root} autoComplete="off">
           <FormControl className={selectClasses.formControl}>
             <InputLabel>ドロップの色</InputLabel>
