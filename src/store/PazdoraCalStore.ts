@@ -16,6 +16,7 @@ export class PazdoraCalStore {
   @action
   setConditions(conditions: ConditionFactoryOptions[]) {
     this._conditions[0] = conditions
+    this._conditions = [...this._conditions]
   }
 
   /**
@@ -24,6 +25,18 @@ export class PazdoraCalStore {
   @action
   setCondition(index: number, condition: ConditionFactoryOptions) {
     this._conditions[0][index] = condition
+    this._conditions = [...this._conditions]
+  }
+
+  @action
+  addCondition(condition: ConditionFactoryOptions) {
+    this._conditions[0].push(condition)
+    this._conditions = [...this._conditions]
+  }
+
+  @action
+  deleteCondition(index: number) {
+    this._conditions[0].splice(index, 1)
     this._conditions = [...this._conditions]
   }
 
