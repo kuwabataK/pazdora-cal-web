@@ -121,6 +121,10 @@ const PazdoraCalTemplate = observer(() => {
               <option value="76盤面">76盤面</option>
             </Select>
           </FormControl>
+          <PazButton
+            btnName="計算を実行"
+            onClick={() => pazStore.calcParallelInStoreCondition()}
+          ></PazButton>
         </form>
       </div>
       <div>
@@ -133,10 +137,6 @@ const PazdoraCalTemplate = observer(() => {
           onClick={createComboCond}
         ></PazButton>
         <PazButton btnName="多色条件を追加"></PazButton>
-        <PazButton
-          btnName="計算を実行"
-          onClick={() => pazStore.calcParallelInStoreCondition()}
-        ></PazButton>
       </div>
       {conditions.map((cond, i) => {
         if (cond.type === 'Drop') {
