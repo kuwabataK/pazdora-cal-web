@@ -7,6 +7,10 @@ export type DropCardProps = {
   deleteCondition?: (event: any) => void
 }
 
+/**
+ * DropCard系のコンポーネントで共通で使用するメソッドを抽出
+ * @param props
+ */
 export function generateDropFunc(props: DropCardProps) {
   return {
     /**

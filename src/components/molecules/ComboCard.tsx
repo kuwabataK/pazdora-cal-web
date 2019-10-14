@@ -76,26 +76,6 @@ export default function ComboCard(props: DropCardProps) {
         />
         <form className={selectClasses.root} autoComplete="off">
           <FormControl className={selectClasses.formControl}>
-            <InputLabel>コンボ数</InputLabel>
-            <Select
-              native
-              value={props.condition.opt.comboNum}
-              onChange={handleOptChange}
-              inputProps={{
-                name: 'comboNum',
-                id: 'drop-color-simple'
-              }}
-            >
-              {[...new Array(14)].map((_val, i) => {
-                return (
-                  <option key={i} value={i}>
-                    {i}
-                  </option>
-                )
-              })}
-            </Select>
-          </FormControl>
-          <FormControl className={selectClasses.formControl}>
             <InputLabel>消せるドロップ数</InputLabel>
             <Select
               native
@@ -107,6 +87,26 @@ export default function ComboCard(props: DropCardProps) {
               }}
             >
               {[...new Array(31)].map((_val, i) => {
+                return (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                )
+              })}
+            </Select>
+          </FormControl>
+          <FormControl className={selectClasses.formControl}>
+            <InputLabel>コンボ数</InputLabel>
+            <Select
+              native
+              value={props.condition.opt.comboNum}
+              onChange={handleOptChange}
+              inputProps={{
+                name: 'comboNum',
+                id: 'drop-color-simple'
+              }}
+            >
+              {[...new Array(14)].map((_val, i) => {
                 return (
                   <option key={i} value={i}>
                     {i}
