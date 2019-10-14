@@ -51,7 +51,7 @@ const useSelectStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      flexWrap: 'nowrap'
+      flexWrap: 'wrap'
     },
     formControl: {
       margin: theme.spacing(1),
