@@ -13,6 +13,7 @@ import {
   Theme
 } from '@material-ui/core'
 import { useBanmen } from '../../custom-hook/pazhooks'
+import ComboCard from '../molecules/ComboCard'
 
 /**
  * セレクトボックスのスタイル
@@ -42,6 +43,15 @@ const initDropCond = (): ConditionFactoryOptions => ({
   }
 })
 
+const initComboCond = (): ConditionFactoryOptions => ({
+  type: 'Combo',
+  opt: {
+    comboNum: 7,
+    dropNum: 3,
+    ope: 'more'
+  }
+})
+
 const PazdoraCalTemplate = observer(() => {
   /**
    * ページ遷移時にスレッドを作成しておく
@@ -65,10 +75,24 @@ const PazdoraCalTemplate = observer(() => {
     pazStore.setCondition(index, newcondition)
   }
 
+  /**
+   * Dropカードを作成する
+   */
   const createDropCond = () => {
     pazStore.addCondition(initDropCond())
   }
 
+  /**
+   * コンボカードを作成する
+   */
+  const createComboCond = () => {
+    pazStore.addCondition(initComboCond())
+  }
+
+  /**
+   * カードを削除する
+   * @param index
+   */
   const deleteCond = (index: number) => {
     pazStore.deleteCondition(index)
   }
@@ -104,7 +128,10 @@ const PazdoraCalTemplate = observer(() => {
           btnName="ドロップ条件を追加"
           onClick={createDropCond}
         ></PazButton>
-        <PazButton btnName="コンボ条件を追加"></PazButton>
+        <PazButton
+          btnName="コンボ条件を追加"
+          onClick={createComboCond}
+        ></PazButton>
         <PazButton btnName="多色条件を追加"></PazButton>
         <PazButton
           btnName="計算を実行"
@@ -112,14 +139,25 @@ const PazdoraCalTemplate = observer(() => {
         ></PazButton>
       </div>
       {conditions.map((cond, i) => {
-        return (
-          <DropCard
-            key={i}
-            condition={cond}
-            setCondition={newCond => setCondition(i, newCond)}
-            deleteCondition={() => deleteCond(i)}
-          ></DropCard>
-        )
+        if (cond.type === 'Drop') {
+          return (
+            <DropCard
+              key={i}
+              condition={cond}
+              setCondition={newCond => setCondition(i, newCond)}
+              deleteCondition={() => deleteCond(i)}
+            ></DropCard>
+          )
+        } else if (cond.type === 'Combo') {
+          return (
+            <ComboCard
+              key={i}
+              condition={cond}
+              setCondition={newCond => setCondition(i, newCond)}
+              deleteCondition={() => deleteCond(i)}
+            ></ComboCard>
+          )
+        }
       })}
     </div>
   )
