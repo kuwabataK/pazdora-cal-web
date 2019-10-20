@@ -1,5 +1,6 @@
 import * as React from 'react'
 import PazdoraCalTemplate from '../src/components/template/PazdoraCalTemplate'
+import Head from 'next/head'
 
 const pageStyle: React.CSSProperties = {
   backgroundColor: '#f5f5f5',
@@ -10,6 +11,11 @@ const pageStyle: React.CSSProperties = {
 const PazdoraCal = () => {
   return (
     <div style={pageStyle}>
+      <Head>
+        <title>パズドラ計算機</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <PazdoraCalTemplate></PazdoraCalTemplate>
     </div>
   )
