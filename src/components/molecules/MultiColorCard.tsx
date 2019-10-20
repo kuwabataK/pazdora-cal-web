@@ -29,13 +29,16 @@ export default function MultiColorCard(props: DropCardProps) {
 
   return (
     <Card className={classes.card}>
-      <CardContent className={classes.cardContents}>
+      <CardContent>
+        <div className={classes.deleteContents}>
+          <HighlightOffIcon
+            className={classes.deleteButton}
+            onClick={handleDelete}
+          />
+        </div>
         {/* バツボタン */}
-        <HighlightOffIcon
-          className={classes.deleteButton}
-          onClick={handleDelete}
-        />
-        <div>
+
+        <div className={classes.cardContents}>
           {/* 色を選択するコンポーネント */}
           <ColorToggle
             selectColor={props.condition.opt.includeDrops}

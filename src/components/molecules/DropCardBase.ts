@@ -63,7 +63,7 @@ export function generateDropFunc(props: DropCardProps) {
 export const useCardStyles = makeStyles({
   card: {
     minWidth: 275,
-    maxWidth: 450
+    maxWidth: 600
   },
   bullet: {
     display: 'inline-block',
@@ -77,6 +77,11 @@ export const useCardStyles = makeStyles({
     marginBottom: 12
   },
   cardContents: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-center'
+  },
+  deleteContents: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'flex-end'
