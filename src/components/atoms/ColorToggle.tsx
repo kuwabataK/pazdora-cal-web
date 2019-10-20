@@ -19,6 +19,11 @@ type Props = {
  * @param props
  */
 const ColorToggle = (props: Props) => {
+  /**
+   * 色を選択したときに発火する処理
+   * @param _event
+   * @param newColors
+   */
   const handleColor = (
     _event: React.MouseEvent<HTMLElement>,
     newColors: (keyof typeof DropColors)[]
