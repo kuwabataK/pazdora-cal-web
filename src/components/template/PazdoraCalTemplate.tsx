@@ -50,9 +50,9 @@ const PazdoraCalTemplate = observer(() => {
 
   return (
     <Grid container alignItems="center" justify="center">
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <div>
-          <h3>条件を満たす確率: {pazStore.rate}%</h3>
+          <h3>　条件を満たす確率: {pazStore.rate}%</h3>
         </div>
         <div>
           <form className={selectClasses.root} autoComplete="off">
