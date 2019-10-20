@@ -6,6 +6,7 @@ import DropCard from '../molecules/DropCard'
 import ComboCard from '../molecules/ComboCard'
 import MultiColorCard from '../molecules/MultiColorCard'
 import { observer } from 'mobx-react'
+import { CSSProperties } from '@material-ui/styles'
 
 /**
  * ドロップ条件を追加したときの初期値
@@ -44,6 +45,17 @@ const initMultiColorCond = (): ConditionFactoryOptions => ({
   }
 })
 
+/**
+ * 上下に幅を持たせるスタイル
+ */
+const marginStyle: CSSProperties = {
+  marginTop: '10px',
+  marginBottom: '10px'
+}
+
+/**
+ * 条件カードと条件追加ボタンを表示するコンポーネント
+ */
 const DropCondtions = observer(() => {
   const pazStore = store.pazdoraCalStore
   const conditions = pazStore.conditions
@@ -108,30 +120,36 @@ const DropCondtions = observer(() => {
       {conditions.map((cond, i) => {
         if (cond.type === 'Drop') {
           return (
-            <DropCard
-              key={i}
-              condition={cond}
-              setCondition={newCond => setCondition(i, newCond)}
-              deleteCondition={() => deleteCond(i)}
-            ></DropCard>
+            <div style={marginStyle}>
+              <DropCard
+                key={i}
+                condition={cond}
+                setCondition={newCond => setCondition(i, newCond)}
+                deleteCondition={() => deleteCond(i)}
+              />
+            </div>
           )
         } else if (cond.type === 'Combo') {
           return (
-            <ComboCard
-              key={i}
-              condition={cond}
-              setCondition={newCond => setCondition(i, newCond)}
-              deleteCondition={() => deleteCond(i)}
-            ></ComboCard>
+            <div style={marginStyle}>
+              <ComboCard
+                key={i}
+                condition={cond}
+                setCondition={newCond => setCondition(i, newCond)}
+                deleteCondition={() => deleteCond(i)}
+              />
+            </div>
           )
         } else if (cond.type === 'MultiColor') {
           return (
-            <MultiColorCard
-              key={i}
-              condition={cond}
-              setCondition={newCond => setCondition(i, newCond)}
-              deleteCondition={() => deleteCond(i)}
-            ></MultiColorCard>
+            <div style={marginStyle}>
+              <MultiColorCard
+                key={i}
+                condition={cond}
+                setCondition={newCond => setCondition(i, newCond)}
+                deleteCondition={() => deleteCond(i)}
+              />
+            </div>
           )
         }
       })}
