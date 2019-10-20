@@ -1,4 +1,5 @@
 import { ConditionFactoryOptions } from '../../utils/pazdora-cal/Condition'
+import { makeStyles, Theme, createStyles } from '@material-ui/core'
 
 export type DropCardProps = {
   condition: ConditionFactoryOptions
@@ -37,3 +38,51 @@ export function generateDropFunc(props: DropCardProps) {
     }
   }
 }
+
+/**
+ * カードのスタイル
+ */
+export const useCardStyles = makeStyles({
+  card: {
+    minWidth: 275,
+    maxWidth: 450
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)'
+  },
+  title: {
+    fontSize: 14
+  },
+  pos: {
+    marginBottom: 12
+  },
+  cardContents: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end'
+  },
+  deleteButton: {
+    marginRight: 0
+  }
+})
+
+/**
+ * セレクトボックスのスタイル
+ */
+export const useSelectStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2)
+    }
+  })
+)

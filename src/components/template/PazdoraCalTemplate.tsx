@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core'
 import { useBanmen } from '../../custom-hook/pazhooks'
 import ComboCard from '../molecules/ComboCard'
+import MultiColorCard from '../molecules/MultiColorCard'
 
 /**
  * セレクトボックスのスタイル
@@ -48,6 +49,16 @@ const initComboCond = (): ConditionFactoryOptions => ({
   opt: {
     comboNum: 7,
     dropNum: 3,
+    ope: 'more'
+  }
+})
+
+const initMultiColorCond = (): ConditionFactoryOptions => ({
+  type: 'MultiColor',
+  opt: {
+    dropNum: 3,
+    includeDrops: ['red'],
+    dropColorNum: 1,
     ope: 'more'
   }
 })
@@ -87,6 +98,10 @@ const PazdoraCalTemplate = observer(() => {
    */
   const createComboCond = () => {
     pazStore.addCondition(initComboCond())
+  }
+
+  const createMultiCond = () => {
+    pazStore.addCondition(initMultiColorCond())
   }
 
   /**
@@ -136,7 +151,10 @@ const PazdoraCalTemplate = observer(() => {
           btnName="コンボ条件を追加"
           onClick={createComboCond}
         ></PazButton>
-        <PazButton btnName="多色条件を追加"></PazButton>
+        <PazButton
+          btnName="多色条件を追加"
+          onClick={createMultiCond}
+        ></PazButton>
       </div>
       {conditions.map((cond, i) => {
         if (cond.type === 'Drop') {
@@ -156,6 +174,15 @@ const PazdoraCalTemplate = observer(() => {
               setCondition={newCond => setCondition(i, newCond)}
               deleteCondition={() => deleteCond(i)}
             ></ComboCard>
+          )
+        } else if (cond.type === 'MultiColor') {
+          return (
+            <MultiColorCard
+              key={i}
+              condition={cond}
+              setCondition={newCond => setCondition(i, newCond)}
+              deleteCondition={() => deleteCond(i)}
+            ></MultiColorCard>
           )
         }
       })}

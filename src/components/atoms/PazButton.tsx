@@ -19,6 +19,10 @@ type Props = {
   onClick?: (event: any) => void
 }
 
+/**
+ * 実行ボタンなどを表すスタイルコンポーネント
+ * @param props
+ */
 export default function pazButton(props: Props) {
   const classes = useStyles()
 
