@@ -43,6 +43,10 @@ const marginStyle: React.CSSProperties = {
   marginRight: '10px'
 }
 
+const background: React.CSSProperties = {
+  backgroundColor: '#f5f5f5'
+}
+
 const PazdoraCalTemplate = observer(() => {
   /**
    * ページ遷移時にスレッドを作成しておく
@@ -59,7 +63,7 @@ const PazdoraCalTemplate = observer(() => {
   const { banmen, setBanmen } = useBanmen(pazStore)
 
   return (
-    <Grid container alignItems="center" justify="center">
+    <Grid container alignItems="center" justify="center" style={background}>
       <Grid item xs={12} xl={6} sm={6}>
         <div style={marginStyle}>
           <h3>条件を満たす確率: {pazStore.rate}%</h3>
