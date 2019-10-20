@@ -12,6 +12,15 @@ import {
 } from './DropCardBase'
 import ColorToggle from '../atoms/ColorToggle'
 
+/**
+ * 引数に指定したinCludeDropsの数から選択肢に設定できるドロップの種類数を計算する
+ * @param includeDrops
+ */
+const maxDropColorNum = (includeDrops: string[] | undefined) => {
+  if (!includeDrops) return 0
+  return includeDrops.length
+}
+
 export default function MultiColorCard(props: DropCardProps) {
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
@@ -42,7 +51,7 @@ export default function MultiColorCard(props: DropCardProps) {
           ></ColorToggle>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>ドロップの種類の最低数</InputLabel>
+              <InputLabel>ドロップの種類</InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropColorNum}
@@ -52,10 +61,14 @@ export default function MultiColorCard(props: DropCardProps) {
                   id: 'drop-color-num-simple'
                 }}
               >
-                {[...new Array(6)].map((_val, i) => {
+                {[
+                  ...new Array(
+                    maxDropColorNum(props.condition.opt.includeDrops)
+                  )
+                ].map((_val, i) => {
                   return (
                     <option key={i + 1} value={i + 1}>
-                      {i + 1}
+                      {i + 1}種類以上
                     </option>
                   )
                 })}
