@@ -89,7 +89,7 @@ export default function MultiColorCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>ドロップの個数条件</InputLabel>
+              <InputLabel>ドロップの個数</InputLabel>
               <Select
                 native
                 value={props.condition.opt.ope}
