@@ -106,7 +106,7 @@ const DropCondtions = observer(() => {
 
   return (
     <Grid container alignItems="center" justify="center">
-      <Grid item xs={12} xl={12} sm={6}>
+      <Grid item xs={12} xl={6} sm={6}>
         <div>
           <PazButton
             btnName="ドロップ条件を追加"
