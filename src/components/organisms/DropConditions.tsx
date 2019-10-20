@@ -7,6 +7,7 @@ import ComboCard from '../molecules/ComboCard'
 import MultiColorCard from '../molecules/MultiColorCard'
 import { observer } from 'mobx-react'
 import { CSSProperties } from '@material-ui/styles'
+import Grid from '@material-ui/core/Grid'
 
 /**
  * ドロップ条件を追加したときの初期値
@@ -50,7 +51,8 @@ const initMultiColorCond = (): ConditionFactoryOptions => ({
  */
 const marginStyle: CSSProperties = {
   marginTop: '10px',
-  marginBottom: '10px'
+  marginBottom: '10px',
+  marginLeft: '10px'
 }
 
 /**
@@ -102,58 +104,60 @@ const DropCondtions = observer(() => {
   }
 
   return (
-    <div>
-      <div>
-        <PazButton
-          btnName="ドロップ条件を追加"
-          onClick={createDropCond}
-        ></PazButton>
-        <PazButton
-          btnName="コンボ条件を追加"
-          onClick={createComboCond}
-        ></PazButton>
-        <PazButton
-          btnName="多色条件を追加"
-          onClick={createMultiCond}
-        ></PazButton>
-      </div>
-      {conditions.map((cond, i) => {
-        if (cond.type === 'Drop') {
-          return (
-            <div style={marginStyle}>
-              <DropCard
-                key={i}
-                condition={cond}
-                setCondition={newCond => setCondition(i, newCond)}
-                deleteCondition={() => deleteCond(i)}
-              />
-            </div>
-          )
-        } else if (cond.type === 'Combo') {
-          return (
-            <div style={marginStyle}>
-              <ComboCard
-                key={i}
-                condition={cond}
-                setCondition={newCond => setCondition(i, newCond)}
-                deleteCondition={() => deleteCond(i)}
-              />
-            </div>
-          )
-        } else if (cond.type === 'MultiColor') {
-          return (
-            <div style={marginStyle}>
-              <MultiColorCard
-                key={i}
-                condition={cond}
-                setCondition={newCond => setCondition(i, newCond)}
-                deleteCondition={() => deleteCond(i)}
-              />
-            </div>
-          )
-        }
-      })}
-    </div>
+    <Grid container alignItems="center" justify="center">
+      <Grid item xs={6}>
+        <div>
+          <PazButton
+            btnName="ドロップ条件を追加"
+            onClick={createDropCond}
+          ></PazButton>
+          <PazButton
+            btnName="コンボ条件を追加"
+            onClick={createComboCond}
+          ></PazButton>
+          <PazButton
+            btnName="多色条件を追加"
+            onClick={createMultiCond}
+          ></PazButton>
+        </div>
+        {conditions.map((cond, i) => {
+          if (cond.type === 'Drop') {
+            return (
+              <div style={marginStyle}>
+                <DropCard
+                  key={i}
+                  condition={cond}
+                  setCondition={newCond => setCondition(i, newCond)}
+                  deleteCondition={() => deleteCond(i)}
+                />
+              </div>
+            )
+          } else if (cond.type === 'Combo') {
+            return (
+              <div style={marginStyle}>
+                <ComboCard
+                  key={i}
+                  condition={cond}
+                  setCondition={newCond => setCondition(i, newCond)}
+                  deleteCondition={() => deleteCond(i)}
+                />
+              </div>
+            )
+          } else if (cond.type === 'MultiColor') {
+            return (
+              <div style={marginStyle}>
+                <MultiColorCard
+                  key={i}
+                  condition={cond}
+                  setCondition={newCond => setCondition(i, newCond)}
+                  deleteCondition={() => deleteCond(i)}
+                />
+              </div>
+            )
+          }
+        })}
+      </Grid>
+    </Grid>
   )
 })
 

@@ -8,7 +8,8 @@ import {
   Select,
   makeStyles,
   createStyles,
-  Theme
+  Theme,
+  Grid
 } from '@material-ui/core'
 import { useBanmen } from '../../custom-hook/pazhooks'
 import DropCondtions from '../organisms/DropConditions'
@@ -48,37 +49,39 @@ const PazdoraCalTemplate = observer(() => {
   const { banmen, setBanmen } = useBanmen(pazStore)
 
   return (
-    <div>
-      <div>
-        <h3>条件を満たす確率: {pazStore.rate}%</h3>
-      </div>
-      <div>
-        <form className={selectClasses.root} autoComplete="off">
-          <FormControl className={selectClasses.formControl}>
-            <InputLabel>盤面</InputLabel>
-            <Select
-              native
-              value={banmen}
-              onChange={event =>
-                setBanmen(event.target.value as '56盤面' | '76盤面')
-              }
-              inputProps={{
-                name: 'banmen',
-                id: 'drop-color-simple'
-              }}
-            >
-              <option value="56盤面">56盤面</option>
-              <option value="76盤面">76盤面</option>
-            </Select>
-          </FormControl>
-          <PazButton
-            btnName="計算を実行"
-            onClick={() => pazStore.calcParallelInStoreCondition()}
-          ></PazButton>
-        </form>
-      </div>
+    <Grid container alignItems="center" justify="center">
+      <Grid item xs={6}>
+        <div>
+          <h3>条件を満たす確率: {pazStore.rate}%</h3>
+        </div>
+        <div>
+          <form className={selectClasses.root} autoComplete="off">
+            <FormControl className={selectClasses.formControl}>
+              <InputLabel>盤面</InputLabel>
+              <Select
+                native
+                value={banmen}
+                onChange={event =>
+                  setBanmen(event.target.value as '56盤面' | '76盤面')
+                }
+                inputProps={{
+                  name: 'banmen',
+                  id: 'drop-color-simple'
+                }}
+              >
+                <option value="56盤面">56盤面</option>
+                <option value="76盤面">76盤面</option>
+              </Select>
+            </FormControl>
+            <PazButton
+              btnName="計算を実行"
+              onClick={() => pazStore.calcParallelInStoreCondition()}
+            ></PazButton>
+          </form>
+        </div>
+      </Grid>
       <DropCondtions></DropCondtions>
-    </div>
+    </Grid>
   )
 })
 export default PazdoraCalTemplate
