@@ -35,6 +35,9 @@ const useSelectStyles = makeStyles((theme: Theme) =>
   })
 )
 
+/**
+ * ドロップ条件を追加したときの初期値
+ */
 const initDropCond = (): ConditionFactoryOptions => ({
   type: 'Drop',
   opt: {
@@ -44,6 +47,9 @@ const initDropCond = (): ConditionFactoryOptions => ({
   }
 })
 
+/**
+ * コンボ条件を追加したときの初期値
+ */
 const initComboCond = (): ConditionFactoryOptions => ({
   type: 'Combo',
   opt: {
@@ -53,6 +59,9 @@ const initComboCond = (): ConditionFactoryOptions => ({
   }
 })
 
+/**
+ * 多色条件を追加したときの初期値
+ */
 const initMultiColorCond = (): ConditionFactoryOptions => ({
   type: 'MultiColor',
   opt: {

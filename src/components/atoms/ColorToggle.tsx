@@ -4,16 +4,26 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import { DropColors } from '../../utils/pazdora-cal/ConditionTypes'
 
 type Props = {
+  /**
+   * 選ばれている色
+   */
   selectColor?: (keyof typeof DropColors)[]
-  setSelectColor: (colors: (keyof typeof DropColors)[]) => void
+  /**
+   * 色変更時に発火する処理
+   */
+  onSelectColor: (colors: (keyof typeof DropColors)[]) => void
 }
 
-const SectionToggle = (props: Props) => {
+/**
+ * 多色のときの色を選ぶコンポーネント
+ * @param props
+ */
+const ColorToggle = (props: Props) => {
   const handleColor = (
     _event: React.MouseEvent<HTMLElement>,
     newColors: (keyof typeof DropColors)[]
   ) => {
-    props.setSelectColor(newColors)
+    props.onSelectColor(newColors)
   }
 
   const children = [
@@ -49,4 +59,4 @@ const SectionToggle = (props: Props) => {
   )
 }
 
-export default SectionToggle
+export default ColorToggle

@@ -10,7 +10,7 @@ import {
   useCardStyles,
   useSelectStyles
 } from './DropCardBase'
-import SectionToggle from '../atoms/SectionToggle'
+import ColorToggle from '../atoms/ColorToggle'
 
 export default function MultiColorCard(props: DropCardProps) {
   const classes = useCardStyles()
@@ -27,9 +27,10 @@ export default function MultiColorCard(props: DropCardProps) {
           onClick={handleDelete}
         />
         <div>
-          <SectionToggle
+          {/* 色を選択するコンポーネント */}
+          <ColorToggle
             selectColor={props.condition.opt.includeDrops}
-            setSelectColor={includeColors =>
+            onSelectColor={includeColors =>
               props.setCondition({
                 ...props.condition,
                 opt: {
@@ -38,7 +39,7 @@ export default function MultiColorCard(props: DropCardProps) {
                 }
               })
             }
-          ></SectionToggle>
+          ></ColorToggle>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
               <InputLabel>ドロップの種類の最低数</InputLabel>
