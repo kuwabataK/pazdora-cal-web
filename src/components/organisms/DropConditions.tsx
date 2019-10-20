@@ -52,7 +52,8 @@ const initMultiColorCond = (): ConditionFactoryOptions => ({
 const marginStyle: CSSProperties = {
   marginTop: '10px',
   marginBottom: '10px',
-  marginLeft: '10px'
+  marginLeft: '10px',
+  marginRight: '10px'
 }
 
 /**
