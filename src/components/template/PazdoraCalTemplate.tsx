@@ -33,6 +33,16 @@ const useSelectStyles = makeStyles((theme: Theme) =>
   })
 )
 
+/**
+ * 上下左右にに幅を持たせるスタイル
+ */
+const marginStyle: React.CSSProperties = {
+  marginTop: '10px',
+  marginBottom: '10px',
+  marginLeft: '10px',
+  marginRight: '10px'
+}
+
 const PazdoraCalTemplate = observer(() => {
   /**
    * ページ遷移時にスレッドを作成しておく
@@ -51,10 +61,10 @@ const PazdoraCalTemplate = observer(() => {
   return (
     <Grid container alignItems="center" justify="center">
       <Grid item xs={12} sm={6}>
-        <div>
+        <div style={marginStyle}>
           <h3>　条件を満たす確率: {pazStore.rate}%</h3>
         </div>
-        <div>
+        <div style={marginStyle}>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
               <InputLabel>盤面</InputLabel>

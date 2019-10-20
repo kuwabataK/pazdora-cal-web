@@ -47,7 +47,7 @@ const initMultiColorCond = (): ConditionFactoryOptions => ({
 })
 
 /**
- * 上下に幅を持たせるスタイル
+ * 上下左右にに幅を持たせるスタイル
  */
 const marginStyle: CSSProperties = {
   marginTop: '10px',
