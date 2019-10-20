@@ -13,6 +13,23 @@ export type DropCardProps = {
  * @param props
  */
 export function generateDropFunc(props: DropCardProps) {
+  /**
+   * セレクトボックスで選択した名前の条件を変更する
+   * @param event セレクトボックスが変更された時に発火するイベント
+   */
+  function handleOptChange<T extends keyof ConditionFactoryOptions['opt']>(
+    name: T,
+    value: ConditionFactoryOptions['opt'][T]
+  ) {
+    props.setCondition({
+      ...props.condition,
+      opt: {
+        ...props.condition.opt,
+        [name]: value
+      }
+    })
+  }
+
   return {
     /**
      * カードの削除ボタンが押下された時に発火するメソッド
@@ -21,11 +38,12 @@ export function generateDropFunc(props: DropCardProps) {
       if (!props.deleteCondition) return
       props.deleteCondition(event)
     },
+    handleOptChange,
     /**
-     * 指定した名前の条件を変更する
+     * セレクトボックスで選択した名前の条件を変更する
      * @param event セレクトボックスが変更された時に発火するイベント
      */
-    handleOptChange: (
+    selectOpt: (
       event: React.ChangeEvent<{ name?: string; value: unknown }>
     ) => {
       props.setCondition({

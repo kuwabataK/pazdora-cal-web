@@ -17,7 +17,7 @@ export default function DropCard(props: DropCardProps) {
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
 
-  const { handleDelete, handleOptChange } = generateDropFunc(props)
+  const { handleDelete, selectOpt } = generateDropFunc(props)
 
   return (
     <Card className={classes.card}>
@@ -32,7 +32,7 @@ export default function DropCard(props: DropCardProps) {
             <Select
               native
               value={props.condition.opt.color}
-              onChange={handleOptChange}
+              onChange={selectOpt}
               inputProps={{
                 name: 'color',
                 id: 'drop-color-simple'
@@ -52,7 +52,7 @@ export default function DropCard(props: DropCardProps) {
             <Select
               native
               value={props.condition.opt.dropNum}
-              onChange={handleOptChange}
+              onChange={selectOpt}
               inputProps={{
                 name: 'dropNum',
                 id: 'drop-num-simple'
@@ -72,7 +72,7 @@ export default function DropCard(props: DropCardProps) {
             <Select
               native
               value={props.condition.opt.ope}
-              onChange={handleOptChange}
+              onChange={selectOpt}
               inputProps={{
                 name: 'ope',
                 id: 'drop-ope-simple'

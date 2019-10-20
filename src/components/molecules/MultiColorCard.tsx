@@ -25,7 +25,7 @@ export default function MultiColorCard(props: DropCardProps) {
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
 
-  const { handleDelete, handleOptChange } = generateDropFunc(props)
+  const { handleDelete, selectOpt, handleOptChange } = generateDropFunc(props)
 
   return (
     <Card className={classes.card}>
@@ -40,13 +40,7 @@ export default function MultiColorCard(props: DropCardProps) {
           <ColorToggle
             selectColor={props.condition.opt.includeDrops}
             onSelectColor={includeColors =>
-              props.setCondition({
-                ...props.condition,
-                opt: {
-                  ...props.condition.opt,
-                  includeDrops: includeColors
-                }
-              })
+              handleOptChange('includeDrops', includeColors)
             }
           ></ColorToggle>
           <form className={selectClasses.root} autoComplete="off">
@@ -55,7 +49,7 @@ export default function MultiColorCard(props: DropCardProps) {
               <Select
                 native
                 value={props.condition.opt.dropColorNum}
-                onChange={handleOptChange}
+                onChange={selectOpt}
                 inputProps={{
                   name: 'dropColorNum',
                   id: 'drop-color-num-simple'
@@ -79,7 +73,7 @@ export default function MultiColorCard(props: DropCardProps) {
               <Select
                 native
                 value={props.condition.opt.dropNum}
-                onChange={handleOptChange}
+                onChange={selectOpt}
                 inputProps={{
                   name: 'dropNum',
                   id: 'drop-num-simple'
@@ -99,7 +93,7 @@ export default function MultiColorCard(props: DropCardProps) {
               <Select
                 native
                 value={props.condition.opt.ope}
-                onChange={handleOptChange}
+                onChange={selectOpt}
                 inputProps={{
                   name: 'ope',
                   id: 'drop-ope-simple'
