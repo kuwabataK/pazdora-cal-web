@@ -64,7 +64,7 @@ const PazdoraCalTemplate = observer(() => {
 
   return (
     <Grid container alignItems="center" justify="center" style={background}>
-      <Grid item xs={12} sm={10} md={6} xl={4}>
+      <Grid item xs={12} sm={10} md={6} lg={4} xl={4}>
         <div style={marginStyle}>
           <h3>条件を満たす確率: {pazStore.rate}%</h3>
         </div>
