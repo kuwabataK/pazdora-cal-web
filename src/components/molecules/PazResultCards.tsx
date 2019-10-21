@@ -120,7 +120,7 @@ const PazResultCards = observer((props: Props) => {
               <Grid container alignItems="center" justify="center">
                 <Grid item>
                   <FormControl className={selectClasses.formControl}>
-                    <InputLabel>盤面</InputLabel>
+                    <InputLabel htmlFor={'banmen-select'}>盤面</InputLabel>
                     <Select
                       native
                       value={banmen}
@@ -129,7 +129,7 @@ const PazResultCards = observer((props: Props) => {
                       }
                       inputProps={{
                         name: 'banmen',
-                        id: 'drop-color-simple'
+                        id: 'banmen-select'
                       }}
                     >
                       <option value="56盤面">56盤面</option>

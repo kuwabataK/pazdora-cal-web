@@ -29,7 +29,9 @@ export default function ComboCard(props: DropCardProps) {
         <div className={classes.cardContents}>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>消せるドロップ数</InputLabel>
+              <InputLabel htmlFor={'drop-num-simple'}>
+                消せるドロップ数
+              </InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropNum}
@@ -49,7 +51,7 @@ export default function ComboCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>コンボ数</InputLabel>
+              <InputLabel htmlFor={'drop-color-simple'}>コンボ数</InputLabel>
               <Select
                 native
                 value={props.condition.opt.comboNum}
@@ -69,7 +71,7 @@ export default function ComboCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>条件</InputLabel>
+              <InputLabel htmlFor={'drop-ope-simple'}>条件</InputLabel>
               <Select
                 native
                 value={props.condition.opt.ope}

@@ -48,7 +48,9 @@ export default function MultiColorCard(props: DropCardProps) {
           ></ColorToggle>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>ドロップの種類</InputLabel>
+              <InputLabel htmlFor={'drop-color-num-simple'}>
+                ドロップの種類
+              </InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropColorNum}
@@ -72,7 +74,9 @@ export default function MultiColorCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>ドロップの個数</InputLabel>
+              <InputLabel htmlFor={'drop-num-simple'}>
+                ドロップの個数
+              </InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropNum}
@@ -92,7 +96,9 @@ export default function MultiColorCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>ドロップの個数</InputLabel>
+              <InputLabel htmlFor={'drop-ope-simple'}>
+                ドロップの個数
+              </InputLabel>
               <Select
                 native
                 value={props.condition.opt.ope}

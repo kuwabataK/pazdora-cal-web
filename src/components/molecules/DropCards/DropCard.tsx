@@ -31,7 +31,9 @@ export default function DropCard(props: DropCardProps) {
         <div className={classes.cardContents}>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>ドロップの色</InputLabel>
+              <InputLabel htmlFor={'drop-color-simple'}>
+                ドロップの色
+              </InputLabel>
               <Select
                 native
                 value={props.condition.opt.color}
@@ -51,7 +53,9 @@ export default function DropCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>ドロップの個数</InputLabel>
+              <InputLabel htmlFor={'drop-num-simple'}>
+                ドロップの個数
+              </InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropNum}
@@ -71,7 +75,7 @@ export default function DropCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>条件</InputLabel>
+              <InputLabel htmlFor={'drop-ope-simple'}>条件</InputLabel>
               <Select
                 native
                 value={props.condition.opt.ope}
