@@ -12,7 +12,7 @@ const PazdoraCal = () => {
   return (
     <div style={pageStyle}>
       <Head>
-        <title>パズドラ計算機</title>
+        <title>パズドラ盤面欠損率計算機</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
