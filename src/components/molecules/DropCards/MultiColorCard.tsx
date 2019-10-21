@@ -3,21 +3,29 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import { FormControl, InputLabel, Select } from '@material-ui/core'
-import { DropColors } from '../../utils/pazdora-cal/ConditionTypes'
-import { colorLang } from '../../filter/lang-filters'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import {
   DropCardProps,
   generateDropFunc,
-  useSelectStyles,
-  useCardStyles
+  useCardStyles,
+  useSelectStyles
 } from './DropCardBase'
+import ColorToggle from '../../atoms/ColorToggle'
 
-export default function DropCard(props: DropCardProps) {
+/**
+ * 引数に指定したinCludeDropsの数から選択肢に設定できるドロップの種類数を計算する
+ * @param includeDrops
+ */
+const maxDropColorNum = (includeDrops: string[] | undefined) => {
+  if (!includeDrops) return 0
+  return includeDrops.length
+}
+
+export default function MultiColorCard(props: DropCardProps) {
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
 
-  const { handleDelete, selectOpt } = generateDropFunc(props)
+  const { handleDelete, selectOpt, handleOptChange } = generateDropFunc(props)
 
   return (
     <Card className={classes.card}>
@@ -28,23 +36,36 @@ export default function DropCard(props: DropCardProps) {
             onClick={handleDelete}
           />
         </div>
+        {/* バツボタン */}
+
         <div className={classes.cardContents}>
+          {/* 色を選択するコンポーネント */}
+          <ColorToggle
+            selectColor={props.condition.opt.includeDrops}
+            onSelectColor={includeColors =>
+              handleOptChange('includeDrops', includeColors)
+            }
+          ></ColorToggle>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>ドロップの色</InputLabel>
+              <InputLabel>ドロップの種類</InputLabel>
               <Select
                 native
-                value={props.condition.opt.color}
+                value={props.condition.opt.dropColorNum}
                 onChange={selectOpt}
                 inputProps={{
-                  name: 'color',
-                  id: 'drop-color-simple'
+                  name: 'dropColorNum',
+                  id: 'drop-color-num-simple'
                 }}
               >
-                {Object.values(DropColors).map(val => {
+                {[
+                  ...new Array(
+                    maxDropColorNum(props.condition.opt.includeDrops)
+                  )
+                ].map((_val, i) => {
                   return (
-                    <option key={val} value={val}>
-                      {colorLang(val)}
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}種類以上
                     </option>
                   )
                 })}
@@ -71,7 +92,7 @@ export default function DropCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel>条件</InputLabel>
+              <InputLabel>ドロップの個数</InputLabel>
               <Select
                 native
                 value={props.condition.opt.ope}

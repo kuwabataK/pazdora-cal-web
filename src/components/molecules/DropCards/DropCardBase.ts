@@ -1,4 +1,4 @@
-import { ConditionFactoryOptions } from '../../utils/pazdora-cal/Condition'
+import { ConditionFactoryOptions } from '../../../utils/pazdora-cal/Condition'
 import { makeStyles, Theme, createStyles } from '@material-ui/core'
 
 export type DropCardProps = {
@@ -62,8 +62,13 @@ export function generateDropFunc(props: DropCardProps) {
  */
 export const useCardStyles = makeStyles({
   card: {
-    minWidth: 275,
-    maxWidth: 600
+    minWidth: 250,
+    width: 500,
+    maxWidth: 500,
+    marginTop: '10px',
+    marginBottom: '10px',
+    marginLeft: '10px',
+    marginRight: '10px'
   },
   bullet: {
     display: 'inline-block',
