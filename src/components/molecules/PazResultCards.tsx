@@ -111,7 +111,7 @@ const PazResultCards = observer((props: Props) => {
               justifyContent: 'center'
             }}
           >
-            <span style={{ fontSize: '45px' }}>
+            <span style={{ fontSize: '60px' }}>
               {parseRate(pazStore.rate)}%
             </span>
           </div>
