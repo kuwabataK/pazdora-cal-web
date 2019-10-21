@@ -35,7 +35,7 @@ export class PazdoraCalStore {
 
   @action
   addCondition(condition: ConditionFactoryOptions) {
-    this._conditions[0].push(condition)
+    this._conditions[0].unshift(condition)
     this._conditions = [...this._conditions]
   }
 
