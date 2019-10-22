@@ -14,7 +14,8 @@ const PazdoraCalTemplate = observer(() => {
    * ページ遷移時にスレッドを作成しておく
    */
   React.useEffect(() => {
-    store.pazdoraCalStore.pazCalControllStore.createThread(8)
+    // スレッド数を多くしすぎると、低スペック端末での動きが悪くなるので、4スレッドにしておく
+    store.pazdoraCalStore.pazCalControllStore.createThread(4)
     return () => store.pazdoraCalStore.pazCalControllStore.dispose()
   }, [])
 
