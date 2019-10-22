@@ -10,6 +10,9 @@ import {
   useCardStyles,
   useSelectStyles
 } from './DropCardBase'
+import { generateUUIDs } from '../../../utils/util'
+
+const ids = generateUUIDs(['dropNum', 'comboNum', 'ope'])
 
 export default function ComboCard(props: DropCardProps) {
   const classes = useCardStyles()
@@ -29,16 +32,14 @@ export default function ComboCard(props: DropCardProps) {
         <div className={classes.cardContents}>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-num-simple'}>
-                消せるドロップ数
-              </InputLabel>
+              <InputLabel htmlFor={ids.dropNum}>消せるドロップ数</InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropNum}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'dropNum',
-                  id: 'drop-num-simple'
+                  id: ids.dropNum
                 }}
               >
                 {[...new Array(31)].map((_val, i) => {
@@ -51,14 +52,14 @@ export default function ComboCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-color-simple'}>コンボ数</InputLabel>
+              <InputLabel htmlFor={ids.comboNum}>コンボ数</InputLabel>
               <Select
                 native
                 value={props.condition.opt.comboNum}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'comboNum',
-                  id: 'drop-color-simple'
+                  id: ids.comboNum
                 }}
               >
                 {[...new Array(14)].map((_val, i) => {
@@ -71,14 +72,14 @@ export default function ComboCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-ope-simple'}>条件</InputLabel>
+              <InputLabel htmlFor={ids.ope}>条件</InputLabel>
               <Select
                 native
                 value={props.condition.opt.ope}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'ope',
-                  id: 'drop-ope-simple'
+                  id: ids.ope
                 }}
               >
                 <option key="more" value="more">

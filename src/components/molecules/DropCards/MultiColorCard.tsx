@@ -11,6 +11,7 @@ import {
   useSelectStyles
 } from './DropCardBase'
 import ColorToggle from '../../atoms/ColorToggle'
+import { generateUUIDs } from '../../../utils/util'
 
 /**
  * 引数に指定したinCludeDropsの数から選択肢に設定できるドロップの種類数を計算する
@@ -20,6 +21,9 @@ const maxDropColorNum = (includeDrops: string[] | undefined) => {
   if (!includeDrops) return 0
   return includeDrops.length
 }
+
+// 一意なIDを３つ生成する
+const ids = generateUUIDs(['dropColorNum', 'dropNum', 'ope'])
 
 export default function MultiColorCard(props: DropCardProps) {
   const classes = useCardStyles()
@@ -48,16 +52,14 @@ export default function MultiColorCard(props: DropCardProps) {
           ></ColorToggle>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-color-num-simple'}>
-                ドロップの種類
-              </InputLabel>
+              <InputLabel htmlFor={ids.dropColorNum}>ドロップの種類</InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropColorNum}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'dropColorNum',
-                  id: 'drop-color-num-simple'
+                  id: ids.dropColorNum
                 }}
               >
                 {[
@@ -74,16 +76,14 @@ export default function MultiColorCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-num-simple'}>
-                ドロップの個数
-              </InputLabel>
+              <InputLabel htmlFor={ids.dropNum}>ドロップの個数</InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropNum}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'dropNum',
-                  id: 'drop-num-simple'
+                  id: ids.dropNum
                 }}
               >
                 {[...new Array(31)].map((_val, i) => {
@@ -96,16 +96,14 @@ export default function MultiColorCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-ope-simple'}>
-                ドロップの個数
-              </InputLabel>
+              <InputLabel htmlFor={ids.ope}>ドロップの個数</InputLabel>
               <Select
                 native
                 value={props.condition.opt.ope}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'ope',
-                  id: 'drop-ope-simple'
+                  id: ids.ope
                 }}
               >
                 <option key="more" value="more">

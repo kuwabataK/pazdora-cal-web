@@ -104,9 +104,8 @@ const DropCondtions = observer(() => {
         {conditions.map((cond, i) => {
           if (cond.type === 'Drop') {
             return (
-              <Grid container alignItems="center" justify="center">
+              <Grid key={i} container alignItems="center" justify="center">
                 <DropCard
-                  key={i}
                   condition={cond}
                   setCondition={newCond => setCondition(i, newCond)}
                   deleteCondition={() => deleteCond(i)}
@@ -115,9 +114,8 @@ const DropCondtions = observer(() => {
             )
           } else if (cond.type === 'Combo') {
             return (
-              <Grid container alignItems="center" justify="center">
+              <Grid key={i} container alignItems="center" justify="center">
                 <ComboCard
-                  key={i}
                   condition={cond}
                   setCondition={newCond => setCondition(i, newCond)}
                   deleteCondition={() => deleteCond(i)}
@@ -126,9 +124,8 @@ const DropCondtions = observer(() => {
             )
           } else if (cond.type === 'MultiColor') {
             return (
-              <Grid container alignItems="center" justify="center">
+              <Grid key={i} container alignItems="center" justify="center">
                 <MultiColorCard
-                  key={i}
                   condition={cond}
                   setCondition={newCond => setCondition(i, newCond)}
                   deleteCondition={() => deleteCond(i)}

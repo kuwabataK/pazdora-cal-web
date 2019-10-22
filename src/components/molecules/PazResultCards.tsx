@@ -15,6 +15,7 @@ import PazButton from '../atoms/PazButton'
 import { PazdoraCalStore } from '../../store/PazdoraCalStore'
 import { useBanmen } from '../../custom-hook/pazhooks'
 import { observer } from 'mobx-react'
+import { generateUUIDs } from '../../utils/util'
 
 /**
  * カードのスタイル
@@ -78,6 +79,8 @@ const useSelectStyles = makeStyles((theme: Theme) =>
   })
 )
 
+const ids = generateUUIDs(['banmen'])
+
 type Props = {
   pazStore: PazdoraCalStore
 }
@@ -120,7 +123,7 @@ const PazResultCards = observer((props: Props) => {
               <Grid container alignItems="center" justify="center">
                 <Grid item>
                   <FormControl className={selectClasses.formControl}>
-                    <InputLabel htmlFor={'banmen-select'}>盤面</InputLabel>
+                    <InputLabel htmlFor={ids.banmen}>盤面</InputLabel>
                     <Select
                       native
                       value={banmen}
@@ -129,7 +132,7 @@ const PazResultCards = observer((props: Props) => {
                       }
                       inputProps={{
                         name: 'banmen',
-                        id: 'banmen-select'
+                        id: ids.banmen
                       }}
                     >
                       <option value="56盤面">56盤面</option>

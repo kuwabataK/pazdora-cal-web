@@ -12,6 +12,10 @@ import {
   useSelectStyles,
   useCardStyles
 } from './DropCardBase'
+import { generateUUIDs } from '../../../utils/util'
+
+// 一意なIDを生成する
+const ids = generateUUIDs(['color', 'dropNum', 'ope'])
 
 export default function DropCard(props: DropCardProps) {
   const classes = useCardStyles()
@@ -31,16 +35,14 @@ export default function DropCard(props: DropCardProps) {
         <div className={classes.cardContents}>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-color-simple'}>
-                ドロップの色
-              </InputLabel>
+              <InputLabel htmlFor={ids.color}>ドロップの色</InputLabel>
               <Select
                 native
                 value={props.condition.opt.color}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'color',
-                  id: 'drop-color-simple'
+                  id: ids.color
                 }}
               >
                 {Object.values(DropColors).map(val => {
@@ -53,16 +55,14 @@ export default function DropCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-num-simple'}>
-                ドロップの個数
-              </InputLabel>
+              <InputLabel htmlFor={ids.dropNum}>ドロップの個数</InputLabel>
               <Select
                 native
                 value={props.condition.opt.dropNum}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'dropNum',
-                  id: 'drop-num-simple'
+                  id: ids.dropNum
                 }}
               >
                 {[...new Array(31)].map((_val, i) => {
@@ -75,14 +75,14 @@ export default function DropCard(props: DropCardProps) {
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>
-              <InputLabel htmlFor={'drop-ope-simple'}>条件</InputLabel>
+              <InputLabel htmlFor={ids.ope}>条件</InputLabel>
               <Select
                 native
                 value={props.condition.opt.ope}
                 onChange={selectOpt}
                 inputProps={{
                   name: 'ope',
-                  id: 'drop-ope-simple'
+                  id: ids.ope
                 }}
               >
                 <option key="more" value="more">
