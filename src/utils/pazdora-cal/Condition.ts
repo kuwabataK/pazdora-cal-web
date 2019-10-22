@@ -5,9 +5,22 @@ import { Partial } from '../utilty-types'
 
 abstract class BaseCondition {
   /**
+   * 継承先のクラスコンストラクタの引数で指定されたobjを自分自身にマージするためのメソッド
+   * 継承先のコンストラクタの中で呼び出す
+   * @param self 自分自身。thisを指定する
+   * @param obj マージするObject
+   */
+  protected readonly merge = (self: any, obj?: { [key: string]: any }) => {
+    if (!obj) return
+    Object.keys(obj).forEach(key => {
+      self[key] = obj[key]
+    })
+  }
+
+  /**
    * 自分自身のシャローコピーを返します
    */
-  clone(): this {
+  readonly clone = (): this => {
     return { ...this, __proto__: (this as any).__proto__ }
   }
 }
@@ -55,11 +68,7 @@ export class ConditionFactory {
 export class DropCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<DropCondition>) {
     super()
-    if (opt) {
-      this.color = opt.color || 'red'
-      this.dropNum = opt.dropNum || 3
-      this.ope = opt.ope || 'more'
-    }
+    this.merge(this, opt)
   }
 
   /**
@@ -71,7 +80,7 @@ export class DropCondition extends BaseCondition implements Condition {
    * 指定色の数
    */
   dropNum = 3
-  isValid(field: GenerateFieldStatsReturn) {
+  readonly isValid = (field: GenerateFieldStatsReturn) => {
     switch (this.ope) {
       case 'more':
         return field[this.color] >= this.dropNum
@@ -89,16 +98,12 @@ export class DropCondition extends BaseCondition implements Condition {
 export class ComboCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<ComboCondition>) {
     super()
-    if (opt) {
-      this.comboNum = opt.comboNum || 7
-      this.ope = opt.ope || 'more'
-      this.dropNum = opt.dropNum || 3
-    }
+    this.merge(this, opt)
   }
   dropNum = 3
   ope: 'more' | 'less' = 'more'
   comboNum = 7
-  isValid(field: GenerateFieldStatsReturn) {
+  readonly isValid = (field: GenerateFieldStatsReturn) => {
     switch (this.ope) {
       case 'more':
         return (
@@ -124,12 +129,7 @@ export class ComboCondition extends BaseCondition implements Condition {
 export class MultiColorCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<MultiColorCondition>) {
     super()
-    if (opt) {
-      this.dropColorNum = opt.dropColorNum || 5
-      this.includeDrops = opt.includeDrops || Object.values(DropColors)
-      this.ope = opt.ope || 'more'
-      this.dropNum = opt.dropNum || 3
-    }
+    this.merge(this, opt)
   }
   /**
    * moreを指定すると、指定したDropの数よりも多い時にisValidがtrueを返す
@@ -148,7 +148,8 @@ export class MultiColorCondition extends BaseCondition implements Condition {
    * 観測するDropの種類を指定する
    */
   includeDrops: DropColor[] = Object.values(DropColors)
-  isValid(field: GenerateFieldStatsReturn) {
+
+  readonly isValid = (field: GenerateFieldStatsReturn) => {
     switch (this.ope) {
       case 'more': {
         const f = (Object.keys(field) as DropColor[])
@@ -174,5 +175,5 @@ export interface Condition {
   /**
    * オブジェクトの変数に設定した条件に、引数に指定した盤面が合致しているかどうかを返す
    */
-  isValid: (field: GenerateFieldStatsReturn) => boolean
+  readonly isValid: (field: GenerateFieldStatsReturn) => boolean
 }
