@@ -6,7 +6,10 @@ import {
 } from '../../utils/pazdora-cal/pazdora-cal'
 import AsyncLock from 'async-lock'
 import { PostMessageData } from './pazdora-cal.worker'
-import { ConditionFactoryOptions } from '../../utils/pazdora-cal/Condition'
+import {
+  ConditionFactoryOptions,
+  ConditionClasses
+} from '../../utils/pazdora-cal/Condition'
 
 /**
  * pazdora-workerを管理するためのクラス
@@ -97,7 +100,7 @@ export default class PazdoraCalWorkerController {
    */
   async parallelCalc(
     option: GenerateFieldOptions = {},
-    conditions: ConditionFactoryOptions[][]
+    conditions: ConditionFactoryOptions<keyof ConditionClasses>[][]
   ): Promise<CalcReturn> {
     if (!option.loopCnt) throw new Error('ループ回数が設定されていません')
     return await this.asyncLock.acquire<CalcReturn>('pazdora', async () => {

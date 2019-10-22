@@ -1,5 +1,8 @@
 import React from 'react'
-import { ConditionFactoryOptions } from '../../utils/pazdora-cal/Condition'
+import {
+  ConditionFactoryOptions,
+  ConditionClasses
+} from '../../utils/pazdora-cal/Condition'
 import store from '../../store/store'
 import DropCard from '../molecules/DropCards/DropCard'
 import ComboCard from '../molecules/DropCards/ComboCard'
@@ -11,7 +14,7 @@ import AddButton from '../atoms/AddButton'
 /**
  * ドロップ条件を追加したときの初期値
  */
-const initDropCond = (): ConditionFactoryOptions => ({
+const initDropCond = (): ConditionFactoryOptions<'Drop'> => ({
   type: 'Drop',
   opt: {
     color: 'red',
@@ -23,7 +26,7 @@ const initDropCond = (): ConditionFactoryOptions => ({
 /**
  * コンボ条件を追加したときの初期値
  */
-const initComboCond = (): ConditionFactoryOptions => ({
+const initComboCond = (): ConditionFactoryOptions<'Combo'> => ({
   type: 'Combo',
   opt: {
     comboNum: 7,
@@ -35,7 +38,7 @@ const initComboCond = (): ConditionFactoryOptions => ({
 /**
  * 多色条件を追加したときの初期値
  */
-const initMultiColorCond = (): ConditionFactoryOptions => ({
+const initMultiColorCond = (): ConditionFactoryOptions<'MultiColor'> => ({
   type: 'MultiColor',
   opt: {
     dropNum: 3,
@@ -80,7 +83,7 @@ const DropCondtions = observer(() => {
    */
   const setCondition = (
     index: number,
-    newcondition: ConditionFactoryOptions
+    newcondition: ConditionFactoryOptions<keyof ConditionClasses>
   ) => {
     pazStore.setCondition(index, newcondition)
   }
@@ -102,11 +105,12 @@ const DropCondtions = observer(() => {
       </Grid>
       <Grid container alignItems="center" justify="center">
         {conditions.map((cond, i) => {
+          cond = cond as ConditionFactoryOptions<keyof ConditionClasses>
           if (cond.type === 'Drop') {
             return (
               <Grid key={i} container alignItems="center" justify="center">
                 <DropCard
-                  condition={cond}
+                  condition={cond as ConditionFactoryOptions<'Drop'>}
                   setCondition={newCond => setCondition(i, newCond)}
                   deleteCondition={() => deleteCond(i)}
                 />
@@ -116,7 +120,7 @@ const DropCondtions = observer(() => {
             return (
               <Grid key={i} container alignItems="center" justify="center">
                 <ComboCard
-                  condition={cond}
+                  condition={cond as ConditionFactoryOptions<'Combo'>}
                   setCondition={newCond => setCondition(i, newCond)}
                   deleteCondition={() => deleteCond(i)}
                 />
@@ -126,7 +130,7 @@ const DropCondtions = observer(() => {
             return (
               <Grid key={i} container alignItems="center" justify="center">
                 <MultiColorCard
-                  condition={cond}
+                  condition={cond as ConditionFactoryOptions<'MultiColor'>}
                   setCondition={newCond => setCondition(i, newCond)}
                   deleteCondition={() => deleteCond(i)}
                 />

@@ -1,6 +1,9 @@
 import PazdoraCalController from '../workers/pazdora-cal/pazdora-cal-worker-controller'
 import { GenerateFieldOptions } from '../utils/pazdora-cal/pazdora-cal'
-import { ConditionFactoryOptions } from '../utils/pazdora-cal/Condition'
+import {
+  ConditionFactoryOptions,
+  ConditionClasses
+} from '../utils/pazdora-cal/Condition'
 
 export class PazCalControllStore {
   // 計算用のスレッドを管理するためのクラスのインスタンス
@@ -18,7 +21,7 @@ export class PazCalControllStore {
    */
   calcParallel(
     option: GenerateFieldOptions,
-    conditions: ConditionFactoryOptions[][]
+    conditions: ConditionFactoryOptions<keyof ConditionClasses>[][]
   ) {
     if (!this.pazdoraCalController) {
       throw new Error('計算用のWebWorkerコントローラーが生成されていません')

@@ -83,7 +83,7 @@ const PazdoraCal2: React.FC = observer(() => {
   const calc = async () => {
     if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
 
-    const cond1: ConditionFactoryOptions = {
+    const cond1: ConditionFactoryOptions<'Drop'> = {
       type: 'Drop',
       opt: {
         color: 'red',
@@ -92,7 +92,7 @@ const PazdoraCal2: React.FC = observer(() => {
       }
     }
 
-    const cond2: ConditionFactoryOptions = {
+    const cond2: ConditionFactoryOptions<'Drop'> = {
       type: 'Drop',
       opt: {
         color: 'blue',
@@ -124,7 +124,7 @@ const PazdoraCal2: React.FC = observer(() => {
   const calc2 = async () => {
     if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
 
-    const cond1: ConditionFactoryOptions = {
+    const cond1: ConditionFactoryOptions<'Drop'> = {
       type: 'Drop',
       opt: {
         color: 'red',
@@ -133,7 +133,7 @@ const PazdoraCal2: React.FC = observer(() => {
       }
     }
 
-    const cond2: ConditionFactoryOptions = {
+    const cond2: ConditionFactoryOptions<'Drop'> = {
       type: 'Drop',
       opt: {
         color: 'blue',
@@ -165,7 +165,7 @@ const PazdoraCal2: React.FC = observer(() => {
   const calc3 = async () => {
     if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
 
-    const cond1: ConditionFactoryOptions = {
+    const cond1: ConditionFactoryOptions<'Combo'> = {
       type: 'Combo',
       opt: {
         comboNum: 8,
@@ -194,7 +194,7 @@ const PazdoraCal2: React.FC = observer(() => {
   const calc4 = async () => {
     if (!store.pazdoraCalStore.pazCalControllStore.pazdoraCalController) return
 
-    const cond1: ConditionFactoryOptions = {
+    const cond1: ConditionFactoryOptions<'MultiColor'> = {
       type: 'MultiColor',
       opt: {
         dropNum: 5,
@@ -203,7 +203,7 @@ const PazdoraCal2: React.FC = observer(() => {
         ope: 'more'
       }
     }
-    const cond2: ConditionFactoryOptions = {
+    const cond2: ConditionFactoryOptions<'Drop'> = {
       type: 'Drop',
       opt: {
         dropNum: 3,
@@ -212,7 +212,7 @@ const PazdoraCal2: React.FC = observer(() => {
       }
     }
 
-    const cond3: ConditionFactoryOptions = {
+    const cond3: ConditionFactoryOptions<'Drop'> = {
       type: 'Drop',
       opt: {
         dropNum: 3,

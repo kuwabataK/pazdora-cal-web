@@ -1,9 +1,13 @@
-import { ConditionFactoryOptions } from '../../../utils/pazdora-cal/Condition'
+import {
+  ConditionFactoryOptions,
+  ConditionClasses
+} from '../../../utils/pazdora-cal/Condition'
 import { makeStyles, Theme, createStyles } from '@material-ui/core'
+import { ValueOf } from '../../../utils/utilty-types'
 
-export type DropCardProps = {
-  condition: ConditionFactoryOptions
-  setCondition: (newCondition: ConditionFactoryOptions) => void
+export type DropCardProps<T extends keyof ConditionClasses> = {
+  condition: ConditionFactoryOptions<T>
+  setCondition: (newCondition: ConditionFactoryOptions<T>) => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   deleteCondition?: (event: any) => void
 }
@@ -12,14 +16,16 @@ export type DropCardProps = {
  * DropCard系のコンポーネントで共通で使用するメソッドを抽出
  * @param props
  */
-export function generateDropFunc(props: DropCardProps) {
+export function generateDropFunc<T extends keyof ConditionClasses>(
+  props: DropCardProps<T>
+) {
   /**
    * セレクトボックスで選択した名前の条件を変更する
    * @param event セレクトボックスが変更された時に発火するイベント
    */
-  function handleOptChange<T extends keyof ConditionFactoryOptions['opt']>(
-    name: T,
-    value: ConditionFactoryOptions['opt'][T]
+  function handleOptChange(
+    name: keyof ConditionFactoryOptions<T>['opt'],
+    value: ValueOf<ConditionFactoryOptions<T>['opt']>
   ) {
     props.setCondition({
       ...props.condition,

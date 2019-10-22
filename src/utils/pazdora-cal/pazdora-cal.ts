@@ -1,7 +1,8 @@
 import {
   Condition,
   ConditionFactoryOptions,
-  ConditionFactory
+  ConditionFactory,
+  ConditionClasses
 } from './Condition'
 export type GenerateFieldOptions = {
   width?: number
@@ -63,7 +64,7 @@ export default class PazdoraCal {
    * @param fields
    */
   static calcUseFactory(
-    condition: ConditionFactoryOptions[][],
+    condition: ConditionFactoryOptions<keyof ConditionClasses>[][],
     fields: GenerateFieldStatsReturn[]
   ) {
     const conds = condition.map(cond =>

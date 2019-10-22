@@ -2,7 +2,10 @@ import {
   GenerateFieldOptions,
   CalcReturn
 } from '../utils/pazdora-cal/pazdora-cal'
-import { ConditionFactoryOptions } from '../utils/pazdora-cal/Condition'
+import {
+  ConditionFactoryOptions,
+  ConditionClasses
+} from '../utils/pazdora-cal/Condition'
 import { observable, action, computed, toJS } from 'mobx'
 import { PazCalControllStore } from './PazCalControllStore'
 
@@ -12,14 +15,16 @@ export class PazdoraCalStore {
   /**
    * 計算ページで管理しているリーダースキルの条件
    */
-  @observable private _conditions: ConditionFactoryOptions[][] = [[]]
+  @observable private _conditions: ConditionFactoryOptions<
+    keyof ConditionClasses
+  >[][] = [[]]
 
   /**
    * 計算するリーダースキルの条件を指定する
    * @param conditions
    */
   @action
-  setConditions(conditions: ConditionFactoryOptions[]) {
+  setConditions(conditions: ConditionFactoryOptions<keyof ConditionClasses>[]) {
     this._conditions[0] = conditions
     this._conditions = [...this._conditions]
   }
@@ -28,13 +33,16 @@ export class PazdoraCalStore {
    * 指定した条件を更新する
    */
   @action
-  setCondition(index: number, condition: ConditionFactoryOptions) {
+  setCondition(
+    index: number,
+    condition: ConditionFactoryOptions<keyof ConditionClasses>
+  ) {
     this._conditions[0][index] = condition
     this._conditions = [...this._conditions]
   }
 
   @action
-  addCondition(condition: ConditionFactoryOptions) {
+  addCondition(condition: ConditionFactoryOptions<keyof ConditionClasses>) {
     this._conditions[0].unshift(condition)
     this._conditions = [...this._conditions]
   }

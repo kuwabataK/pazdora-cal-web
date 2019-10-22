@@ -17,7 +17,7 @@ import { generateUUIDs } from '../../../utils/util'
 // 一意なIDを生成する
 const ids = generateUUIDs(['color', 'dropNum', 'ope'])
 
-export default function DropCard(props: DropCardProps) {
+export default function DropCard(props: DropCardProps<'Drop'>) {
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
 

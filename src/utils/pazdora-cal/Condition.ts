@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GenerateFieldStatsReturn } from './pazdora-cal'
 import { DropColors } from './ConditionTypes'
+import { Partial } from '../utilty-types'
 
 abstract class BaseCondition {
   /**
@@ -11,28 +12,18 @@ abstract class BaseCondition {
   }
 }
 
-export type ConditionFactoryOptions = {
-  type: 'Drop' | 'Combo' | 'MultiColor'
-  opt: {
-    /**
-     * 対象のドロップの個数
-     */
-    dropNum?: number
-    /**
-     * 候補となるドロップの種類
-     */
-    includeDrops?: DropColor[]
-    /**
-     * 候補となるドロップの種類が何種類あれば良いかを指定
-     */
-    dropColorNum?: number
-    /**
-     * コンボ数
-     */
-    comboNum?: number
-    color?: DropColor
-    ope?: 'more' | 'less'
-  }
+/**
+ * Conditionの候補となるクラスたちを定義した型
+ */
+export type ConditionClasses = {
+  Drop: DropCondition
+  Combo: ComboCondition
+  MultiColor: MultiColorCondition
+}
+
+export type ConditionFactoryOptions<T extends keyof ConditionClasses> = {
+  type: T
+  opt: Partial<ConditionClasses[T]>
 }
 
 /**
@@ -40,14 +31,18 @@ export type ConditionFactoryOptions = {
  * worker側でConditionを作成できるようにするためのFactoryクラス
  */
 export class ConditionFactory {
-  static createCondition(options: ConditionFactoryOptions) {
+  static createCondition<T extends keyof ConditionClasses>(
+    options: ConditionFactoryOptions<T>
+  ) {
     switch (options.type) {
       case 'Drop':
-        return new DropCondition(options.opt)
+        return new DropCondition(options.opt as Partial<DropCondition>)
       case 'Combo':
-        return new ComboCondition(options.opt)
+        return new ComboCondition(options.opt as Partial<ComboCondition>)
       case 'MultiColor':
-        return new MultiColorCondition(options.opt)
+        return new MultiColorCondition(options.opt as Partial<
+          MultiColorCondition
+        >)
       default:
         break
     }
@@ -58,7 +53,7 @@ export class ConditionFactory {
  * 特定の色のドロップの数を数えて、指定した条件に一致するかどうかを判定するためのクラス
  */
 export class DropCondition extends BaseCondition implements Condition {
-  constructor(opt?: ConditionFactoryOptions['opt']) {
+  constructor(opt?: Partial<DropCondition>) {
     super()
     if (opt) {
       this.color = opt.color || 'red'
@@ -92,7 +87,7 @@ export class DropCondition extends BaseCondition implements Condition {
  * 盤面にコンボが存在するかどうかを計算するためのクラス
  */
 export class ComboCondition extends BaseCondition implements Condition {
-  constructor(opt?: ConditionFactoryOptions['opt']) {
+  constructor(opt?: Partial<ComboCondition>) {
     super()
     if (opt) {
       this.comboNum = opt.comboNum || 7
@@ -127,7 +122,7 @@ export class ComboCondition extends BaseCondition implements Condition {
  * 多色の欠損率を計算するためのクラス
  */
 export class MultiColorCondition extends BaseCondition implements Condition {
-  constructor(opt?: ConditionFactoryOptions['opt']) {
+  constructor(opt?: Partial<MultiColorCondition>) {
     super()
     if (opt) {
       this.dropColorNum = opt.dropColorNum || 5

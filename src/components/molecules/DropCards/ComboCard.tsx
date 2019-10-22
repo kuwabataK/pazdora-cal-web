@@ -14,7 +14,7 @@ import { generateUUIDs } from '../../../utils/util'
 
 const ids = generateUUIDs(['dropNum', 'comboNum', 'ope'])
 
-export default function ComboCard(props: DropCardProps) {
+export default function ComboCard(props: DropCardProps<'Combo'>) {
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
 
