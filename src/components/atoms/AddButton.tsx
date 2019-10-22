@@ -34,7 +34,7 @@ export default function AddButton(props: Props) {
       onClick={props.onClick}
       size="small"
     >
-      <AddIcon></AddIcon>
+      <AddIcon style={{ fontSize: 15 }}></AddIcon>
       {props.btnName}
     </Button>
   )
