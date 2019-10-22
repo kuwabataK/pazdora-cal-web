@@ -10,16 +10,16 @@ const background: React.CSSProperties = {
 }
 
 const PazdoraCalTemplate = observer(() => {
+  const pazStore = store.pazdoraCalStore
+
   /**
    * ページ遷移時にスレッドを作成しておく
    */
   React.useEffect(() => {
     // スレッド数を多くしすぎると、低スペック端末での動きが悪くなるので、4スレッドにしておく
-    store.pazdoraCalStore.pazCalControllStore.createThread(4)
-    return () => store.pazdoraCalStore.pazCalControllStore.dispose()
+    pazStore.pazCalControllStore.createThread(4)
+    return () => pazStore.pazCalControllStore.dispose()
   }, [])
-
-  const pazStore = store.pazdoraCalStore
 
   return (
     <Grid container alignItems="center" justify="center" style={background}>
