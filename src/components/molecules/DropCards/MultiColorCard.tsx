@@ -107,10 +107,10 @@ export default function MultiColorCard(props: DropCardProps) {
                 }}
               >
                 <option key="more" value="more">
-                  より多い
+                  以上
                 </option>
                 <option key="less" value="less">
-                  より少ない
+                  以下
                 </option>
               </Select>
             </FormControl>
