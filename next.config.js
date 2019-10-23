@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const WorkboxPlugin = require('workbox-webpack-plugin')
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+
+const cacheId = 'pazdora-cal'
+
 module.exports = {
   webpack(config) {
     config.plugins.push(
       new WorkboxPlugin.GenerateSW({
-        cacheId: 'workbox',
+        cacheId: cacheId,
         swDest: 'service-worker.js',
         importWorkboxFrom: "local",
         globDirectory: "/",
