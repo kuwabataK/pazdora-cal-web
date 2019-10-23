@@ -1,10 +1,9 @@
 import React from 'react'
-import App, { Container } from 'next/app'
+import App from 'next/app'
 import Head from 'next/head'
 import { ThemeProvider } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '../src/theme'
-import WorkBoxSupport from '../src/components/WorkBoxSupport'
 
 export default class MyApp extends App {
   componentDidMount() {
@@ -26,10 +25,7 @@ export default class MyApp extends App {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Container>
-            <Component {...pageProps} />
-            <WorkBoxSupport />
-          </Container>
+          <Component {...pageProps} />
         </ThemeProvider>
       </React.Fragment>
     )
