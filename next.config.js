@@ -7,24 +7,37 @@ module.exports = {
       new WorkboxPlugin.GenerateSW({
         cacheId: 'workbox',
         swDest: 'service-worker.js',
+        importWorkboxFrom: "local",
+        globDirectory: "/",
+        globPatterns: [],
         skipWaiting: true,
         clientsClaim: false,
         runtimeCaching: [
           {
-            urlPattern: '/',
-            handler: 'CacheFirst',
+            urlPattern: /.+(\/|.html)$/,
+            handler: 'NetworkFirst',
             options: {
-              cacheName: 'page',
+              cacheName: cacheId + '-html-cache',
               expiration: {
-                maxAgeSeconds: 60 * 60 * 24
+                maxAgeSeconds: 60 * 60 * 24 * 7
               }
             }
           },
           {
-            urlPattern: /\.(png|svg|woff|ttf|eot)/,
+            urlPattern: /.+\.(js|css|woff)$/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'assets',
+              cacheName: cacheId + '-dependent-cache',
+              expiration: {
+                maxAgeSeconds: 60 * 60 * 24 * 90
+              }
+            }
+          },
+          {
+            urlPattern: /\.(png|svg|ttf|eot)/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'image-cache',
               expiration: {
                 maxAgeSeconds: 60 * 60 * 24 * 14
               }
