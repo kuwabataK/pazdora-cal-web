@@ -10,7 +10,6 @@ module.exports = {
       new WorkboxPlugin.GenerateSW({
         cacheId: cacheId,
         swDest: 'service-worker.js',
-        importWorkboxFrom: "local",
         globDirectory: "/",
         globPatterns: [],
         skipWaiting: true,
