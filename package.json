@@ -7,7 +7,8 @@
     "start": "next start",
     "export": "next export",
     "copySW": "cp .next/service-worker.js out/service-worker.js && cp .next/precache* out/ && cp .next/build-manifest.json out/build-manifest.json",
-    "deploy": "npm run build && npm run export && npm run copySW",
+    "sedBM": "node replace-bm.js",
+    "deploy": "npm run build && npm run export && npm run copySW && npm run sedBM",
     "type-check": "tsc",
     "lint": "eslint src/** pages/** --ext .ts,.tsx",
     "lint:fix": "npx lint --fix"
