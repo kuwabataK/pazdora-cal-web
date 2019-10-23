@@ -12,8 +12,6 @@ module.exports = {
         swDest: 'service-worker.js',
         globDirectory: "/",
         globPatterns: [],
-        skipWaiting: true,
-        clientsClaim: false,
         runtimeCaching: [
           {
             urlPattern: /.+(\/|.html)$/,
