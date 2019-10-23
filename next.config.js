@@ -12,7 +12,7 @@ module.exports = {
         runtimeCaching: [
           {
             urlPattern: '/',
-            handler: 'NetworkFirst',
+            handler: 'CacheFirst',
             options: {
               cacheName: 'page',
               expiration: {
