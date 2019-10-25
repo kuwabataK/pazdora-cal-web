@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GenerateFieldStatsReturn } from './pazdora-cal'
 import { DropColors } from './ConditionTypes'
-import { Partial } from '../utilty-types'
 
 abstract class BaseCondition {
   /**
