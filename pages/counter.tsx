@@ -3,15 +3,23 @@ import Link from 'next/link'
 import Layout from '../src/components/template/Layout'
 import store from '../src/store/store'
 import { observer } from 'mobx-react'
-import { usePrevious } from '../src/utils/react-hooks'
+import { usePrevious, useWatch } from '../src/utils/react-hooks'
 
 const CounterPage: React.FunctionComponent = observer(() => {
   const preCnt = usePrevious(store.counterStore.objectCounter, {
     deepCopy: true
   })
+
   // const preCnt = usePrevious(store.counterStore.objectCounter)
   console.log(preCnt && preCnt.counter)
   console.log(preCnt && preCnt.deepcnt.counter)
+
+  const [other, setOther] = React.useState(0)
+  const preOther = usePrevious(other)
+  React.useEffect(() => {
+    console.log('otherは' + other)
+    console.log('preOtherは' + preOther)
+  }, [other])
 
   const increment: () => void = () => {
     store.counterStore.incrementObj()
@@ -29,12 +37,17 @@ const CounterPage: React.FunctionComponent = observer(() => {
     store.counterStore.decrementDeep()
   }
 
+  useWatch(() => {
+    console.log('watchが発火')
+  }, [store.counterStore.objectCounter.counter])
+
   return (
     <Layout title="カウンターページ | Next.js + TypeScript Example">
       <h1>カウンターページ</h1>
       <p>mobxを使ったカウンターページのサンプルです</p>
       <p>{store.counterStore.objectCounter.counter}</p>
       <p>deep: {store.counterStore.objectCounter.deepcnt.counter}</p>
+      <button onClick={() => setOther(other + 1)}>他の値を更新</button>
       <button onClick={increment}>+</button>
       <button onClick={decrement}>-</button>
       <button onClick={incrementDeep}>deep+</button>

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
 
 /**
@@ -14,21 +14,40 @@ export function usePrevious<T>(
   value: T,
   option: UsePreviousOption = {}
 ): T | undefined {
-  const _value = option.deepCopy ? cloneDeep(value) : value
-
-  // The ref object is a generic container whose current property is mutable ...
-  // ... and can hold any value, similar to an instance property on a class
   const ref = useRef<T>()
 
-  // Store current value in ref
   useEffect(() => {
+    const _value = option.deepCopy ? cloneDeep(value) : value
     ref.current = _value
-  }, [_value]) // Only re-run if value changes
+  }, [value])
 
-  // Return previous value (happens before update in useEffect above)
   return (ref.current as unknown) as T
 }
 
 interface UsePreviousOption {
   deepCopy?: boolean
+}
+
+/**
+ * マウントのときに発火しないuseEffectを提供します
+ * アンマウント時に実行する処理を指定することはできません
+ * @param func 実行する処理
+ * @param arr 監視対象の値の配列
+ */
+export function useWatch(
+  func: () => void | undefined,
+  arr: any[],
+  onDestroy: () => void | undefined = () => {}
+) {
+  const [afterMountd, setMounted] = useState(false)
+  useEffect(() => {
+    if (afterMountd) {
+      func()
+    } else {
+      setMounted(true)
+    }
+  }, arr)
+  useEffect(() => {
+    return onDestroy
+  }, [])
 }
