@@ -5,7 +5,7 @@ import {
 import {
   ConditionFactoryOptions,
   ConditionClasses
-} from '../utils/pazdora-cal/Condition'
+} from '../utils/pazdora-cal/ConditionTypes'
 import { observable, action, computed, toJS } from 'mobx'
 import { PazCalControllStore } from './PazCalControllStore'
 

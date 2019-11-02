@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GenerateFieldStatsReturn } from './pazdora-cal'
-import { DropColors } from './ConditionTypes'
+import {
+  DropColors,
+  ConditionClasses,
+  ConditionFactoryOptions,
+  Condition,
+  DropColor,
+  ChainDrop
+} from './ConditionTypes'
 
 abstract class BaseCondition {
   /**
@@ -22,20 +29,6 @@ abstract class BaseCondition {
   readonly clone = (): this => {
     return { ...this, __proto__: (this as any).__proto__ }
   }
-}
-
-/**
- * Conditionの候補となるクラスたちを定義した型
- */
-export type ConditionClasses = {
-  Drop: DropCondition
-  Combo: ComboCondition
-  MultiColor: MultiColorCondition
-}
-
-export type ConditionFactoryOptions<T extends keyof ConditionClasses> = {
-  type: T
-  opt: Partial<ConditionClasses[T]>
 }
 
 /**
@@ -102,18 +95,38 @@ export class ComboCondition extends BaseCondition implements Condition {
   dropNum = 3
   ope: 'more' | 'less' = 'more'
   comboNum = 7
+  chainDrop: ChainDrop | null = null
   readonly isValid = (field: GenerateFieldStatsReturn) => {
+    // 繋げて消せない場合はfalseを返す
+    if (
+      this.chainDrop &&
+      field[this.chainDrop.dropColor] < this.chainDrop.num
+    ) {
+      return false
+    }
     switch (this.ope) {
       case 'more':
         return (
-          Object.values(field).reduce((acc, cur) => {
-            return acc + Math.floor(cur / this.dropNum)
+          Object.entries(field).reduce((acc, cur) => {
+            let num
+            if (this.chainDrop && cur[0] === this.chainDrop.dropColor) {
+              num = Math.floor((cur[1] - this.chainDrop.num) / this.dropNum) + 1
+            } else {
+              num = Math.floor(cur[1] / this.dropNum)
+            }
+            return acc + num
           }, 0) >= this.comboNum
         )
       case 'less':
         return (
-          Object.values(field).reduce((acc, cur) => {
-            return acc + Math.floor(cur / this.dropNum)
+          Object.entries(field).reduce((acc, cur) => {
+            let num
+            if (this.chainDrop && cur[0] === this.chainDrop.dropColor) {
+              num = Math.floor((cur[1] - this.chainDrop.num) / this.dropNum) + 1
+            } else {
+              num = Math.floor(cur[1] / this.dropNum)
+            }
+            return acc + num
           }, 0) <= this.comboNum
         )
       default:
@@ -166,13 +179,4 @@ export class MultiColorCondition extends BaseCondition implements Condition {
         return true
     }
   }
-}
-
-export type DropColor = keyof typeof DropColors
-
-export interface Condition {
-  /**
-   * オブジェクトの変数に設定した条件に、引数に指定した盤面が合致しているかどうかを返す
-   */
-  readonly isValid: (field: GenerateFieldStatsReturn) => boolean
 }

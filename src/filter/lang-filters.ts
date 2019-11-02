@@ -1,4 +1,4 @@
-import { DropColor } from '../utils/pazdora-cal/Condition'
+import { DropColor } from '../utils/pazdora-cal/ConditionTypes'
 
 export function colorLang(color: DropColor) {
   switch (color) {

@@ -2,7 +2,7 @@ import React from 'react'
 import {
   ConditionFactoryOptions,
   ConditionClasses
-} from '../../utils/pazdora-cal/Condition'
+} from '../../utils/pazdora-cal/ConditionTypes'
 import store from '../../store/store'
 import DropCard from '../molecules/DropCards/DropCard'
 import ComboCard from '../molecules/DropCards/ComboCard'

@@ -6,7 +6,7 @@ import { DateTime } from 'luxon'
 import store from '../src/store/store'
 import { observer } from 'mobx-react'
 import Clock from '../src/components/organisms/clock'
-import { ConditionFactoryOptions } from '../src/utils/pazdora-cal/Condition'
+import { ConditionFactoryOptions } from '../src/utils/pazdora-cal/ConditionTypes'
 
 const PazdoraCal2: React.FC = observer(() => {
   const [threadNum, setThreadNum] = React.useState(4)
