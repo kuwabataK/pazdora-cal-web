@@ -152,8 +152,8 @@ export default function ComboCard(props: DropCardProps<'Combo'>) {
               >
                 {[...new Array(31)].map((_val, i) => {
                   return (
-                    <option key={i} value={i + (dropNum || 1)}>
-                      {i + (dropNum || 1)}個
+                    <option key={i} value={i + (dropNum || 0)}>
+                      {i + (dropNum || 0)}個
                     </option>
                   )
                 })}
