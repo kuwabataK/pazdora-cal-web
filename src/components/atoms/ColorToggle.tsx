@@ -2,6 +2,32 @@ import React from 'react'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import { DropColors } from '../../utils/pazdora-cal/ConditionTypes'
+import { withStyles, makeStyles, createStyles } from '@material-ui/styles'
+import { Paper, Theme } from '@material-ui/core'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      display: 'flex',
+      border: `1px solid ${theme.palette.divider}`,
+      flexWrap: 'wrap'
+    }
+  })
+)
+
+const StyledToggleButtonGroup = withStyles(theme => ({
+  grouped: {
+    margin: theme.spacing(0.5),
+    border: 'none',
+    padding: theme.spacing(0, 1),
+    '&:not(:first-child)': {
+      borderRadius: theme.shape.borderRadius
+    },
+    '&:first-child': {
+      borderRadius: theme.shape.borderRadius
+    }
+  }
+}))(ToggleButtonGroup)
 
 type Props = {
   /**
@@ -19,6 +45,7 @@ type Props = {
  * @param props
  */
 const ColorToggle = (props: Props) => {
+  const classes = useStyles()
   /**
    * 色を選択したときに発火する処理
    * @param _event
@@ -53,13 +80,15 @@ const ColorToggle = (props: Props) => {
   ]
   return (
     <div>
-      <ToggleButtonGroup
-        size="small"
-        value={props.selectColor}
-        onChange={handleColor}
-      >
-        {children}
-      </ToggleButtonGroup>
+      <Paper elevation={0} className={classes.paper}>
+        <StyledToggleButtonGroup
+          size="small"
+          value={props.selectColor}
+          onChange={handleColor}
+        >
+          {children}
+        </StyledToggleButtonGroup>
+      </Paper>
     </div>
   )
 }
