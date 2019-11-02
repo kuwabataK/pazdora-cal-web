@@ -50,13 +50,17 @@ export function generateDropFunc<T extends keyof ConditionClasses>(
      * @param event セレクトボックスが変更された時に発火するイベント
      */
     selectOpt: (
-      event: React.ChangeEvent<{ name?: string; value: unknown }>
+      event: React.ChangeEvent<{ name?: string; value: unknown }>,
+      isInt = false
     ) => {
+      const value = isInt
+        ? parseInt(event.target.value as string)
+        : event.target.value
       props.setCondition({
         ...props.condition,
         opt: {
           ...props.condition.opt,
-          [event.target.name as string]: event.target.value
+          [event.target.name as string]: value
         }
       })
     }

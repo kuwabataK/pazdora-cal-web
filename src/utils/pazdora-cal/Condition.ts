@@ -5,8 +5,7 @@ import {
   ConditionClasses,
   ConditionFactoryOptions,
   Condition,
-  DropColor,
-  ChainDrop
+  DropColor
 } from './ConditionTypes'
 
 abstract class BaseCondition {
@@ -95,12 +94,15 @@ export class ComboCondition extends BaseCondition implements Condition {
   dropNum = 3
   ope: 'more' | 'less' = 'more'
   comboNum = 7
-  chainDrop: ChainDrop | null = null
+  isCheckedChainDrop = false
+  chainDropNum = 0
+  chainDropColor: DropColor = 'heart'
+
   readonly isValid = (field: GenerateFieldStatsReturn) => {
     // 繋げて消せない場合はfalseを返す
     if (
-      this.chainDrop &&
-      field[this.chainDrop.dropColor] < this.chainDrop.num
+      this.isCheckedChainDrop &&
+      field[this.chainDropColor] < this.chainDropNum
     ) {
       return false
     }
@@ -109,8 +111,8 @@ export class ComboCondition extends BaseCondition implements Condition {
         return (
           Object.entries(field).reduce((acc, cur) => {
             let num
-            if (this.chainDrop && cur[0] === this.chainDrop.dropColor) {
-              num = Math.floor((cur[1] - this.chainDrop.num) / this.dropNum) + 1
+            if (this.isCheckedChainDrop && cur[0] === this.chainDropColor) {
+              num = Math.floor((cur[1] - this.chainDropNum) / this.dropNum) + 1
             } else {
               num = Math.floor(cur[1] / this.dropNum)
             }
@@ -121,8 +123,8 @@ export class ComboCondition extends BaseCondition implements Condition {
         return (
           Object.entries(field).reduce((acc, cur) => {
             let num
-            if (this.chainDrop && cur[0] === this.chainDrop.dropColor) {
-              num = Math.floor((cur[1] - this.chainDrop.num) / this.dropNum) + 1
+            if (this.isCheckedChainDrop && cur[0] === this.chainDropColor) {
+              num = Math.floor((cur[1] - this.chainDropNum) / this.dropNum) + 1
             } else {
               num = Math.floor(cur[1] / this.dropNum)
             }

@@ -39,7 +39,7 @@ export default function DropCard(props: DropCardProps<'Drop'>) {
               <Select
                 native
                 value={props.condition.opt.color}
-                onChange={selectOpt}
+                onChange={e => selectOpt(e)}
                 inputProps={{
                   name: 'color',
                   id: ids.color
@@ -59,7 +59,7 @@ export default function DropCard(props: DropCardProps<'Drop'>) {
               <Select
                 native
                 value={props.condition.opt.dropNum}
-                onChange={selectOpt}
+                onChange={e => selectOpt(e, true)}
                 inputProps={{
                   name: 'dropNum',
                   id: ids.dropNum
@@ -79,7 +79,7 @@ export default function DropCard(props: DropCardProps<'Drop'>) {
               <Select
                 native
                 value={props.condition.opt.ope}
-                onChange={selectOpt}
+                onChange={e => selectOpt(e)}
                 inputProps={{
                   name: 'ope',
                   id: ids.ope

@@ -56,7 +56,7 @@ export default function MultiColorCard(props: DropCardProps<'MultiColor'>) {
               <Select
                 native
                 value={props.condition.opt.dropColorNum}
-                onChange={selectOpt}
+                onChange={e => selectOpt(e, true)}
                 inputProps={{
                   name: 'dropColorNum',
                   id: ids.dropColorNum
@@ -80,7 +80,7 @@ export default function MultiColorCard(props: DropCardProps<'MultiColor'>) {
               <Select
                 native
                 value={props.condition.opt.dropNum}
-                onChange={selectOpt}
+                onChange={e => selectOpt(e, true)}
                 inputProps={{
                   name: 'dropNum',
                   id: ids.dropNum
@@ -100,7 +100,7 @@ export default function MultiColorCard(props: DropCardProps<'MultiColor'>) {
               <Select
                 native
                 value={props.condition.opt.ope}
-                onChange={selectOpt}
+                onChange={e => selectOpt(e)}
                 inputProps={{
                   name: 'ope',
                   id: ids.ope

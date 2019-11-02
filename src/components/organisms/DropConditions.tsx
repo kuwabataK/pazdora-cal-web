@@ -31,7 +31,10 @@ const initComboCond = (): ConditionFactoryOptions<'Combo'> => ({
   opt: {
     comboNum: 7,
     dropNum: 3,
-    ope: 'more'
+    ope: 'more',
+    isCheckedChainDrop: false,
+    chainDropNum: 3,
+    chainDropColor: 'heart'
   }
 })
 
