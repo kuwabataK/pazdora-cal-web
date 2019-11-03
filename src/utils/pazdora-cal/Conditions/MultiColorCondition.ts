@@ -8,7 +8,7 @@ import { GenerateFieldStatsReturn } from '../pazdora-cal'
 export class MultiColorCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<MultiColorCondition>) {
     super()
-    this.merge(this, opt)
+    this.mergeToThis(this, opt)
   }
   /**
    * moreを指定すると、指定したDropの数よりも多い時にisValidがtrueを返す

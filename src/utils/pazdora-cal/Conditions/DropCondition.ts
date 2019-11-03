@@ -8,7 +8,7 @@ import { GenerateFieldStatsReturn } from '../pazdora-cal'
 export class DropCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<DropCondition>) {
     super()
-    this.merge(this, opt)
+    this.mergeToThis(this, opt)
   }
 
   /**

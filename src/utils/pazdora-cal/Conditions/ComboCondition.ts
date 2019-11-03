@@ -8,7 +8,7 @@ import { GenerateFieldStatsReturn } from '../pazdora-cal'
 export class ComboCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<ComboCondition>) {
     super()
-    this.merge(this, opt)
+    this.mergeToThis(this, opt)
   }
   dropNum = 3
   ope: 'more' | 'less' = 'more'
