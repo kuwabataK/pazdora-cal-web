@@ -9,6 +9,10 @@ import {
 } from './ConditionTypes'
 
 abstract class BaseCondition {
+  constructor(opt: any) {
+    this.merge(this, opt)
+  }
+
   /**
    * 継承先のクラスコンストラクタの引数で指定されたobjを自分自身にマージするためのメソッド
    * 継承先のコンストラクタの中で呼び出す
@@ -58,8 +62,7 @@ export class ConditionFactory {
  */
 export class DropCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<DropCondition>) {
-    super()
-    this.merge(this, opt)
+    super(opt)
   }
 
   /**
@@ -88,8 +91,7 @@ export class DropCondition extends BaseCondition implements Condition {
  */
 export class ComboCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<ComboCondition>) {
-    super()
-    this.merge(this, opt)
+    super(opt)
   }
   dropNum = 3
   ope: 'more' | 'less' = 'more'
@@ -142,8 +144,7 @@ export class ComboCondition extends BaseCondition implements Condition {
  */
 export class MultiColorCondition extends BaseCondition implements Condition {
   constructor(opt?: Partial<MultiColorCondition>) {
-    super()
-    this.merge(this, opt)
+    super(opt)
   }
   /**
    * moreを指定すると、指定したDropの数よりも多い時にisValidがtrueを返す
