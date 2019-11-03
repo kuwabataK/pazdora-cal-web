@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx'
+import { createDraft, finishDraft } from 'immer'
 
 export class CounterStore {
   @observable counter = 0
@@ -21,25 +22,29 @@ export class CounterStore {
 
   @action
   incrementObj(): void {
-    this.objectCounter.counter++
-    this.objectCounter = { ...this.objectCounter }
+    const draft = createDraft(this.objectCounter)
+    draft.counter++
+    this.objectCounter = finishDraft(draft)
   }
 
   @action
   decrementObj(): void {
-    this.objectCounter.counter--
-    this.objectCounter = { ...this.objectCounter }
+    const draft = createDraft(this.objectCounter)
+    draft.counter--
+    this.objectCounter = finishDraft(draft)
   }
 
   @action
   incrementDeep(): void {
-    this.objectCounter.deepcnt.counter++
-    this.objectCounter = { ...this.objectCounter }
+    const draft = createDraft(this.objectCounter)
+    draft.deepcnt.counter++
+    this.objectCounter = finishDraft(draft)
   }
 
   @action
   decrementDeep(): void {
-    this.objectCounter.deepcnt.counter--
-    this.objectCounter = { ...this.objectCounter }
+    const draft = createDraft(this.objectCounter)
+    draft.deepcnt.counter--
+    this.objectCounter = finishDraft(draft)
   }
 }

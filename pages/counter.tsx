@@ -7,7 +7,7 @@ import { usePrevious, useWatch } from '../src/utils/react-hooks'
 
 const CounterPage: React.FunctionComponent = observer(() => {
   const preCnt = usePrevious(store.counterStore.objectCounter, {
-    deepCopy: true
+    deepCopy: false
   })
 
   // const preCnt = usePrevious(store.counterStore.objectCounter)
