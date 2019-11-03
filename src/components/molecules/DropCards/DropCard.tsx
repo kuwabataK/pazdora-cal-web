@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import { FormControl, InputLabel, Select } from '@material-ui/core'
-import { DropColors } from '../../../utils/pazdora-cal/ConditionTypes'
+import { DropColors } from '../../../utils/pazdora-cal/Conditions/ConditionTypes'
 import { colorLang } from '../../../filter/lang-filters'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 import {

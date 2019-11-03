@@ -1,7 +1,7 @@
 import React from 'react'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
-import { DropColors } from '../../utils/pazdora-cal/ConditionTypes'
+import { DropColors } from '../../utils/pazdora-cal/Conditions/ConditionTypes'
 import { withStyles, makeStyles, createStyles } from '@material-ui/styles'
 import { Paper, Theme } from '@material-ui/core'
 

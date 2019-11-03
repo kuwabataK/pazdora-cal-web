@@ -1,9 +1,9 @@
-import { ConditionFactory } from './Condition'
 import {
   Condition,
   ConditionFactoryOptions,
   ConditionClasses
-} from './ConditionTypes'
+} from './Conditions/ConditionTypes'
+import { ConditionFactory } from './Conditions/ConditionFactory'
 export type GenerateFieldOptions = {
   width?: number
   height?: number

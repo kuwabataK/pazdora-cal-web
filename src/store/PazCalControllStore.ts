@@ -3,7 +3,7 @@ import { GenerateFieldOptions } from '../utils/pazdora-cal/pazdora-cal'
 import {
   ConditionFactoryOptions,
   ConditionClasses
-} from '../utils/pazdora-cal/ConditionTypes'
+} from '../utils/pazdora-cal/Conditions/ConditionTypes'
 
 export class PazCalControllStore {
   // 計算用のスレッドを管理するためのクラスのインスタンス

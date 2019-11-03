@@ -9,7 +9,7 @@ import { PostMessageData } from './pazdora-cal.worker'
 import {
   ConditionFactoryOptions,
   ConditionClasses
-} from '../../utils/pazdora-cal/ConditionTypes'
+} from '../../utils/pazdora-cal/Conditions/ConditionTypes'
 
 /**
  * pazdora-workerを管理するためのクラス

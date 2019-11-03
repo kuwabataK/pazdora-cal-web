@@ -11,7 +11,7 @@ import {
   useSelectStyles
 } from './DropCardBase'
 import { generateUUIDs } from '../../../utils/util'
-import { DropColors } from '../../../utils/pazdora-cal/ConditionTypes'
+import { DropColors } from '../../../utils/pazdora-cal/Conditions/ConditionTypes'
 import { colorLang } from '../../../filter/lang-filters'
 
 const ids = generateUUIDs([

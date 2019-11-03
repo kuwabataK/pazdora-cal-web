@@ -1,6 +1,8 @@
-import { generateEnum } from '../util'
-import { DropCondition, ComboCondition, MultiColorCondition } from './Condition'
-import { GenerateFieldStatsReturn } from './pazdora-cal'
+import { generateEnum } from '../../util'
+import { GenerateFieldStatsReturn } from '../pazdora-cal'
+import { DropCondition } from './DropCondition'
+import { ComboCondition } from './ComboCondition'
+import { MultiColorCondition } from './MultiColorCondition'
 
 /**
  * Conditionの候補となるクラスたちを定義した型

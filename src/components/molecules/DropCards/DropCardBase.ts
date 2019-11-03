@@ -1,7 +1,7 @@
 import {
   ConditionFactoryOptions,
   ConditionClasses
-} from '../../../utils/pazdora-cal/ConditionTypes'
+} from '../../../utils/pazdora-cal/Conditions/ConditionTypes'
 import { makeStyles, Theme, createStyles } from '@material-ui/core'
 import { ValueOf } from '../../../utils/utilty-types'
 
