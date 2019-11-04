@@ -20,8 +20,18 @@ export type GenerateFieldStatsReturn = {
 }
 
 export type CalcReturn = {
+  /**
+   * 計算に使用した盤面の総数
+   * 実際に生成した盤面から、3つ以上ドロップのつながった盤面を除いた盤面の総数
+   */
   total: number
+  /**
+   * 盤面の非欠損率
+   */
   rate: number
+  /**
+   * 条件に一致した盤面の総数
+   */
   correct: number
 }
 

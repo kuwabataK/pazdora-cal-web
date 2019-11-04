@@ -30,7 +30,7 @@ export class PazdoraCalStore {
   }
 
   /**
-   * 指定した条件を更新する
+   * 指定したindexの条件を更新する
    */
   @action
   setCondition(
@@ -41,12 +41,20 @@ export class PazdoraCalStore {
     this._conditions = [...this._conditions]
   }
 
+  /**
+   * 条件を追加する
+   * @param condition 追加する条件 
+   */
   @action
   addCondition(condition: ConditionFactoryOptions<keyof ConditionClasses>) {
     this._conditions[0].unshift(condition)
     this._conditions = [...this._conditions]
   }
 
+  /**
+   * 指定したindexの条件を削除する
+   * @param index 
+   */
   @action
   deleteCondition(index: number) {
     this._conditions[0].splice(index, 1)
@@ -57,6 +65,7 @@ export class PazdoraCalStore {
    * 計算ロジックの0番目の条件を返します。
    * ここで返された条件は全部andで評価されます。
    * 現時点では計算ページでは、andの条件しか指定できないので、不要な配列を削除しています
+   * @return 条件のアンドリスト
    */
   @computed
   get conditions() {
