@@ -87,7 +87,7 @@ export class PazdoraCalStore {
   @observable result: CalcReturn | null = null
 
   @action
-  setResult(result: CalcReturn) {
+  private setResult(result: CalcReturn) {
     this.result = result
   }
 
