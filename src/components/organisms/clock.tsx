@@ -3,12 +3,18 @@ import * as React from 'react'
 import { observer } from 'mobx-react-lite'
 
 const Clock: React.FC = observer(() => {
+  
   const disable = () => {
     store.clockStore.disableAutoUpdate()
   }
   const enable = () => {
     store.clockStore.enableAutoUpdate()
   }
+
+  React.useEffect(() => {
+    enable()
+    return disable
+  }, [])
 
   return (
     <div>
