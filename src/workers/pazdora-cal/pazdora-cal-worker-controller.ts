@@ -32,7 +32,7 @@ export default class PazdoraCalWorkerController {
     if (threadNum < 0) return
     this.dispose()
     this.threadNum = threadNum
-    this.workers = new Array(threadNum).fill(0).map(() => {
+    this.workers = [...new Array(threadNum)].map(() => {
       return new PazdoraWorker()
     })
   }
