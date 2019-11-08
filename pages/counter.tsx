@@ -3,9 +3,13 @@ import Link from 'next/link'
 import Layout from '../src/components/template/Layout'
 import store from '../src/store/store'
 import { observer } from 'mobx-react'
-import { usePrevious, useWatch } from '../src/utils/react-hooks'
+import { usePrevious, useWatch, useCreated } from '../src/utils/react-hooks'
 
 const CounterPage: React.FunctionComponent = observer(() => {
+  useCreated(() => {
+    console.log('created関数だよ')
+  })
+
   const preCnt = usePrevious(store.counterStore.objectCounter, {
     deepCopy: false
   })

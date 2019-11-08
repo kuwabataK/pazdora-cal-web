@@ -51,3 +51,42 @@ export function useWatch(
     return onDestroy
   }, [])
 }
+
+const useCreatedOpt = {
+  /**
+   * コンポーネントが破棄されるときに一度だけ発火する関数
+   */
+  onDestroy: () => {},
+  /**
+   * 指定されたonCreated関数の実行をawaitするかどうか
+   */
+  isAwait: false
+}
+
+/**
+ * DOMがレンダリングされる前に一度だけ指定した関数を実行します
+ * @param onCreated コンポーネントがマウントする前に一度だけ発火する関数。
+ * @param onDestroy コンポーネントが破棄されるときに発火する関数
+ * @param isAwait 指定されたonCreated関数の実行をawaitするかどうか
+ */
+export async function useCreated(
+  onCreated: () => void,
+  opt: Partial<typeof useCreatedOpt> = {}
+) {
+  const _opt = {
+    ...useCreatedOpt,
+    ...opt
+  }
+  const [isCreated, setCreated] = useState(false)
+  if (!isCreated) {
+    setCreated(true)
+    if (_opt.isAwait) {
+      await onCreated()
+    } else {
+      onCreated()
+    }
+  }
+  useEffect(() => {
+    return _opt.onDestroy
+  }, [])
+}
