@@ -2,8 +2,8 @@ import * as React from 'react'
 import store from '../../store/store'
 import { observer } from 'mobx-react'
 import { Grid } from '@material-ui/core'
-import DropCondtions from '../organisms/DropConditions'
-import PazResultCards from '../molecules/PazResultCards'
+import { DropCondtions } from '../organisms/DropConditions'
+import { PazResultCards } from '../molecules/PazResultCards'
 
 const background: React.CSSProperties = {
   backgroundColor: '#f5f5f5'

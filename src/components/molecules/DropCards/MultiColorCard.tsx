@@ -10,7 +10,7 @@ import {
   useCardStyles,
   useSelectStyles
 } from './DropCardBase'
-import ColorToggle from '../../atoms/ColorToggle'
+import { ColorToggle } from '../../atoms/ColorToggle'
 import { generateUUIDs } from '../../../utils/util'
 
 /**
@@ -25,7 +25,7 @@ const maxDropColorNum = (includeDrops: string[] | undefined) => {
 // 一意なIDを３つ生成する
 const ids = generateUUIDs(['dropColorNum', 'dropNum', 'ope'])
 
-export default function MultiColorCard(props: DropCardProps<'MultiColor'>) {
+export function MultiColorCard(props: DropCardProps<'MultiColor'>) {
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
 

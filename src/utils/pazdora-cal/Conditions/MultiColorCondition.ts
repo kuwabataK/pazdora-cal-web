@@ -31,19 +31,24 @@ export class MultiColorCondition extends BaseCondition implements Condition {
   readonly isValid = (field: GenerateFieldStatsReturn) => {
     switch (this.ope) {
       case 'more': {
-        const f = (Object.keys(field) as DropColor[])
-          .filter(_f => this.includeDrops.includes(_f))
-          .map(_f => field[_f])
-        return f.sort((a, b) => b - a)[this.dropColorNum - 1] >= this.dropNum
+        return this.getMinTargetDropNum(field) >= this.dropNum
       }
       case 'less': {
-        const f = (Object.keys(field) as DropColor[])
-          .filter(_f => this.includeDrops.includes(_f))
-          .map(_f => field[_f])
-        return f.sort((a, b) => b - a)[this.dropColorNum - 1] <= this.dropNum
+        return this.getMinTargetDropNum(field) <= this.dropNum
       }
       default:
         return true
     }
+  }
+
+  /**
+   * 計算候補となる色の中で、一番少ないドロップの数を返す
+   * @param field 盤面の情報
+   */
+  private getMinTargetDropNum(field: GenerateFieldStatsReturn): number {
+    const f = (Object.keys(field) as DropColor[])
+      .filter(_f => this.includeDrops.includes(_f))
+      .map(_f => field[_f])
+    return f.sort((a, b) => b - a)[this.dropColorNum - 1]
   }
 }

@@ -27,31 +27,27 @@ export class ComboCondition extends BaseCondition implements Condition {
     }
     switch (this.ope) {
       case 'more':
-        return (
-          Object.entries(field).reduce((acc, cur) => {
-            let num
-            if (this.isCheckedChainDrop && cur[0] === this.chainDropColor) {
-              num = Math.floor((cur[1] - this.chainDropNum) / this.dropNum) + 1
-            } else {
-              num = Math.floor(cur[1] / this.dropNum)
-            }
-            return acc + num
-          }, 0) >= this.comboNum
-        )
+        return this.calcComboNum(field) >= this.comboNum
       case 'less':
-        return (
-          Object.entries(field).reduce((acc, cur) => {
-            let num
-            if (this.isCheckedChainDrop && cur[0] === this.chainDropColor) {
-              num = Math.floor((cur[1] - this.chainDropNum) / this.dropNum) + 1
-            } else {
-              num = Math.floor(cur[1] / this.dropNum)
-            }
-            return acc + num
-          }, 0) <= this.comboNum
-        )
+        return this.calcComboNum(field) <= this.comboNum
       default:
         return true
     }
+  }
+
+  /**
+   * 盤面のコンボ数を計算します
+   * @param field 盤面の情報
+   */
+  private calcComboNum(field: GenerateFieldStatsReturn): number {
+    return Object.entries(field).reduce((acc, cur) => {
+      let num
+      if (this.isCheckedChainDrop && cur[0] === this.chainDropColor) {
+        num = Math.floor((cur[1] - this.chainDropNum) / this.dropNum) + 1
+      } else {
+        num = Math.floor(cur[1] / this.dropNum)
+      }
+      return acc + num
+    }, 0)
   }
 }

@@ -23,7 +23,7 @@ type Props = {
  * 実行ボタンなどを表すスタイルコンポーネント
  * @param props
  */
-export default function AddButton(props: Props) {
+export function AddButton(props: Props) {
   const classes = useStyles()
 
   return (

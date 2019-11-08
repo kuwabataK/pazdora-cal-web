@@ -85,7 +85,7 @@ type Props = {
   pazStore: PazdoraCalStore
 }
 
-const PazResultCards = observer((props: Props) => {
+export const PazResultCards = observer((props: Props) => {
   const pazStore = props.pazStore
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
@@ -157,5 +157,3 @@ const PazResultCards = observer((props: Props) => {
     </Grid>
   )
 })
-
-export default PazResultCards

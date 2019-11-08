@@ -4,12 +4,12 @@ import {
   ConditionClasses
 } from '../../utils/pazdora-cal/Conditions/ConditionTypes'
 import store from '../../store/store'
-import DropCard from '../molecules/DropCards/DropCard'
-import ComboCard from '../molecules/DropCards/ComboCard'
-import MultiColorCard from '../molecules/DropCards/MultiColorCard'
+import { DropCard } from '../molecules/DropCards/DropCard'
+import { ComboCard } from '../molecules/DropCards/ComboCard'
+import { MultiColorCard } from '../molecules/DropCards/MultiColorCard'
 import { observer } from 'mobx-react'
 import Grid from '@material-ui/core/Grid'
-import AddButton from '../atoms/AddButton'
+import { AddButton } from '../atoms/AddButton'
 
 /**
  * ドロップ条件を追加したときの初期値
@@ -54,7 +54,7 @@ const initMultiColorCond = (): ConditionFactoryOptions<'MultiColor'> => ({
 /**
  * 条件カードと条件追加ボタンを表示するコンポーネント
  */
-const DropCondtions = observer(() => {
+export const DropCondtions = observer(() => {
   const pazStore = store.pazdoraCalStore
   const conditions = pazStore.conditions
 
@@ -145,5 +145,3 @@ const DropCondtions = observer(() => {
     </Grid>
   )
 })
-
-export default DropCondtions

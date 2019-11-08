@@ -44,7 +44,7 @@ type Props = {
  * 多色のときの色を選ぶコンポーネント
  * @param props
  */
-const ColorToggle = (props: Props) => {
+export const ColorToggle = (props: Props) => {
   const classes = useStyles()
   /**
    * 色を選択したときに発火する処理
@@ -92,5 +92,3 @@ const ColorToggle = (props: Props) => {
     </div>
   )
 }
-
-export default ColorToggle

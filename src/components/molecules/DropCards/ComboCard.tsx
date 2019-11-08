@@ -22,7 +22,7 @@ const ids = generateUUIDs([
   'chainNum'
 ])
 
-export default function ComboCard(props: DropCardProps<'Combo'>) {
+export function ComboCard(props: DropCardProps<'Combo'>) {
   const classes = useCardStyles()
   const selectClasses = useSelectStyles()
 
