@@ -39,9 +39,9 @@ export function useWatch(
   arr: any[],
   onDestroy: () => void | undefined = () => {}
 ) {
-  const [afterMountd, setMounted] = useState(false)
+  const [isMounted, setMounted] = useState(false)
   useEffect(() => {
-    if (afterMountd) {
+    if (isMounted) {
       func()
     } else {
       setMounted(true)
