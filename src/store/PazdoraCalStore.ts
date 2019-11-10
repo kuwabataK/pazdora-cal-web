@@ -108,7 +108,9 @@ export class PazdoraCalStore {
       toJS(this.option),
       toJS(this._conditions)
     )
-    this.setResult(result)
+    if (result){
+      this.setResult(result)
+    }
     return result
   }
 

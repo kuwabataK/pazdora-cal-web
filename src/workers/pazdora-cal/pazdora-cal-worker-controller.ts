@@ -43,8 +43,12 @@ export default class PazdoraCalWorkerController {
    */
   async parallelGenerateFields(
     option: GenerateFieldOptions = {}
-  ): Promise<number[][][]> {
+  ): Promise<number[][][] | undefined> {
     if (!option.loopCnt) return []
+    if (this.asyncLock.isBusy('pazdora')) {
+      console.log('盤面を生成中です。新たな盤面生成処理をスキップします。')
+      return
+    }
     return await this.asyncLock.acquire('pazdora', async () => {
       const result = this.workers.map(worker => {
         const data: PostMessageData = {
@@ -67,8 +71,12 @@ export default class PazdoraCalWorkerController {
    */
   async parallelGenerateFieldStats(
     option: GenerateFieldOptions = {}
-  ): Promise<GenerateFieldStatsReturn[]> {
+  ): Promise<GenerateFieldStatsReturn[] | undefined> {
     if (!option.loopCnt) return []
+    if (this.asyncLock.isBusy('pazdora')) {
+      console.log('盤面を生成中なので、新しい盤面生成処理をスキップします')
+      return 
+    }
     return await this.asyncLock.acquire('pazdora', async () => {
       const result = this.workers.map(worker => {
         const _option: PostMessageData = {
@@ -101,8 +109,12 @@ export default class PazdoraCalWorkerController {
   async parallelCalc(
     option: GenerateFieldOptions = {},
     conditions: ConditionFactoryOptions<keyof ConditionClasses>[][]
-  ): Promise<CalcReturn> {
+  ): Promise<CalcReturn | undefined>{
     if (!option.loopCnt) throw new Error('ループ回数が設定されていません')
+    if (this.asyncLock.isBusy('pazdora')) {
+      console.log('計算中なので、新たな欠損率計算処理をスキップします')
+      return 
+    }
     return await this.asyncLock.acquire<CalcReturn>('pazdora', async () => {
       const result = this.workers.map(worker => {
         const _option: PostMessageData = {

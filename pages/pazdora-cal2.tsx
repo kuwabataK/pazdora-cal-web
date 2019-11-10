@@ -54,11 +54,11 @@ const PazdoraCal2: React.FC = observer(() => {
       }
     )
     const endTime = DateTime.local()
+    const length = res?.length ?? '0'
     setResult(
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
-        'ms 生成した盤面数: ' +
-        res.length
+        'ms 生成した盤面数: ' + length
     )
   }
 
@@ -72,11 +72,11 @@ const PazdoraCal2: React.FC = observer(() => {
       }
     )
     const endTime = DateTime.local()
+    const length = res?.length ?? '0'
     setResult(
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
-        'ms 生成した盤面数: ' +
-        res.length
+        'ms 生成した盤面数: ' + length
     )
   }
 
@@ -116,7 +116,7 @@ const PazdoraCal2: React.FC = observer(() => {
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
         'ms 結果: ' +
-        res.rate +
+        res?.rate ?? 0 +
         '%'
     )
   }
@@ -157,7 +157,7 @@ const PazdoraCal2: React.FC = observer(() => {
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
         'ms 結果: ' +
-        res.rate +
+        res?.rate ?? 0 +
         '%'
     )
   }
@@ -186,7 +186,7 @@ const PazdoraCal2: React.FC = observer(() => {
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
         'ms 結果: ' +
-        res.rate +
+        res?.rate +
         '%'
     )
   }
@@ -234,7 +234,7 @@ const PazdoraCal2: React.FC = observer(() => {
       '終わったよ。経過時間は: ' +
         endTime.diff(startTime, 'milliseconds').milliseconds +
         'ms 結果: ' +
-        res.rate +
+        res?.rate +
         '%'
     )
   }
