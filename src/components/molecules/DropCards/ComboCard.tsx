@@ -4,23 +4,12 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import { FormControl, InputLabel, Select, Checkbox } from '@material-ui/core'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
-import {
-  DropCardProps,
-  generateDropFunc,
-  useCardStyles,
-  useSelectStyles
-} from './DropCardBase'
+import { DropCardProps, generateDropFunc, useCardStyles, useSelectStyles } from './DropCardBase'
 import { generateUUIDs } from '../../../utils/util'
 import { DropColors } from '../../../utils/pazdora-cal/Conditions/ConditionTypes'
 import { colorLang } from '../../../filter/lang-filters'
 
-const ids = generateUUIDs([
-  'dropNum',
-  'comboNum',
-  'ope',
-  'chainColor',
-  'chainNum'
-])
+const ids = generateUUIDs(['dropNum', 'comboNum', 'ope', 'chainColor', 'chainNum'])
 
 export function ComboCard(props: DropCardProps<'Combo'>) {
   const classes = useCardStyles()
@@ -45,10 +34,7 @@ export function ComboCard(props: DropCardProps<'Combo'>) {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.deleteContents}>
-          <HighlightOffIcon
-            className={classes.deleteButton}
-            onClick={handleDelete}
-          />
+          <HighlightOffIcon className={classes.deleteButton} onClick={handleDelete} />
         </div>
         <div className={classes.cardContents}>
           <form className={selectClasses.root} autoComplete="off">
@@ -113,10 +99,7 @@ export function ComboCard(props: DropCardProps<'Combo'>) {
             </FormControl>
           </form>
           <form className={selectClasses.root} autoComplete="off">
-            <FormControl
-              className={selectClasses.formControl}
-              disabled={!isCheckedChainDrop}
-            >
+            <FormControl className={selectClasses.formControl} disabled={!isCheckedChainDrop}>
               <InputLabel htmlFor={ids.chainColor}>繋げるドロップ</InputLabel>
               <Select
                 native
@@ -136,10 +119,7 @@ export function ComboCard(props: DropCardProps<'Combo'>) {
                 })}
               </Select>
             </FormControl>
-            <FormControl
-              className={selectClasses.formControl}
-              disabled={!isCheckedChainDrop}
-            >
+            <FormControl className={selectClasses.formControl} disabled={!isCheckedChainDrop}>
               <InputLabel htmlFor={ids.chainNum}>繋げるドロップ</InputLabel>
               <Select
                 native

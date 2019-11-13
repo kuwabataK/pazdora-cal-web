@@ -4,12 +4,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import { FormControl, InputLabel, Select } from '@material-ui/core'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
-import {
-  DropCardProps,
-  generateDropFunc,
-  useCardStyles,
-  useSelectStyles
-} from './DropCardBase'
+import { DropCardProps, generateDropFunc, useCardStyles, useSelectStyles } from './DropCardBase'
 import { ColorToggle } from '../../atoms/ColorToggle'
 import { generateUUIDs } from '../../../utils/util'
 
@@ -35,10 +30,7 @@ export function MultiColorCard(props: DropCardProps<'MultiColor'>) {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.deleteContents}>
-          <HighlightOffIcon
-            className={classes.deleteButton}
-            onClick={handleDelete}
-          />
+          <HighlightOffIcon className={classes.deleteButton} onClick={handleDelete} />
         </div>
         {/* バツボタン */}
 
@@ -46,9 +38,7 @@ export function MultiColorCard(props: DropCardProps<'MultiColor'>) {
           {/* 色を選択するコンポーネント */}
           <ColorToggle
             selectColor={props.condition.opt.includeDrops}
-            onSelectColor={includeColors =>
-              handleOptChange('includeDrops', includeColors)
-            }
+            onSelectColor={includeColors => handleOptChange('includeDrops', includeColors)}
           ></ColorToggle>
           <form className={selectClasses.root} autoComplete="off">
             <FormControl className={selectClasses.formControl}>
@@ -62,17 +52,15 @@ export function MultiColorCard(props: DropCardProps<'MultiColor'>) {
                   id: ids.dropColorNum
                 }}
               >
-                {[
-                  ...new Array(
-                    maxDropColorNum(props.condition.opt.includeDrops)
-                  )
-                ].map((_val, i) => {
-                  return (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1}種類以上
-                    </option>
-                  )
-                })}
+                {[...new Array(maxDropColorNum(props.condition.opt.includeDrops))].map(
+                  (_val, i) => {
+                    return (
+                      <option key={i + 1} value={i + 1}>
+                        {i + 1}種類以上
+                      </option>
+                    )
+                  }
+                )}
               </Select>
             </FormControl>
             <FormControl className={selectClasses.formControl}>

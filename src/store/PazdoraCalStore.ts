@@ -1,7 +1,4 @@
-import {
-  GenerateFieldOptions,
-  CalcReturn
-} from '../utils/pazdora-cal/pazdora-cal'
+import { GenerateFieldOptions, CalcReturn } from '../utils/pazdora-cal/pazdora-cal'
 import {
   ConditionFactoryOptions,
   ConditionClasses
@@ -15,9 +12,7 @@ export class PazdoraCalStore {
   /**
    * 計算ページで管理しているリーダースキルの条件
    */
-  @observable private _conditions: ConditionFactoryOptions<
-    keyof ConditionClasses
-  >[][] = [[]]
+  @observable private _conditions: ConditionFactoryOptions<keyof ConditionClasses>[][] = [[]]
 
   /**
    * 計算するリーダースキルの条件を指定する
@@ -33,17 +28,14 @@ export class PazdoraCalStore {
    * 指定したindexの条件を更新する
    */
   @action
-  setCondition(
-    index: number,
-    condition: ConditionFactoryOptions<keyof ConditionClasses>
-  ) {
+  setCondition(index: number, condition: ConditionFactoryOptions<keyof ConditionClasses>) {
     this._conditions[0][index] = condition
     this._conditions = [...this._conditions]
   }
 
   /**
    * 条件を追加する
-   * @param condition 追加する条件 
+   * @param condition 追加する条件
    */
   @action
   addCondition(condition: ConditionFactoryOptions<keyof ConditionClasses>) {
@@ -53,7 +45,7 @@ export class PazdoraCalStore {
 
   /**
    * 指定したindexの条件を削除する
-   * @param index 
+   * @param index
    */
   @action
   deleteCondition(index: number) {
@@ -108,7 +100,7 @@ export class PazdoraCalStore {
       toJS(this.option),
       toJS(this._conditions)
     )
-    if (result){
+    if (result) {
       this.setResult(result)
     }
     return result

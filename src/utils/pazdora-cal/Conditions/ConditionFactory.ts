@@ -8,18 +8,14 @@ import { MultiColorCondition } from './MultiColorCondition'
  * worker側でConditionを作成できるようにするためのFactoryクラス
  */
 export class ConditionFactory {
-  static createCondition<T extends keyof ConditionClasses>(
-    options: ConditionFactoryOptions<T>
-  ) {
+  static createCondition<T extends keyof ConditionClasses>(options: ConditionFactoryOptions<T>) {
     switch (options.type) {
       case 'Drop':
         return new DropCondition(options.opt as Partial<DropCondition>)
       case 'Combo':
         return new ComboCondition(options.opt as Partial<ComboCondition>)
       case 'MultiColor':
-        return new MultiColorCondition(options.opt as Partial<
-          MultiColorCondition
-        >)
+        return new MultiColorCondition(options.opt as Partial<MultiColorCondition>)
       default:
         break
     }

@@ -10,10 +10,7 @@ import { cloneDeep } from 'lodash'
  *
  * @return preValue 前回保存された値
  */
-export function usePrevious<T>(
-  value: T,
-  option: UsePreviousOption = {}
-): T | undefined {
+export function usePrevious<T>(value: T, option: UsePreviousOption = {}): T | undefined {
   const ref = useRef<T>()
 
   useEffect(() => {
@@ -69,10 +66,7 @@ const useCreatedOpt = {
  * @param onDestroy コンポーネントが破棄されるときに発火する関数
  * @param isAwait 指定されたonCreated関数の実行をawaitするかどうか
  */
-export async function useCreated(
-  onCreated: () => void,
-  opt: Partial<typeof useCreatedOpt> = {}
-) {
+export async function useCreated(onCreated: () => void, opt: Partial<typeof useCreatedOpt> = {}) {
   const _opt = {
     ...useCreatedOpt,
     ...opt
