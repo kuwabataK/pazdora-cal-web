@@ -19,10 +19,7 @@ export class ComboCondition extends BaseCondition implements Condition {
 
   readonly isValid = (field: GenerateFieldStatsReturn) => {
     // 繋げて消せない場合はfalseを返す
-    if (
-      this.isCheckedChainDrop &&
-      field[this.chainDropColor] < this.chainDropNum
-    ) {
+    if (this.isCheckedChainDrop && field[this.chainDropColor] < this.chainDropNum) {
       return false
     }
     switch (this.ope) {

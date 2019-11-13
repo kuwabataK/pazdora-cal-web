@@ -21,14 +21,7 @@ export type ConditionFactoryOptions<T extends keyof ConditionClasses> = {
 /**
  * ドロップの色の定義を返す
  */
-export const DropColors = generateEnum([
-  'red',
-  'blue',
-  'green',
-  'white',
-  'black',
-  'heart'
-])
+export const DropColors = generateEnum(['red', 'blue', 'green', 'white', 'black', 'heart'])
 
 export type DropColor = keyof typeof DropColors
 

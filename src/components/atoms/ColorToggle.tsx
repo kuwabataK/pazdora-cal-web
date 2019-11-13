@@ -81,11 +81,7 @@ export const ColorToggle = (props: Props) => {
   return (
     <div>
       <Paper elevation={0} className={classes.paper}>
-        <StyledToggleButtonGroup
-          size="small"
-          value={props.selectColor}
-          onChange={handleColor}
-        >
+        <StyledToggleButtonGroup size="small" value={props.selectColor} onChange={handleColor}>
           {children}
         </StyledToggleButtonGroup>
       </Paper>
