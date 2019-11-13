@@ -1,29 +1,24 @@
 import * as React from 'react'
-import Link from 'next/link'
-import Layout from '../src/components/template/Layout'
-import { NextPage } from 'next'
+import PazdoraCalTemplate from '../src/components/template/PazdoraCalTemplate'
+import Head from 'next/head'
 
-const IndexPage: NextPage = () => {
+const pageStyle: React.CSSProperties = {
+  backgroundColor: '#f5f5f5',
+  width: '100%',
+  height: '100%'
+}
+
+const Index = () => {
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
-      <h1>Hello Next.js 👋</h1>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
-      <p>
-        <Link href="/pazdora-cal">
-          <a>パズドラ盤面欠損率計算機</a>
-        </Link>
-      </p>
-      <p>
-        <Link href="/pazdora-cal2">
-          <a>パズドラ盤面欠損率計算機テスト</a>
-        </Link>
-      </p>
-    </Layout>
+    <div style={pageStyle}>
+      <Head>
+        <title>パズドラ盤面欠損率計算機</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <PazdoraCalTemplate></PazdoraCalTemplate>
+    </div>
   )
 }
 
-export default IndexPage
+export default Index
