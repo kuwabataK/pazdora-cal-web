@@ -27,12 +27,7 @@ export default function pazButton(props: Props) {
   const classes = useStyles()
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      className={classes.button}
-      onClick={props.onClick}
-    >
+    <Button variant="contained" color="primary" className={classes.button} onClick={props.onClick}>
       {props.btnName}
     </Button>
   )

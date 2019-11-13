@@ -16,9 +16,7 @@ export type DropCardProps<T extends keyof ConditionClasses> = {
  * DropCard系のコンポーネントで共通で使用するメソッドを抽出
  * @param props
  */
-export function generateDropFunc<T extends keyof ConditionClasses>(
-  props: DropCardProps<T>
-) {
+export function generateDropFunc<T extends keyof ConditionClasses>(props: DropCardProps<T>) {
   /**
    * セレクトボックスで選択した名前の条件を変更する
    * @param event セレクトボックスが変更された時に発火するイベント
@@ -49,13 +47,8 @@ export function generateDropFunc<T extends keyof ConditionClasses>(
      * セレクトボックスで選択した名前の条件を変更する
      * @param event セレクトボックスが変更された時に発火するイベント
      */
-    selectOpt: (
-      event: React.ChangeEvent<{ name?: string; value: unknown }>,
-      isInt = false
-    ) => {
-      const value = isInt
-        ? parseInt(event.target.value as string)
-        : event.target.value
+    selectOpt: (event: React.ChangeEvent<{ name?: string; value: unknown }>, isInt = false) => {
+      const value = isInt ? parseInt(event.target.value as string) : event.target.value
       props.setCondition({
         ...props.condition,
         opt: {

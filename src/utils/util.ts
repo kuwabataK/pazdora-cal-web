@@ -7,10 +7,7 @@ export interface IDisposable {
   dispose: () => any
 }
 
-export function using<T extends IDisposable, K>(
-  resource: T,
-  func: (resource: T) => K
-) {
+export function using<T extends IDisposable, K>(resource: T, func: (resource: T) => K) {
   try {
     return func(resource)
   } finally {
@@ -33,9 +30,7 @@ export function generateEnum<T extends string>(strArr: T[]): { [K in T]: K } {
  * 引数に指定した名前のリストに対して、一意なIDを生成します
  * @param {string[]} name
  */
-export function generateUUIDs<T extends string>(
-  name: T[]
-): { [K in T]: string } {
+export function generateUUIDs<T extends string>(name: T[]): { [K in T]: string } {
   return name.reduce((acc, cur) => {
     acc[cur] = uuidv4()
     return acc

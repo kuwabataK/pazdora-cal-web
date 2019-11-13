@@ -6,10 +6,7 @@ export abstract class BaseCondition {
    * @param obj マージするObject
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  protected readonly mergeToThis = <T extends any>(
-    self: T,
-    obj?: Partial<T>
-  ) => {
+  protected readonly mergeToThis = <T extends any>(self: T, obj?: Partial<T>) => {
     if (!obj) return
     Object.keys(obj).forEach(key => {
       self[key] = obj[key]

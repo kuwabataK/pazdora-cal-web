@@ -6,12 +6,7 @@ import { FormControl, InputLabel, Select } from '@material-ui/core'
 import { DropColors } from '../../../utils/pazdora-cal/Conditions/ConditionTypes'
 import { colorLang } from '../../../filter/lang-filters'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff'
-import {
-  DropCardProps,
-  generateDropFunc,
-  useSelectStyles,
-  useCardStyles
-} from './DropCardBase'
+import { DropCardProps, generateDropFunc, useSelectStyles, useCardStyles } from './DropCardBase'
 import { generateUUIDs } from '../../../utils/util'
 
 // 一意なIDを生成する
@@ -27,10 +22,7 @@ export function DropCard(props: DropCardProps<'Drop'>) {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.deleteContents}>
-          <HighlightOffIcon
-            className={classes.deleteButton}
-            onClick={handleDelete}
-          />
+          <HighlightOffIcon className={classes.deleteButton} onClick={handleDelete} />
         </div>
         <div className={classes.cardContents}>
           <form className={selectClasses.root} autoComplete="off">

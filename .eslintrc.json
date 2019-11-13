@@ -15,7 +15,8 @@
       "error",
       {
         "singleQuote": true,
-        "semi": false
+        "semi": false,
+        "printWidth": 100
       }
     ],
     "react/prop-types": 0,
