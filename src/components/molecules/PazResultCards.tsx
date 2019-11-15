@@ -114,9 +114,7 @@ export const PazResultCards = observer((props: Props) => {
               justifyContent: 'center'
             }}
           >
-            <span style={{ fontSize: '60px' }}>
-              {parseRate(pazStore.rate)}%
-            </span>
+            <span style={{ fontSize: '60px' }}>{parseRate(pazStore.rate)}%</span>
           </div>
           <div style={marginStyle}>
             <form className={selectClasses.root} autoComplete="off">
@@ -127,9 +125,7 @@ export const PazResultCards = observer((props: Props) => {
                     <Select
                       native
                       value={banmen}
-                      onChange={event =>
-                        setBanmen(event.target.value as '56盤面' | '76盤面')
-                      }
+                      onChange={event => setBanmen(event.target.value as '56盤面' | '76盤面')}
                       inputProps={{
                         name: 'banmen',
                         id: ids.banmen
@@ -143,9 +139,7 @@ export const PazResultCards = observer((props: Props) => {
                 <Grid>
                   <PazButton
                     btnName="計算を実行"
-                    onClick={() =>
-                      props.pazStore.calcParallelInStoreCondition()
-                    }
+                    onClick={() => props.pazStore.calcParallelInStoreCondition()}
                   ></PazButton>
                 </Grid>
               </Grid>
