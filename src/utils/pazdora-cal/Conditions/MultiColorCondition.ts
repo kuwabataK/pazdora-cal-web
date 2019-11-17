@@ -46,9 +46,9 @@ export class MultiColorCondition extends BaseCondition implements Condition {
    * @param field 盤面の情報
    */
   private getMinTargetDropNum(field: GenerateFieldStatsReturn): number {
-    const f = (Object.keys(field) as DropColor[])
+    return (Object.keys(field) as DropColor[])
       .filter(_f => this.includeDrops.includes(_f))
       .map(_f => field[_f])
-    return f.sort((a, b) => b - a)[this.dropColorNum - 1]
+      .sort((a, b) => b - a)[this.dropColorNum - 1]
   }
 }
