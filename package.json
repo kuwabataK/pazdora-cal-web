@@ -19,7 +19,7 @@
     "@zeit/next-sass": "^1.0.1",
     "@zeit/next-workers": "^1.0.0",
     "async-lock": "^1.2.2",
-    "immer": "^5.0.0",
+    "immer": "^9.0.6",
     "lodash.clonedeep": "^4.5.0",
     "luxon": "^1.17.2",
     "mobx": "^5.14.2",
